@@ -37,8 +37,11 @@ class MenuScreen extends StatelessWidget {
                 crossAxisAlignment: CrossAxisAlignment.center,
                 children: [
                   ElevatedButton(
-                      onPressed: () {},
-                      child: Icon(
+                      onPressed: () {
+                        Navigator.pushNamedAndRemoveUntil(
+                            context, '/user', (route) => false);
+                      },
+                      child: const Icon(
                         UniconsLine.user,
                         size: 50.0,
                       ),

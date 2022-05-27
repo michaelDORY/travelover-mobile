@@ -1,6 +1,7 @@
 import "package:flutter/material.dart";
 import 'package:google_language_fonts/google_language_fonts.dart';
 import 'package:travelover_mobile/pages/main_screen.dart';
+import 'package:travelover_mobile/pages/my_profile.dart';
 import 'package:travelover_mobile/pages/sign_in_screen.dart';
 import 'package:travelover_mobile/pages/sign_up_screen.dart';
 
@@ -18,6 +19,7 @@ class MyApp extends StatelessWidget {
           '/signIn': (context) => const SignInScreen(),
           '/signUp': (context) => const SignUpScreen(),
           '/': (context) => const MainSCreen(),
+          '/user': (context) => const MyProfile(),
         },
         theme: ThemeData(
             primaryColor: Colors.yellowAccent,
