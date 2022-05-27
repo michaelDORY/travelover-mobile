@@ -2,17 +2,17 @@ import 'package:flutter/material.dart';
 import 'package:unicons/unicons.dart';
 
 class NavButton extends StatelessWidget {
-  final icon;
-  final title;
-  final subTitle;
-  final path;
+  final IconData icon;
+  final String title;
+  final String subTitle;
+  final String path;
 
   const NavButton(
       {Key? key,
-      @required this.icon,
-      @required this.title,
-      @required this.subTitle,
-      @required this.path})
+      required this.icon,
+      required this.title,
+      required this.subTitle,
+      required this.path})
       : super(key: key);
 
   @override
@@ -23,16 +23,33 @@ class NavButton extends StatelessWidget {
         ),
         onPressed: () {},
         child: Container(
-          padding: const EdgeInsets.symmetric(vertical: 8),
+          padding: const EdgeInsets.symmetric(vertical: 12),
           child: Row(
             mainAxisAlignment: MainAxisAlignment.spaceBetween,
             children: [
-              icon,
-              Column(
-                crossAxisAlignment: CrossAxisAlignment.start,
+              Row(
                 children: [
-                  Text(subTitle, style: Theme.of(context).textTheme.subtitle1),
-                  Text(title, style: Theme.of(context).textTheme.headline3),
+                  Icon(icon, size: 30.0),
+                  const SizedBox(
+                    width: 30.0,
+                  ),
+                  Column(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: [
+                      Text(subTitle,
+                          style: TextStyle(
+                              fontSize: Theme.of(context)
+                                  .textTheme
+                                  .subtitle1
+                                  ?.fontSize)),
+                      Text(title,
+                          style: TextStyle(
+                              fontSize: Theme.of(context)
+                                  .textTheme
+                                  .headline3
+                                  ?.fontSize)),
+                    ],
+                  ),
                 ],
               ),
               const Icon(UniconsLine.angle_right)

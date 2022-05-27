@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:travelover_mobile/pages/main_screen.dart';
 import 'package:travelover_mobile/widgets/nav_button.dart';
 import 'package:unicons/unicons.dart';
 
@@ -33,9 +32,12 @@ class SignInScreen extends StatelessWidget {
                       ),
                     ),
                     const NavButton(
-                      icon: Icon(UniconsLine.google),
-                      title: 'Авторизироваться',
-                      subTitle: 'Войти через Google',
+                        icon: UniconsLine.google,
+                        title: 'Авторизироваться',
+                        subTitle: 'Войти через Google',
+                        path: '/googleAuth'),
+                    const SizedBox(
+                      height: 10.0,
                     ),
                     const Text(
                       "или",
@@ -73,7 +75,8 @@ class SignInScreen extends StatelessWidget {
                               minimumSize: const Size.fromHeight(50),
                             ),
                             onPressed: () {
-                              Navigator.pushNamedAndRemoveUntil(context, '/', (route) => false);
+                              Navigator.pushNamedAndRemoveUntil(
+                                  context, '/', (route) => false);
                             },
                             child: const Text("Войти")),
                       ],

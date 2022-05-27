@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:travelover_mobile/pages/main_screen.dart';
 import 'package:unicons/unicons.dart';
 
 class SignUpScreen extends StatelessWidget {
