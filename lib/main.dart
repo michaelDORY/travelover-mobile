@@ -1,5 +1,8 @@
 import "package:flutter/material.dart";
-import 'package:unicons/unicons.dart';
+import 'package:google_language_fonts/google_language_fonts.dart';
+import 'package:travelover_mobile/pages/main_screen.dart';
+import 'package:travelover_mobile/pages/sign_in_screen.dart';
+import 'package:travelover_mobile/pages/sign_up_screen.dart';
 
 main() => runApp(const MyApp());
 
@@ -10,15 +13,61 @@ class MyApp extends StatelessWidget {
   Widget build(BuildContext context) {
     return MaterialApp(
         title: "TraveLover",
-        home: const Scaffold(
-          body: const Auth(),
-        ),
+        initialRoute: '/signIn',
+        routes: {
+          '/signIn': (context) => const SignInScreen(),
+          '/signUp': (context) => const SignUpScreen(),
+          '/': (context) => const MainSCreen(),
+        },
         theme: ThemeData(
-            brightness: Brightness.dark,
             primaryColor: Colors.yellowAccent,
             primarySwatch: Colors.yellow,
-            fontFamily: 'Montserrat',
-            inputDecorationTheme: InputDecorationTheme(
+            fontFamily: CyrillicFonts.montserrat().fontFamily,
+            textTheme: TextTheme(
+              headline1: TextStyle(
+                  fontSize: 20.0,
+                  color: Theme.of(context).primaryColor,
+                  fontWeight: FontWeight.w700),
+              headline2: TextStyle(
+                  fontSize: 18.0,
+                  color: Theme.of(context).primaryColor,
+                  fontWeight: FontWeight.w700),
+              headline3:
+                  const TextStyle(fontSize: 16.0, fontWeight: FontWeight.w700),
+              bodyText1: const TextStyle(
+                fontSize: 16.0,
+              ),
+              button:
+                  const TextStyle(fontWeight: FontWeight.w700, fontSize: 18.0),
+              subtitle1:
+                  const TextStyle(fontSize: 12.0, fontWeight: FontWeight.w700),
+            ),
+            appBarTheme: const AppBarTheme(
+                backgroundColor: Colors.black,
+                centerTitle: true,
+                actionsIconTheme: IconThemeData(color: Colors.yellowAccent),
+                titleTextStyle: TextStyle(
+                    fontSize: 18.0,
+                    color: Colors.yellowAccent,
+                    fontWeight: FontWeight.w700)),
+            backgroundColor: Colors.black,
+            brightness: Brightness.dark,
+            elevatedButtonTheme: ElevatedButtonThemeData(
+                style: ElevatedButton.styleFrom(
+                    shape: RoundedRectangleBorder(
+                        borderRadius: BorderRadius.circular(15.0)),
+                    textStyle: TextStyle(
+                        fontWeight: FontWeight.w700,
+                        fontFamily: CyrillicFonts.montserrat().fontFamily))),
+            outlinedButtonTheme: OutlinedButtonThemeData(
+                style: OutlinedButton.styleFrom(
+                    side: BorderSide(color: Colors.yellowAccent),
+                    shape: RoundedRectangleBorder(
+                        borderRadius: BorderRadius.circular(15.0)),
+                    textStyle: TextStyle(
+                        fontWeight: FontWeight.w700,
+                        fontFamily: CyrillicFonts.montserrat().fontFamily))),
+            inputDecorationTheme: const InputDecorationTheme(
               enabledBorder: UnderlineInputBorder(
                 borderSide: BorderSide(color: Colors.yellow),
               ),
@@ -26,108 +75,5 @@ class MyApp extends StatelessWidget {
                 borderSide: BorderSide(color: Colors.yellowAccent),
               ),
             )));
-  }
-}
-
-class Auth extends StatelessWidget {
-  const Auth({Key? key}) : super(key: key);
-
-  @override
-  Widget build(BuildContext context) {
-    return Container(
-      color: Colors.black,
-      alignment: Alignment.center,
-      padding: const EdgeInsets.only(top: 40, bottom: 70, left: 30, right: 30),
-      child: Column(
-        mainAxisAlignment: MainAxisAlignment.spaceBetween,
-        children: [
-          Container(
-            child: Expanded(
-              flex: 5,
-              child: Container(
-                child: Column(
-                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                    children: [
-                      Image.asset('assets/images/planet.png'),
-                      ElevatedButton(
-                          style: ElevatedButton.styleFrom(
-                            minimumSize: const Size.fromHeight(50),
-                          ),
-                          onPressed: () {},
-                          child: Container(
-                            padding: EdgeInsets.symmetric(vertical: 8),
-                            child: Row(
-                              mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                              children: [
-                                Icon(UniconsLine.google),
-                                Column(
-                                  crossAxisAlignment: CrossAxisAlignment.start,
-                                  children: [
-                                    Text('Авторизироваться'),
-                                    Text('Войти через Google'),
-                                  ],
-                                ),
-                                Icon(Icons.arrow_forward_ios)
-                              ],
-                            ),
-                          )),
-                      Text(
-                        "или",
-                        style: TextStyle(
-                            fontWeight: FontWeight.w800, fontSize: 18.0),
-                      ),
-                      Form(
-                          child: Column(
-                        mainAxisSize: MainAxisSize.max,
-                        mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                        children: [
-                          TextFormField(
-                            decoration: const InputDecoration(
-                              icon: Icon(Icons.email_outlined),
-                              border: OutlineInputBorder(),
-                              hintText: "Email",
-                            ),
-                          ),
-                          Padding(
-                            padding: EdgeInsets.only(top: 20),
-                            child: TextFormField(
-                              autocorrect: false,
-                              decoration: const InputDecoration(
-                                icon: Icon(Icons.key_outlined),
-                                border: OutlineInputBorder(),
-                                hintText: "Password",
-                              ),
-                            ),
-                          ),
-                          Padding(
-                            padding: const EdgeInsets.only(top: 20),
-                            child: ElevatedButton(
-                                style: ElevatedButton.styleFrom(
-                                  minimumSize: const Size.fromHeight(50),
-                                ),
-                                onPressed: () {},
-                                child: const Text("Войти")),
-                          )
-                        ],
-                      ))
-                    ]),
-              ),
-            ),
-          ),
-          Expanded(
-            flex: 1,
-            child: Container(
-              alignment: Alignment.bottomCenter,
-              child: OutlinedButton(
-                  style: OutlinedButton.styleFrom(
-                      minimumSize: const Size.fromHeight(50),
-                      side: BorderSide(color: Theme.of(context).primaryColor)),
-                  onPressed: () {},
-                  child: const Text("Зарегистрироваться")),
-            ),
-          ),
-        ],
-      ),
-    );
   }
 }
