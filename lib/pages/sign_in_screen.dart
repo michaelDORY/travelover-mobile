@@ -1,9 +1,44 @@
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
+import 'package:fluttertoast/fluttertoast.dart';
+import 'package:travelover_mobile/services/auth.dart';
 import 'package:travelover_mobile/widgets/nav_button.dart';
 import 'package:unicons/unicons.dart';
 
-class SignInScreen extends StatelessWidget {
+class SignInScreen extends StatefulWidget {
   const SignInScreen({Key? key}) : super(key: key);
+
+  @override
+  State<SignInScreen> createState() => _SignInScreenState();
+}
+
+class _SignInScreenState extends State<SignInScreen> {
+  final TextEditingController emailController = TextEditingController();
+  final TextEditingController passwordController = TextEditingController();
+
+  @override
+  void dispose() {
+    super.dispose();
+    emailController.dispose();
+    passwordController.dispose();
+  }
+
+  void _signInWithEmailAndPassword(BuildContext context) async {
+    try {
+      await AuthService().signInWithEmailAndPassword(
+          email: emailController.text, password: passwordController.text);
+      Navigator.pushNamedAndRemoveUntil(context, '/', (route) => false);
+    } catch (e) {
+      Fluttertoast.showToast(
+          msg: "Wrong password or email",
+          toastLength: Toast.LENGTH_SHORT,
+          gravity: ToastGravity.TOP_RIGHT,
+          timeInSecForIosWeb: 1,
+          backgroundColor: Color.fromARGB(255, 255, 130, 121),
+          textColor: Color.fromARGB(255, 0, 0, 0),
+          fontSize: 16.0);
+    }
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -50,6 +85,7 @@ class SignInScreen extends StatelessWidget {
                       mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                       children: [
                         TextFormField(
+                          controller: emailController,
                           decoration: const InputDecoration(
                             icon: Icon(UniconsLine.envelope_alt),
                             border: OutlineInputBorder(),
@@ -60,6 +96,7 @@ class SignInScreen extends StatelessWidget {
                           height: 10.0,
                         ),
                         TextFormField(
+                          controller: passwordController,
                           autocorrect: false,
                           decoration: const InputDecoration(
                             icon: Icon(UniconsLine.key_skeleton_alt),
@@ -74,10 +111,7 @@ class SignInScreen extends StatelessWidget {
                             style: ElevatedButton.styleFrom(
                               minimumSize: const Size.fromHeight(50),
                             ),
-                            onPressed: () {
-                              Navigator.pushNamedAndRemoveUntil(
-                                  context, '/', (route) => false);
-                            },
+                            onPressed: () => _signInWithEmailAndPassword(context),
                             child: const Text("Войти")),
                       ],
                     ))

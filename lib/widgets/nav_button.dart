@@ -15,13 +15,17 @@ class NavButton extends StatelessWidget {
       required this.path})
       : super(key: key);
 
+  void _navigateTo(BuildContext context, String path) {
+    Navigator.pushNamed(context, path);
+  }
+
   @override
   Widget build(BuildContext context) {
     return ElevatedButton(
         style: ElevatedButton.styleFrom(
           minimumSize: const Size.fromHeight(50),
         ),
-        onPressed: () {},
+        onPressed: () => _navigateTo(context, path),
         child: Container(
           padding: const EdgeInsets.symmetric(vertical: 12),
           child: Row(

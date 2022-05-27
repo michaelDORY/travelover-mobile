@@ -1,0 +1,46 @@
+{
+  "project_info": {
+    "project_number": "563961632420",
+    "project_id": "travelover-51b37",
+    "storage_bucket": "travelover-51b37.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:563961632420:android:503c2886649b3c4d213831",
+        "android_client_info": {
+          "package_name": "com.example.travelover_mobile"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "563961632420-au678ph4pi8oqksdtfrbvgchhfplsvtv.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyCdnTNnb8jt0gEVXPP0HiwPBEGHmx7pRYI"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "563961632420-au678ph4pi8oqksdtfrbvgchhfplsvtv.apps.googleusercontent.com",
+              "client_type": 3
+            },
+            {
+              "client_id": "563961632420-venfqij3mof92fpqsnicm4dfn9sfaqlo.apps.googleusercontent.com",
+              "client_type": 2,
+              "ios_info": {
+                "bundle_id": "com.example.traveloverMobile"
+              }
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

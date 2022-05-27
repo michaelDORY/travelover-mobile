@@ -4,8 +4,8 @@ import 'package:travelover_mobile/widgets/card_list.dart';
 import 'package:travelover_mobile/widgets/place_card.dart';
 import 'package:unicons/unicons.dart';
 
-class MainSCreen extends StatelessWidget {
-  const MainSCreen({Key? key}) : super(key: key);
+class MainScreen extends StatelessWidget {
+  const MainScreen({Key? key}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {

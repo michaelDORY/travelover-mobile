@@ -1,8 +1,8 @@
-// ignore_for_file: prefer_const_literals_to_create_immutables, prefer_const_constructors
-
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:travelover_mobile/pages/menu_screen.dart';
 import 'package:travelover_mobile/models/nav_buttons_data.dart';
+import 'package:travelover_mobile/services/auth.dart';
 import 'package:unicons/unicons.dart';
 
 import '../widgets/nav_button.dart';
@@ -14,6 +14,11 @@ class MyProfile extends StatelessWidget {
     Navigator.of(context).push(
       MaterialPageRoute(builder: (context) => MenuScreen()),
     );
+  }
+
+  void _logOut(BuildContext context) async {
+    await AuthService().logOut();
+    Navigator.pushNamedAndRemoveUntil(context, '/', (route) => false);
   }
 
   @override
@@ -83,33 +88,18 @@ class MyProfile extends StatelessWidget {
                           const SizedBox(
                             height: 20.0,
                           ),
-                          NavButton(
-                              icon: UniconsLine.language,
-                              title: 'Язык',
-                              subTitle: 'Русский',
-                              path: '/googleAuth'),
-                          SizedBox(
-                            height: 10.0,
-                          ),
-                          NavButton(
-                              icon: UniconsLine.envelope,
-                              title: 'Почта',
-                              subTitle: 'example@gmail.com',
-                              path: '/googleAuth'),
-                          SizedBox(
-                            height: 10.0,
-                          ),
-                          NavButton(
-                              icon: UniconsLine.comments,
-                              title: 'Необходима помощь?',
-                              subTitle: 'Поддержка',
-                              path: '/googleAuth'),
-                          SizedBox(
-                            height: 10.0,
-                          ),
+                          ...NavButtonsData()
+                              .menuButtons
+                              .map((item) => Padding(
+                                  padding: const EdgeInsets.only(bottom: 10.0),
+                                  child: item))
+                              .toList(),
                         ],
                       ),
-                    )
+                    ),
+                    OutlinedButton(
+                        onPressed: () => _logOut(context),
+                        child: Text('LogOut'))
                   ],
                 ))
           ],

@@ -26,7 +26,7 @@ class MenuScreen extends StatelessWidget {
               Column(
                 mainAxisAlignment: MainAxisAlignment.center,
                 children: NavButtonsData()
-                    .navButtons
+                    .menuButtons
                     .map((item) => Padding(
                         padding: const EdgeInsets.only(bottom: 10.0),
                         child: item))
@@ -38,8 +38,8 @@ class MenuScreen extends StatelessWidget {
                 children: [
                   ElevatedButton(
                       onPressed: () {
-                        Navigator.pushNamedAndRemoveUntil(
-                            context, '/user', (route) => false);
+                        Navigator.pushNamed(
+                            context, '/user');
                       },
                       child: const Icon(
                         UniconsLine.user,
