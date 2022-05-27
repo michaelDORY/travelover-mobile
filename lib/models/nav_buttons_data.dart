@@ -24,7 +24,7 @@ class NavButtonsData {
     const NavButton(
       icon: UniconsLine.heart_alt,
       title: 'Избранные места',
-      subTitle: 'Посмотри понравившиеся места',
+      subTitle: 'Посмотри свои местечки',
       path: '',
     ),
   ];
