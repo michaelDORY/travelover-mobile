@@ -4,6 +4,7 @@ import 'package:google_language_fonts/google_language_fonts.dart';
 import 'package:travelover_mobile/firebase_options.dart';
 import 'package:travelover_mobile/pages/main_screen.dart';
 import 'package:travelover_mobile/pages/my_profile_screen.dart';
+import 'package:travelover_mobile/pages/place_screen.dart';
 import 'package:travelover_mobile/pages/sign_in_screen.dart';
 import 'package:travelover_mobile/pages/sign_up_screen.dart';
 import 'package:travelover_mobile/services/auth.dart';
@@ -33,6 +34,7 @@ class MyApp extends StatelessWidget {
             '/signUp': (context) => const SignUpScreen(),
             '/': (context) => const MainScreen(),
             '/user': (context) => const MyProfile(),
+            '/place': (context) => const PlaceScreen(),
           },
           theme: ThemeData(
               primaryColor: Colors.yellowAccent,
@@ -47,15 +49,15 @@ class MyApp extends StatelessWidget {
                     fontSize: 18.0,
                     color: Theme.of(context).primaryColor,
                     fontWeight: FontWeight.w700),
-                headline3:
-                    const TextStyle(fontSize: 16.0, fontWeight: FontWeight.w700),
+                headline3: const TextStyle(
+                    fontSize: 16.0, fontWeight: FontWeight.w700),
                 bodyText1: const TextStyle(
                   fontSize: 16.0,
                 ),
-                button:
-                    const TextStyle(fontWeight: FontWeight.w700, fontSize: 18.0),
-                subtitle1:
-                    const TextStyle(fontSize: 12.0, fontWeight: FontWeight.w700),
+                button: const TextStyle(
+                    fontWeight: FontWeight.w700, fontSize: 18.0),
+                subtitle1: const TextStyle(
+                    fontSize: 12.0, fontWeight: FontWeight.w700),
               ),
               appBarTheme: const AppBarTheme(
                   backgroundColor: Colors.black,

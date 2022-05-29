@@ -2,28 +2,26 @@ import 'package:eva_icons_flutter/eva_icons_flutter.dart';
 import 'package:flutter/material.dart';
 import 'package:unicons/unicons.dart';
 
-class PlaceCard extends StatefulWidget {
+class PlaceView extends StatefulWidget {
   final String imagePath;
   final double rating;
   final int views;
   final String title;
   final String address;
-  final String description;
-  const PlaceCard(
+  const PlaceView(
       {Key? key,
       required this.imagePath,
       required this.rating,
       required this.views,
       required this.title,
-      required this.address,
-      required this.description})
+      required this.address})
       : super(key: key);
 
   @override
-  State<PlaceCard> createState() => _PlaceCardState();
+  State<PlaceView> createState() => _PlaceViewState();
 }
 
-class _PlaceCardState extends State<PlaceCard> {
+class _PlaceViewState extends State<PlaceView> {
   bool _isFavourite = false;
 
   Widget _buildIconTextGroup(icon, text) {
@@ -49,7 +47,7 @@ class _PlaceCardState extends State<PlaceCard> {
       ),
       color: Colors.yellow[100],
       child: Container(
-        width: 250,
+        width: 350,
         padding: const EdgeInsets.fromLTRB(10, 10, 10, 20),
         alignment: Alignment.center,
         child: Column(
@@ -58,7 +56,7 @@ class _PlaceCardState extends State<PlaceCard> {
           children: [
             Container(
               alignment: Alignment.topRight,
-              height: 150.0,
+              height: 200.0,
               decoration: BoxDecoration(
                   borderRadius: BorderRadius.circular(15.0),
                   image: DecorationImage(
@@ -116,26 +114,9 @@ class _PlaceCardState extends State<PlaceCard> {
                       const SizedBox(
                         height: 10,
                       ),
-                      Text(
-                        widget.description,
-                        maxLines: 2,
-                        softWrap: true,
-                        style: const TextStyle(
-                            color: Colors.black,
-                            overflow: TextOverflow.ellipsis),
-                      ),
                     ],
                   ),
                 ),
-                IconButton(
-                    icon: const Icon(
-                      UniconsLine.angle_right,
-                      color: Colors.black,
-                      size: 40,
-                    ),
-                    onPressed: () {
-                      Navigator.pushNamed(context, '/place');
-                    }),
               ],
             )
           ],
