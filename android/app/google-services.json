@@ -14,6 +14,14 @@
       },
       "oauth_client": [
         {
+          "client_id": "563961632420-ng91e54upqvfvrt0n735od04i3r4gssf.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.example.travelover_mobile",
+            "certificate_hash": "2970c53032789419080c40fd5a86bf483391923b"
+          }
+        },
+        {
           "client_id": "563961632420-au678ph4pi8oqksdtfrbvgchhfplsvtv.apps.googleusercontent.com",
           "client_type": 3
         }

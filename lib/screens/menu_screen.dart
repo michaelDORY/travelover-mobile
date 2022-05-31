@@ -41,17 +41,17 @@ class MenuScreen extends StatelessWidget {
                         Navigator.pushNamed(
                             context, '/user');
                       },
+                      style: ElevatedButton.styleFrom(
+                          shape: const CircleBorder(),
+                          padding: const EdgeInsets.all(20.0)),
                       child: const Icon(
                         UniconsLine.user,
                         size: 50.0,
-                      ),
-                      style: ElevatedButton.styleFrom(
-                          shape: CircleBorder(),
-                          padding: const EdgeInsets.all(20.0))),
-                  SizedBox(
+                      )),
+                  const SizedBox(
                     height: 10.0,
                   ),
-                  Text('Мой профиль')
+                  const Text('Мой профиль')
                 ],
               )
             ],
