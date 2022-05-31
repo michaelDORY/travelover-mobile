@@ -14,7 +14,7 @@ class Comment extends StatelessWidget {
     return Row(
       mainAxisAlignment: MainAxisAlignment.center,
       children: [
-        Container(
+        SizedBox(
           width: 50.0,
           height: 50.0,
           child: ClipOval(

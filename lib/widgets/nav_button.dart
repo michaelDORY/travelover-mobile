@@ -5,18 +5,24 @@ class NavButton extends StatelessWidget {
   final IconData icon;
   final String title;
   final String subTitle;
-  final String path;
+  String path;
+  var action;
 
-  const NavButton(
+  NavButton(
       {Key? key,
       required this.icon,
       required this.title,
       required this.subTitle,
-      required this.path})
+      this.path = '',
+      this.action})
       : super(key: key);
 
-  void _navigateTo(BuildContext context, String path) {
-    Navigator.pushNamed(context, path);
+  void _onAction(BuildContext context, String path) {
+    if (path != '') {
+      Navigator.pushNamed(context, path);
+    } else if (action != null) {
+      action();
+    }
   }
 
   @override
@@ -25,7 +31,7 @@ class NavButton extends StatelessWidget {
         style: ElevatedButton.styleFrom(
           minimumSize: const Size.fromHeight(50),
         ),
-        onPressed: () => _navigateTo(context, path),
+        onPressed: () => _onAction(context, path),
         child: Container(
           padding: const EdgeInsets.symmetric(vertical: 12),
           child: Row(

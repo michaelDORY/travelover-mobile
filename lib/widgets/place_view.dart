@@ -106,7 +106,7 @@ class _PlaceViewState extends State<PlaceView> {
                         widget.address,
                         maxLines: 1,
                         softWrap: true,
-                        style: TextStyle(
+                        style: const TextStyle(
                             overflow: TextOverflow.ellipsis,
                             decoration: TextDecoration.underline,
                             color: Colors.black),
