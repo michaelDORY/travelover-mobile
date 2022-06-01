@@ -108,7 +108,7 @@ class _PlaceCardState extends State<PlaceCard> {
                         widget.address,
                         maxLines: 1,
                         softWrap: true,
-                        style: TextStyle(
+                        style: const TextStyle(
                             overflow: TextOverflow.ellipsis,
                             decoration: TextDecoration.underline,
                             color: Colors.black),

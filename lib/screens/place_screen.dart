@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:travelover_mobile/pages/menu_screen.dart';
+import 'package:travelover_mobile/screens/menu_screen.dart';
 import 'package:travelover_mobile/widgets/place_view.dart';
 import 'package:travelover_mobile/widgets/comment.dart';
 import 'package:unicons/unicons.dart';
@@ -9,7 +9,7 @@ class PlaceScreen extends StatelessWidget {
 
   void _menuOpen(context) {
     Navigator.of(context).push(
-      MaterialPageRoute(builder: (context) => MenuScreen()),
+      MaterialPageRoute(builder: (context) => const MenuScreen()),
     );
   }
 

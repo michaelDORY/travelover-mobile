@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:travelover_mobile/pages/menu_screen.dart';
+import 'package:travelover_mobile/screens/menu_screen.dart';
 import 'package:unicons/unicons.dart';
 
 class QuizEnd extends StatelessWidget {
