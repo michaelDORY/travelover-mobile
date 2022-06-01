@@ -1,29 +1,22 @@
-import 'package:eva_icons_flutter/eva_icons_flutter.dart';
 import 'package:flutter/material.dart';
 import 'package:unicons/unicons.dart';
 
-class PlaceView extends StatefulWidget {
+class QuizCard extends StatefulWidget {
   final String imagePath;
-  final double rating;
-  final int views;
   final String title;
-  final String address;
-  const PlaceView(
+  final String description;
+  const QuizCard(
       {Key? key,
       required this.imagePath,
-      required this.rating,
-      required this.views,
       required this.title,
-      required this.address})
+      required this.description})
       : super(key: key);
 
   @override
-  State<PlaceView> createState() => _PlaceViewState();
+  State<QuizCard> createState() => _QuizCardState();
 }
 
-class _PlaceViewState extends State<PlaceView> {
-  bool _isFavourite = false;
-
+class _QuizCardState extends State<QuizCard> {
   Widget _buildIconTextGroup(icon, text) {
     return Row(
       children: [
@@ -47,7 +40,7 @@ class _PlaceViewState extends State<PlaceView> {
       ),
       color: Colors.yellow[100],
       child: Container(
-        width: 350,
+        width: 250,
         padding: const EdgeInsets.fromLTRB(10, 10, 10, 20),
         alignment: Alignment.center,
         child: Column(
@@ -61,27 +54,6 @@ class _PlaceViewState extends State<PlaceView> {
                   borderRadius: BorderRadius.circular(15.0),
                   image: DecorationImage(
                       fit: BoxFit.cover, image: AssetImage(widget.imagePath))),
-              child: IconButton(
-                  onPressed: () {
-                    setState(() => {_isFavourite = !_isFavourite});
-                  },
-                  iconSize: 40,
-                  icon: _isFavourite
-                      ? Icon(
-                          EvaIcons.heart,
-                          color: Colors.pink[200],
-                        )
-                      : Icon(
-                          EvaIcons.heartOutline,
-                          color: Colors.grey[300],
-                        )),
-            ),
-            Row(
-              mainAxisAlignment: MainAxisAlignment.spaceBetween,
-              children: [
-                _buildIconTextGroup(UniconsLine.star, '${widget.rating}/5'),
-                _buildIconTextGroup(UniconsLine.eye, '${widget.views}'),
-              ],
             ),
             Text(
               widget.title,
@@ -103,20 +75,25 @@ class _PlaceViewState extends State<PlaceView> {
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
                       Text(
-                        widget.address,
-                        maxLines: 1,
+                        widget.description,
+                        maxLines: 2,
                         softWrap: true,
                         style: const TextStyle(
-                            overflow: TextOverflow.ellipsis,
-                            decoration: TextDecoration.underline,
-                            color: Colors.black),
-                      ),
-                      const SizedBox(
-                        height: 10,
+                            color: Colors.black,
+                            overflow: TextOverflow.ellipsis),
                       ),
                     ],
                   ),
                 ),
+                IconButton(
+                    icon: const Icon(
+                      UniconsLine.angle_right,
+                      color: Colors.black,
+                      size: 40,
+                    ),
+                    onPressed: () {
+                      Navigator.pushNamed(context, '/quizDesc');
+                    }),
               ],
             )
           ],

@@ -7,6 +7,9 @@ import 'package:travelover_mobile/pages/my_profile_screen.dart';
 import 'package:travelover_mobile/pages/place_screen.dart';
 import 'package:travelover_mobile/pages/sign_in_screen.dart';
 import 'package:travelover_mobile/pages/sign_up_screen.dart';
+import 'package:travelover_mobile/pages/quizes_screen.dart';
+import 'package:travelover_mobile/pages/quizDescription_screen.dart';
+import 'package:travelover_mobile/pages/quizEnd_screen.dart';
 import 'package:travelover_mobile/services/auth.dart';
 import 'package:travelover_mobile/utils/auth_provider.dart';
 import 'package:travelover_mobile/widgets/root.dart';
@@ -35,6 +38,9 @@ class MyApp extends StatelessWidget {
             '/': (context) => const MainScreen(),
             '/user': (context) => const MyProfile(),
             '/place': (context) => const PlaceScreen(),
+            '/quizes': (context) => const QuizesScreen(),
+            '/quizDesc': (context) => const QuizDescription(),
+            '/quizEnd': (context) => const QuizEnd(),
           },
           theme: ThemeData(
               primaryColor: Colors.yellowAccent,

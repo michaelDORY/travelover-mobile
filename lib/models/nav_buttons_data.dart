@@ -13,7 +13,7 @@ class NavButtonsData {
       icon: UniconsLine.book_alt,
       title: 'Пройти квизы',
       subTitle: 'Проверить свои знания',
-      path: '',
+      path: '/quizes',
     ),
     const NavButton(
       icon: UniconsLine.location_point,
