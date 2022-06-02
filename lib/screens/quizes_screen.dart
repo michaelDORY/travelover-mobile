@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:travelover_mobile/pages/menu_screen.dart';
+import 'package:travelover_mobile/screens/menu_screen.dart';
 import 'package:travelover_mobile/widgets/card_list.dart';
 import 'package:travelover_mobile/widgets/quiz_card.dart';
 import 'package:unicons/unicons.dart';
