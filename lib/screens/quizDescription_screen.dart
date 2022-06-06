@@ -157,7 +157,7 @@ class QuizDescription extends StatelessWidget {
                           minimumSize: const Size.fromHeight(50),
                         ),
                         onPressed: () {
-                          Navigator.pushNamed(context, '/quizEnd');
+                          Navigator.pushNamed(context, '/quizQuestion');
                         },
                         child: const Text("Начать")),
                   )
