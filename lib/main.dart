@@ -13,6 +13,7 @@ import 'package:travelover_mobile/screens/sign_up_screen.dart';
 import 'package:travelover_mobile/screens/quizes_screen.dart';
 import 'package:travelover_mobile/screens/quizDescription_screen.dart';
 import 'package:travelover_mobile/screens/quizEnd_screen.dart';
+import 'package:travelover_mobile/screens/user_language.dart';
 import 'package:travelover_mobile/services/auth.dart';
 import 'package:flutter_spinkit/flutter_spinkit.dart';
 import 'package:travelover_mobile/widgets/root.dart';
@@ -53,6 +54,7 @@ class MyApp extends StatelessWidget {
               '/quizDesc': (context) => const QuizDescription(),
               '/quizEnd': (context) => const QuizEnd(),
               '/premiumSub': (context) => const premiumScreen(),
+              '/UserLanguage': (context) => const UserLanguage(),
             },
             theme: ThemeData(
                 primaryColor: Colors.yellowAccent,

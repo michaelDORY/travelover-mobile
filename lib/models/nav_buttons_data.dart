@@ -34,7 +34,7 @@ class NavButtonsData {
         icon: UniconsLine.language,
         title: 'Язык',
         subTitle: 'Русский',
-        path: '/googleAuth'),
+        path: '/UserLanguage'),
     NavButton(
         icon: UniconsLine.envelope,
         title: 'Почта',
