@@ -13,6 +13,7 @@ import 'package:travelover_mobile/screens/sign_up_screen.dart';
 import 'package:travelover_mobile/screens/quizes_screen.dart';
 import 'package:travelover_mobile/screens/quizDescription_screen.dart';
 import 'package:travelover_mobile/screens/quizEnd_screen.dart';
+import 'package:travelover_mobile/screens/user_language.dart';
 import 'package:travelover_mobile/screens/email_screen.dart';
 import 'package:travelover_mobile/screens/support_screen.dart';
 import 'package:travelover_mobile/services/auth.dart';
@@ -57,6 +58,7 @@ class MyApp extends StatelessWidget {
               '/email': (context) => const EmailScreen(),
               '/support': (context) => const SupportScreen(),
               '/premiumSub': (context) => const premiumScreen(),
+              '/UserLanguage': (context) => const UserLanguage(),
             },
             theme: ThemeData(
                 primaryColor: Colors.yellowAccent,
