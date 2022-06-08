@@ -43,11 +43,12 @@ class _SignInScreenState extends State<SignInScreen> {
     try {
       await auth.signInWithEmailAndPassword(
           email: emailController.text, password: passwordController.text);
+          context.loaderOverlay.hide();
       Navigator.pushNamedAndRemoveUntil(context, '/main', (route) => false);
     } catch (e) {
       CustomToast(message: "No such user").show();
     } finally {
-      context.loaderOverlay.hide();
+      //context.loaderOverlay.hide();
     }
   }
 

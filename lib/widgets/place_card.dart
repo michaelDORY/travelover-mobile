@@ -3,7 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:unicons/unicons.dart';
 
 class PlaceCard extends StatefulWidget {
-  final String imagePath;
+  final String imageUrl;
   final double rating;
   final int views;
   final String title;
@@ -11,7 +11,7 @@ class PlaceCard extends StatefulWidget {
   final String description;
   const PlaceCard(
       {Key? key,
-      required this.imagePath,
+      required this.imageUrl,
       required this.rating,
       required this.views,
       required this.title,
@@ -62,7 +62,7 @@ class _PlaceCardState extends State<PlaceCard> {
               decoration: BoxDecoration(
                   borderRadius: BorderRadius.circular(15.0),
                   image: DecorationImage(
-                      fit: BoxFit.cover, image: AssetImage(widget.imagePath))),
+                      fit: BoxFit.cover, image: NetworkImage(widget.imageUrl))),
               child: IconButton(
                   onPressed: () {
                     setState(() => {_isFavourite = !_isFavourite});

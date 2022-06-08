@@ -1,9 +1,14 @@
-// ignore_for_file: unnecessary_new
-
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
+import 'package:travelover_mobile/models/place.dart';
 import 'package:travelover_mobile/screens/menu_screen.dart';
+import 'package:travelover_mobile/services/firestore.dart';
 import 'package:travelover_mobile/widgets/card_list.dart';
+import 'package:travelover_mobile/widgets/error_boundary.dart';
+import 'package:travelover_mobile/widgets/filter_sort_button.dart';
+import 'package:travelover_mobile/widgets/loader.dart';
 import 'package:travelover_mobile/widgets/place_card.dart';
+import 'package:travelover_mobile/widgets/search_field.dart';
 import 'package:unicons/unicons.dart';
 
 class MainScreen extends StatelessWidget {
@@ -15,54 +20,55 @@ class MainScreen extends StatelessWidget {
     );
   }
 
-  List _getCards() {
-    return [
-      const PlaceCard(
-        imagePath: 'assets/images/mario.jpg',
-        rating: 4.2,
-        address: 'Gay Townnn nnnnnnnnnnnn nnnnn nnnnnn nnnn',
-        description: 'So hotttttt ttttt ttttt tttttttttttttt ttttttttt',
-        title:
-            'Mario Adrionnn nnnnnnnnnnnn nnnnnnnnnnn nnnn nnnn nnnnnnnnn nnnnnnnn nnnnnnnn nnnnnnnn',
-        views: 6969,
-      ),
-      const PlaceCard(
-        imagePath: 'assets/images/mario.jpg',
-        rating: 4.2,
-        address: 'Gay Town',
-        description: 'So hot',
-        title: 'Mario Adrion',
-        views: 6969,
-      ),
-      const PlaceCard(
-        imagePath: 'assets/images/mario.jpg',
-        rating: 4.2,
-        address: 'Gay Town',
-        description: 'So hot',
-        title: 'Mario Adrion',
-        views: 6969,
-      ),
-    ];
-  }
+  // List<PlaceCard> _getCards() {
+  //   return [
+  //     const PlaceCard(
+  //       imagePath: 'assets/images/mario.jpg',
+  //       rating: 4.2,
+  //       address: 'Gay Townnn nnnnnnnnnnnn nnnnn nnnnnn nnnn',
+  //       description: 'So hotttttt ttttt ttttt tttttttttttttt ttttttttt',
+  //       title:
+  //           'Mario Adrionnn nnnnnnnnnnnn nnnnnnnnnnn nnnn nnnn nnnnnnnnn nnnnnnnn nnnnnnnn nnnnnnnn',
+  //       views: 6969,
+  //     ),
+  //     const PlaceCard(
+  //       imagePath: 'assets/images/mario.jpg',
+  //       rating: 4.2,
+  //       address: 'Gay Town',
+  //       description: 'So hot',
+  //       title: 'Mario Adrion',
+  //       views: 6969,
+  //     ),
+  //     const PlaceCard(
+  //       imagePath: 'assets/images/mario.jpg',
+  //       rating: 4.2,
+  //       address: 'Gay Town',
+  //       description: 'So hot',
+  //       title: 'Mario Adrion',
+  //       views: 6969,
+  //     ),
+  //   ];
+  // }
 
   @override
   Widget build(BuildContext context) {
-    final searchField = TextFormField(
-      style: const TextStyle(
-        fontSize: 19.0,
-        color: Colors.yellow,
-      ),
-      textInputAction: TextInputAction.search,
-      decoration: const InputDecoration(
-        prefixIcon: Icon(Icons.search),
-        border: OutlineInputBorder(
-          borderRadius: BorderRadius.all(
-            Radius.circular(40.0),
-          ),
-        ),
-        hintText: "eiffel tower",
-      ),
+    return StreamBuilder<List<Place>>(
+      stream: Firestore().getPlaces(),
+      builder: (BuildContext context, AsyncSnapshot<List<Place>> snapshot) {
+        print("Snapshot" + snapshot.toString());
+        if (snapshot.connectionState == ConnectionState.active) {
+          print(snapshot);
+          if (snapshot.hasData) {
+            return _buildScreen(context, snapshot.requireData);
+          }
+          return ErrorBoundary();
+        }
+        return const Loader();
+      },
     );
+  }
+
+  Widget _buildScreen(BuildContext context, List<Place> places) {
     return Scaffold(
         backgroundColor: Colors.black,
         appBar: AppBar(
@@ -80,7 +86,7 @@ class MainScreen extends StatelessWidget {
             vertical: 15.0,
           ),
           child: Column(children: [
-            Container(width: 270.0, child: searchField),
+            Container(width: 270.0, child: SearchField()),
             const SizedBox(
               height: 25.0,
             ),
@@ -88,24 +94,8 @@ class MainScreen extends StatelessWidget {
               spacing: 10,
               runSpacing: 10,
               children: [
-                OutlinedButton(
-                  onPressed: () {},
-                  style: OutlinedButton.styleFrom(
-                      padding: const EdgeInsets.symmetric(
-                          horizontal: 20, vertical: 15),
-                      textStyle: const TextStyle(
-                          fontSize: 16.0, fontWeight: FontWeight.w700)),
-                  child: const Text('Фильтровать'),
-                ),
-                OutlinedButton(
-                  onPressed: () {},
-                  style: OutlinedButton.styleFrom(
-                      padding: const EdgeInsets.symmetric(
-                          horizontal: 20, vertical: 15),
-                      textStyle: const TextStyle(
-                          fontSize: 16.0, fontWeight: FontWeight.w700)),
-                  child: const Text('Сортировать'),
-                )
+                FilterSortButton(onPressed: () {}, title: "Фильтровать"),
+                FilterSortButton(onPressed: () {}, title: "Сортировать"),
               ],
             ),
             const SizedBox(
@@ -113,9 +103,22 @@ class MainScreen extends StatelessWidget {
             ),
             CardList(
               title: 'Украина',
-              cards: _getCards(),
+              cards: _buildPlaceCards(context, places),
             )
           ]),
         ));
+  }
+
+  List<PlaceCard> _buildPlaceCards(BuildContext context, List<Place> list) {
+    return list
+        .map((place) => PlaceCard(
+              address: place.address,
+              description: place.description,
+              imageUrl: place.imageUrl,
+              rating: 200,
+              title: place.title,
+              views: place.views,
+            ))
+        .toList();
   }
 }
