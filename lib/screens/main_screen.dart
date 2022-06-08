@@ -1,3 +1,5 @@
+// ignore_for_file: unnecessary_new
+
 import 'package:flutter/material.dart';
 import 'package:travelover_mobile/screens/menu_screen.dart';
 import 'package:travelover_mobile/widgets/card_list.dart';
@@ -45,6 +47,22 @@ class MainScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final searchField = TextFormField(
+      style: const TextStyle(
+        fontSize: 19.0,
+        color: Colors.yellow,
+      ),
+      textInputAction: TextInputAction.search,
+      decoration: const InputDecoration(
+        prefixIcon: Icon(Icons.search),
+        border: OutlineInputBorder(
+          borderRadius: BorderRadius.all(
+            Radius.circular(40.0),
+          ),
+        ),
+        hintText: "eiffel tower",
+      ),
+    );
     return Scaffold(
         backgroundColor: Colors.black,
         appBar: AppBar(
@@ -62,18 +80,9 @@ class MainScreen extends StatelessWidget {
             vertical: 15.0,
           ),
           child: Column(children: [
-            TextFormField(
-              style: const TextStyle(fontSize: 16.0),
-              decoration: InputDecoration(
-                  icon: const Icon(UniconsLine.search),
-                  filled: true,
-                  fillColor: const Color.fromARGB(255, 37, 37, 37),
-                  hintText: "Эйфелева башня",
-                  disabledBorder: UnderlineInputBorder(
-                      borderRadius: BorderRadius.circular(25))),
-            ),
+            Container(width: 270.0, child: searchField),
             const SizedBox(
-              height: 15.0,
+              height: 25.0,
             ),
             Wrap(
               spacing: 10,

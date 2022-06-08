@@ -4,6 +4,7 @@ import 'package:google_language_fonts/google_language_fonts.dart';
 import 'package:loader_overlay/loader_overlay.dart';
 import 'package:provider/provider.dart';
 import 'package:travelover_mobile/firebase_options.dart';
+import 'package:travelover_mobile/screens/Premium_sub.dart';
 import 'package:travelover_mobile/screens/main_screen.dart';
 import 'package:travelover_mobile/screens/my_profile_screen.dart';
 import 'package:travelover_mobile/screens/place_screen.dart';
@@ -55,6 +56,7 @@ class MyApp extends StatelessWidget {
               '/quizEnd': (context) => const QuizEnd(),
               '/email': (context) => const EmailScreen(),
               '/support': (context) => const SupportScreen(),
+              '/premiumSub': (context) => const premiumScreen(),
             },
             theme: ThemeData(
                 primaryColor: Colors.yellowAccent,
