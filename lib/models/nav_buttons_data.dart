@@ -7,7 +7,7 @@ class NavButtonsData {
       icon: UniconsLine.dollar_alt,
       title: 'Премиум подписка',
       subTitle: 'Нужно больше функций?',
-      path: '',
+      path: '/premiumSub',
     ),
     NavButton(
       icon: UniconsLine.book_alt,
@@ -19,7 +19,7 @@ class NavButtonsData {
       icon: UniconsLine.location_point,
       title: 'Исследовать мир',
       subTitle: 'Нужна идея куда поехать?',
-      path: '',
+      path: '/main',
     ),
     NavButton(
       icon: UniconsLine.heart_alt,
