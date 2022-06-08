@@ -39,12 +39,12 @@ class NavButtonsData {
         icon: UniconsLine.envelope,
         title: 'Почта',
         subTitle: 'example@gmail.com',
-        path: '/googleAuth'),
+        path: '/email'),
     NavButton(
         icon: UniconsLine.comments,
         title: 'Необходима помощь?',
         subTitle: 'Поддержка',
-        path: '/googleAuth')
+        path: '/support')
   ];
 
   List<NavButton> get menuButtons => [..._menuButtons];
