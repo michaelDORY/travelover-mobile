@@ -1,17 +1,19 @@
 import 'package:eva_icons_flutter/eva_icons_flutter.dart';
 import 'package:flutter/material.dart';
+import 'package:travelover_mobile/services/firebase_storage.dart';
 import 'package:unicons/unicons.dart';
 
 class PlaceCard extends StatefulWidget {
-  final String imageUrl;
+  final String imagePath;
   final double rating;
   final int views;
   final String title;
   final String address;
   final String description;
+
   const PlaceCard(
       {Key? key,
-      required this.imageUrl,
+      required this.imagePath,
       required this.rating,
       required this.views,
       required this.title,
@@ -25,6 +27,18 @@ class PlaceCard extends StatefulWidget {
 
 class _PlaceCardState extends State<PlaceCard> {
   bool _isFavourite = false;
+  String imageUrl =
+      "https://images.unsplash.com/photo-1555861496-0666c8981751?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1170&q=80";
+
+  @override
+  void initState() {
+    super.initState();
+    FirebaseStore().getFile(widget.imagePath).then((value) => {
+          setState(() {
+            imageUrl = value;
+          })
+        });
+  }
 
   Widget _buildIconTextGroup(icon, text) {
     return Row(
@@ -62,7 +76,7 @@ class _PlaceCardState extends State<PlaceCard> {
               decoration: BoxDecoration(
                   borderRadius: BorderRadius.circular(15.0),
                   image: DecorationImage(
-                      fit: BoxFit.cover, image: NetworkImage(widget.imageUrl))),
+                      fit: BoxFit.cover, image: NetworkImage(imageUrl))),
               child: IconButton(
                   onPressed: () {
                     setState(() => {_isFavourite = !_isFavourite});

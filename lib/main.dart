@@ -1,7 +1,9 @@
+import 'package:firebase_core/firebase_core.dart';
 import "package:flutter/material.dart";
 import 'package:google_language_fonts/google_language_fonts.dart';
 import 'package:loader_overlay/loader_overlay.dart';
 import 'package:provider/provider.dart';
+import 'package:travelover_mobile/firebase_options.dart';
 import 'package:travelover_mobile/screens/Premium_sub.dart';
 import 'package:travelover_mobile/screens/main_screen.dart';
 import 'package:travelover_mobile/screens/my_profile_screen.dart';
@@ -20,7 +22,7 @@ import 'package:travelover_mobile/widgets/root.dart';
 
 main() async {
   WidgetsFlutterBinding.ensureInitialized();
-  // await Firebase.initializeApp(options: DefaultFirebaseOptions.currentPlatform);
+  await Firebase.initializeApp(options: DefaultFirebaseOptions.currentPlatform);
 
   // await FirebaseStore().useStorageEmulator();
 

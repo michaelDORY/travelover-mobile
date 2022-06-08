@@ -7,10 +7,5 @@ class Firestore {
   Stream<List<Place>> getPlaces() => _fStore
       .collection('places')
       .snapshots()
-      .map((snapshot) => snapshot.docs.map((gotPlace) {
-        print("Got Place " + gotPlace.data().toString());
-            Place place = Place.fromJson(gotPlace);
-            print("PLace " + place.toString());
-            return place;
-          }).toList());
+      .map((snapshot) => snapshot.docs.map((gotPlace) => Place.fromJson(gotPlace)).toList());
 }

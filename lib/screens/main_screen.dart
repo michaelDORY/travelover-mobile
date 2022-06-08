@@ -1,4 +1,3 @@
-import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:travelover_mobile/models/place.dart';
 import 'package:travelover_mobile/screens/menu_screen.dart';
@@ -20,44 +19,12 @@ class MainScreen extends StatelessWidget {
     );
   }
 
-  // List<PlaceCard> _getCards() {
-  //   return [
-  //     const PlaceCard(
-  //       imagePath: 'assets/images/mario.jpg',
-  //       rating: 4.2,
-  //       address: 'Gay Townnn nnnnnnnnnnnn nnnnn nnnnnn nnnn',
-  //       description: 'So hotttttt ttttt ttttt tttttttttttttt ttttttttt',
-  //       title:
-  //           'Mario Adrionnn nnnnnnnnnnnn nnnnnnnnnnn nnnn nnnn nnnnnnnnn nnnnnnnn nnnnnnnn nnnnnnnn',
-  //       views: 6969,
-  //     ),
-  //     const PlaceCard(
-  //       imagePath: 'assets/images/mario.jpg',
-  //       rating: 4.2,
-  //       address: 'Gay Town',
-  //       description: 'So hot',
-  //       title: 'Mario Adrion',
-  //       views: 6969,
-  //     ),
-  //     const PlaceCard(
-  //       imagePath: 'assets/images/mario.jpg',
-  //       rating: 4.2,
-  //       address: 'Gay Town',
-  //       description: 'So hot',
-  //       title: 'Mario Adrion',
-  //       views: 6969,
-  //     ),
-  //   ];
-  // }
-
   @override
   Widget build(BuildContext context) {
     return StreamBuilder<List<Place>>(
       stream: Firestore().getPlaces(),
       builder: (BuildContext context, AsyncSnapshot<List<Place>> snapshot) {
-        print("Snapshot" + snapshot.toString());
         if (snapshot.connectionState == ConnectionState.active) {
-          print(snapshot);
           if (snapshot.hasData) {
             return _buildScreen(context, snapshot.requireData);
           }
@@ -114,7 +81,7 @@ class MainScreen extends StatelessWidget {
         .map((place) => PlaceCard(
               address: place.address,
               description: place.description,
-              imageUrl: place.imageUrl,
+              imagePath: place.imagePath,
               rating: 200,
               title: place.title,
               views: place.views,
