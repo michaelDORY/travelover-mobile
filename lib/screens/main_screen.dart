@@ -21,21 +21,6 @@ class MainScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return StreamBuilder<List<Place>>(
-      stream: Firestore().getPlaces(),
-      builder: (BuildContext context, AsyncSnapshot<List<Place>> snapshot) {
-        if (snapshot.connectionState == ConnectionState.active) {
-          if (snapshot.hasData) {
-            return _buildScreen(context, snapshot.requireData);
-          }
-          return ErrorBoundary();
-        }
-        return const Loader();
-      },
-    );
-  }
-
-  Widget _buildScreen(BuildContext context, List<Place> places) {
     return Scaffold(
         backgroundColor: Colors.black,
         appBar: AppBar(
@@ -46,34 +31,49 @@ class MainScreen extends StatelessWidget {
           ],
           title: const Text('Исследовать мир'),
         ),
-        body: Container(
-          alignment: Alignment.center,
-          padding: const EdgeInsets.symmetric(
-            horizontal: 10.0,
-            vertical: 15.0,
-          ),
-          child: Column(children: [
-            Container(width: 270.0, child: SearchField()),
-            const SizedBox(
-              height: 25.0,
-            ),
-            Wrap(
-              spacing: 10,
-              runSpacing: 10,
-              children: [
-                FilterSortButton(onPressed: () {}, title: "Фильтровать"),
-                FilterSortButton(onPressed: () {}, title: "Сортировать"),
-              ],
-            ),
-            const SizedBox(
-              height: 25.0,
-            ),
-            CardList(
-              title: 'Украина',
-              cards: _buildPlaceCards(context, places),
-            )
-          ]),
+        body: StreamBuilder<List<Place>>(
+          stream: Firestore().getPlaces(),
+          builder: (BuildContext context, AsyncSnapshot<List<Place>> snapshot) {
+            if (snapshot.connectionState == ConnectionState.active) {
+              if (snapshot.hasData) {
+                return _buildBody(context, snapshot.requireData);
+              }
+              return ErrorBoundary();
+            }
+            return const Loader();
+          },
         ));
+  }
+
+  Widget _buildBody(BuildContext context, List<Place> places) {
+    return Container(
+      alignment: Alignment.center,
+      padding: const EdgeInsets.symmetric(
+        horizontal: 10.0,
+        vertical: 15.0,
+      ),
+      child: Column(children: [
+        Container(width: 270.0, child: SearchField()),
+        const SizedBox(
+          height: 25.0,
+        ),
+        Wrap(
+          spacing: 10,
+          runSpacing: 10,
+          children: [
+            FilterSortButton(onPressed: () {}, title: "Фильтровать"),
+            FilterSortButton(onPressed: () {}, title: "Сортировать"),
+          ],
+        ),
+        const SizedBox(
+          height: 25.0,
+        ),
+        CardList(
+          title: 'Украина',
+          cards: _buildPlaceCards(context, places),
+        )
+      ]),
+    );
   }
 
   List<PlaceCard> _buildPlaceCards(BuildContext context, List<Place> list) {

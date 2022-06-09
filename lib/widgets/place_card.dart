@@ -1,6 +1,8 @@
 import 'package:eva_icons_flutter/eva_icons_flutter.dart';
 import 'package:flutter/material.dart';
+import 'package:travelover_mobile/services/auth.dart';
 import 'package:travelover_mobile/services/firebase_storage.dart';
+import 'package:travelover_mobile/services/firestore.dart';
 import 'package:unicons/unicons.dart';
 
 class PlaceCard extends StatefulWidget {
@@ -10,8 +12,9 @@ class PlaceCard extends StatefulWidget {
   final String title;
   final String address;
   final String description;
+  final AuthBase? auth;
 
-  const PlaceCard(
+  const PlaceCard(this.auth,
       {Key? key,
       required this.imagePath,
       required this.rating,
@@ -26,6 +29,7 @@ class PlaceCard extends StatefulWidget {
 }
 
 class _PlaceCardState extends State<PlaceCard> {
+  List _favourites = [];
   bool _isFavourite = false;
   String imageUrl =
       "https://images.unsplash.com/photo-1555861496-0666c8981751?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1170&q=80";
@@ -33,26 +37,17 @@ class _PlaceCardState extends State<PlaceCard> {
   @override
   void initState() {
     super.initState();
-    FirebaseStore().getFile(widget.imagePath).then((value) => {
+    FStorage().getFile(widget.imagePath).then((value) => {
           setState(() {
             imageUrl = value;
           })
         });
-  }
 
-  Widget _buildIconTextGroup(icon, text) {
-    return Row(
-      children: [
-        Icon(
-          icon,
-          color: Colors.grey[700],
-        ),
-        Text(
-          text,
-          style: const TextStyle(color: Colors.black),
-        ),
-      ],
-    );
+    Firestore().fetchUser(widget.auth!.currentUser!.uid).then((user) {
+      setState(() {
+        _favourites = user!.favourites;
+      });
+    });
   }
 
   @override
@@ -155,6 +150,21 @@ class _PlaceCardState extends State<PlaceCard> {
           ],
         ),
       ),
+    );
+  }
+
+  Widget _buildIconTextGroup(icon, text) {
+    return Row(
+      children: [
+        Icon(
+          icon,
+          color: Colors.grey[700],
+        ),
+        Text(
+          text,
+          style: const TextStyle(color: Colors.black),
+        ),
+      ],
     );
   }
 }

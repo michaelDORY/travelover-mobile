@@ -24,8 +24,6 @@ main() async {
   WidgetsFlutterBinding.ensureInitialized();
   await Firebase.initializeApp(options: DefaultFirebaseOptions.currentPlatform);
 
-  // await FirebaseStore().useStorageEmulator();
-
   runApp(const MyApp());
 }
 
@@ -62,65 +60,62 @@ class MyApp extends StatelessWidget {
               '/premiumSub': (context) => const premiumScreen(),
               '/UserLanguage': (context) => const UserLanguage(),
             },
-            theme: ThemeData(
-                primaryColor: Colors.yellowAccent,
-                primarySwatch: Colors.yellow,
-                fontFamily: CyrillicFonts.montserrat().fontFamily,
-                textTheme: TextTheme(
-                  headline1: TextStyle(
-                      fontSize: 20.0,
-                      color: Theme.of(context).primaryColor,
-                      fontWeight: FontWeight.w700),
-                  headline2: TextStyle(
-                      fontSize: 18.0,
-                      color: Theme.of(context).primaryColor,
-                      fontWeight: FontWeight.w700),
-                  headline3: const TextStyle(
-                      fontSize: 16.0, fontWeight: FontWeight.w700),
-                  bodyText1: const TextStyle(
-                    fontSize: 16.0,
-                  ),
-                  button: const TextStyle(
-                      fontWeight: FontWeight.w700, fontSize: 18.0),
-                  subtitle1: const TextStyle(
-                      fontSize: 12.0, fontWeight: FontWeight.w700),
-                ),
-                appBarTheme: const AppBarTheme(
-                    backgroundColor: Colors.black,
-                    centerTitle: true,
-                    actionsIconTheme: IconThemeData(color: Colors.yellowAccent),
-                    titleTextStyle: TextStyle(
-                        fontSize: 18.0,
-                        color: Colors.yellowAccent,
-                        fontWeight: FontWeight.w700)),
-                backgroundColor: Colors.black,
-                brightness: Brightness.dark,
-                elevatedButtonTheme: ElevatedButtonThemeData(
-                    style: ElevatedButton.styleFrom(
-                        shape: RoundedRectangleBorder(
-                            borderRadius: BorderRadius.circular(15.0)),
-                        textStyle: TextStyle(
-                            fontWeight: FontWeight.w700,
-                            fontFamily:
-                                CyrillicFonts.montserrat().fontFamily))),
-                outlinedButtonTheme: OutlinedButtonThemeData(
-                    style: OutlinedButton.styleFrom(
-                        side: const BorderSide(color: Colors.yellowAccent),
-                        shape: RoundedRectangleBorder(
-                            borderRadius: BorderRadius.circular(15.0)),
-                        textStyle: TextStyle(
-                            fontWeight: FontWeight.w700,
-                            fontFamily:
-                                CyrillicFonts.montserrat().fontFamily))),
-                inputDecorationTheme: const InputDecorationTheme(
-                  enabledBorder: UnderlineInputBorder(
-                    borderSide: BorderSide(color: Colors.yellow),
-                  ),
-                  focusedBorder: UnderlineInputBorder(
-                    borderSide: BorderSide(color: Colors.yellowAccent),
-                  ),
-                ))),
+            theme: CustomTheme(context)),
       ),
     );
   }
+
+  ThemeData CustomTheme(BuildContext context) => ThemeData(
+      primaryColor: Colors.yellowAccent,
+      primarySwatch: Colors.yellow,
+      fontFamily: CyrillicFonts.montserrat().fontFamily,
+      textTheme: TextTheme(
+        headline1: TextStyle(
+            fontSize: 20.0,
+            color: Theme.of(context).primaryColor,
+            fontWeight: FontWeight.w700),
+        headline2: TextStyle(
+            fontSize: 18.0,
+            color: Theme.of(context).primaryColor,
+            fontWeight: FontWeight.w700),
+        headline3: const TextStyle(fontSize: 16.0, fontWeight: FontWeight.w700),
+        bodyText1: const TextStyle(
+          fontSize: 16.0,
+        ),
+        button: const TextStyle(fontWeight: FontWeight.w700, fontSize: 18.0),
+        subtitle1: const TextStyle(fontSize: 12.0, fontWeight: FontWeight.w700),
+      ),
+      appBarTheme: const AppBarTheme(
+          backgroundColor: Colors.black,
+          centerTitle: true,
+          actionsIconTheme: IconThemeData(color: Colors.yellowAccent),
+          titleTextStyle: TextStyle(
+              fontSize: 18.0,
+              color: Colors.yellowAccent,
+              fontWeight: FontWeight.w700)),
+      backgroundColor: Colors.black,
+      brightness: Brightness.dark,
+      elevatedButtonTheme: ElevatedButtonThemeData(
+          style: ElevatedButton.styleFrom(
+              shape: RoundedRectangleBorder(
+                  borderRadius: BorderRadius.circular(15.0)),
+              textStyle: TextStyle(
+                  fontWeight: FontWeight.w700,
+                  fontFamily: CyrillicFonts.montserrat().fontFamily))),
+      outlinedButtonTheme: OutlinedButtonThemeData(
+          style: OutlinedButton.styleFrom(
+              side: const BorderSide(color: Colors.yellowAccent),
+              shape: RoundedRectangleBorder(
+                  borderRadius: BorderRadius.circular(15.0)),
+              textStyle: TextStyle(
+                  fontWeight: FontWeight.w700,
+                  fontFamily: CyrillicFonts.montserrat().fontFamily))),
+      inputDecorationTheme: const InputDecorationTheme(
+        enabledBorder: UnderlineInputBorder(
+          borderSide: BorderSide(color: Colors.yellow),
+        ),
+        focusedBorder: UnderlineInputBorder(
+          borderSide: BorderSide(color: Colors.yellowAccent),
+        ),
+      ));
 }

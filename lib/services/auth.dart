@@ -75,9 +75,4 @@ class AuthService implements AuthBase {
 
   @override
   User? get currentUser => _fAuth.currentUser;
-
-  // GET UID
-  // Future<String> getCurrentUID() async {
-  //   return _fAuth.currentUser!.uid;
-  // }
 }
