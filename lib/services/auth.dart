@@ -1,5 +1,7 @@
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:google_sign_in/google_sign_in.dart';
+import 'package:travelover_mobile/services/firestore.dart';
 
 abstract class AuthBase {
   Future<User?> signInWithEmailAndPassword(
@@ -75,9 +77,4 @@ class AuthService implements AuthBase {
 
   @override
   User? get currentUser => _fAuth.currentUser;
-
-  // GET UID
-  // Future<String> getCurrentUID() async {
-  //   return _fAuth.currentUser!.uid;
-  // }
 }
