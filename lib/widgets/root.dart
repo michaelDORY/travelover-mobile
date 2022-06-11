@@ -28,24 +28,6 @@ class _RootState extends State<Root> {
           if (snapshot.data == null) {
             return const SignInScreen();
           } else {
-            return _buildFUSer(snapshot.data!);
-          }
-        } else {
-          return _buildLoader();
-        }
-      },
-    );
-  }
-
-  Widget _buildFUSer(User user) {
-    return StreamBuilder(
-      stream: Firestore().getUser(user),
-      builder: (context, snapshot) {
-        if (snapshot.connectionState == ConnectionState.active) {
-          if (snapshot.data == null) {
-            print("SNAP " + snapshot.toString());
-            return const SignInScreen();
-          } else {
             return MainScreen();
           }
         } else {
@@ -54,6 +36,24 @@ class _RootState extends State<Root> {
       },
     );
   }
+
+  // Widget _buildFUSer(User user) {
+  //   return StreamBuilder(
+  //     stream: Firestore().getUser(user),
+  //     builder: (context, snapshot) {
+  //       if (snapshot.connectionState == ConnectionState.active) {
+  //         if (snapshot.data == null) {
+  //           print("SNAP " + snapshot.toString());
+  //           return const SignInScreen();
+  //         } else {
+  //           return MainScreen();
+  //         }
+  //       } else {
+  //         return _buildLoader();
+  //       }
+  //     },
+  //   );
+  // }
 
   Widget _buildLoader() {
     return Scaffold(

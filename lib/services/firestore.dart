@@ -34,8 +34,37 @@ class Firestore {
     });
   }
 
+  Future<List<dynamic>> getUserFavourites(String userId) async {
+    return _fStore
+        .collection('users')
+        .doc(userId)
+        .get()
+        .then((doc) => doc['favourites']);
+  }
+
+  Future addPlaceToFavourites(String userId, String placeId) async {
+    List<dynamic> newFavourites = await getUserFavourites(userId);
+    newFavourites.add(placeId);
+
+    return _fStore
+        .collection('users')
+        .doc(userId)
+        .update({'favourites': newFavourites});
+  }
+
+  Future deletePlaceFromFavourites(String userId, String placeId) async {
+    List<dynamic> currentFavourites = await getUserFavourites(userId);
+    List<dynamic> newFavourites =
+        currentFavourites.where((item) => item != placeId).toList();
+
+    return _fStore
+        .collection('users')
+        .doc(userId)
+        .update({'favourites': newFavourites});
+  }
+
   Stream<List<Place>> getPlaces() =>
-      _fStore.collection('places').snapshots().map((snapshot) =>
+      _fStore.collection('places').orderBy('country').snapshots().map((snapshot) =>
           snapshot.docs.map((gotPlace) => Place.fromJson(gotPlace)).toList());
 
   Stream<FirestoreUser> getUser(User user) {

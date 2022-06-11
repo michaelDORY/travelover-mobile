@@ -46,6 +46,7 @@ class MainScreen extends StatelessWidget {
   }
 
   Widget _buildBody(BuildContext context, List<Place> places) {
+    final List<Map<String, dynamic>> sortedPlaces = _getSortedPlaces(places);
     return Container(
       alignment: Alignment.center,
       padding: const EdgeInsets.symmetric(
@@ -68,17 +69,48 @@ class MainScreen extends StatelessWidget {
         const SizedBox(
           height: 25.0,
         ),
-        CardList(
-          title: 'Украина',
-          cards: _buildPlaceCards(context, places),
+        SizedBox(
+          width: 600.0,
+          height: 500.0,
+          child: ListView(
+            scrollDirection: Axis.vertical,
+            children: sortedPlaces
+                .map((obj) => Column(children: [
+                      CardList(
+                        title: obj['country'],
+                        cards: _buildPlaceCards(context, obj['places']),
+                      ),
+                      SizedBox(height: 25.0,)
+                    ]))
+                .toList(),
+          ),
         )
       ]),
     );
   }
 
+  List<Map<String, dynamic>> _getSortedPlaces(List<Place> places) {
+    List<Map<String, dynamic>> sortedPlaces = [];
+    places.forEach((place) {
+      int indexOfObject = sortedPlaces
+          .indexWhere((element) => element['country'] == place.country);
+      if (indexOfObject != -1) {
+        sortedPlaces[indexOfObject]['places'].add(place);
+      } else {
+        sortedPlaces.add({
+          'country': place.country,
+          'places': [place]
+        });
+      }
+    });
+    return sortedPlaces;
+  }
+
   List<PlaceCard> _buildPlaceCards(BuildContext context, List<Place> list) {
     return list
         .map((place) => PlaceCard(
+              context: context,
+              placeId: place.placeId,
               address: place.address,
               description: place.description,
               imagePath: place.imagePath,
