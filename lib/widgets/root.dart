@@ -37,24 +37,6 @@ class _RootState extends State<Root> {
     );
   }
 
-  // Widget _buildFUSer(User user) {
-  //   return StreamBuilder(
-  //     stream: Firestore().getUser(user),
-  //     builder: (context, snapshot) {
-  //       if (snapshot.connectionState == ConnectionState.active) {
-  //         if (snapshot.data == null) {
-  //           print("SNAP " + snapshot.toString());
-  //           return const SignInScreen();
-  //         } else {
-  //           return MainScreen();
-  //         }
-  //       } else {
-  //         return _buildLoader();
-  //       }
-  //     },
-  //   );
-  // }
-
   Widget _buildLoader() {
     return Scaffold(
         body: Container(

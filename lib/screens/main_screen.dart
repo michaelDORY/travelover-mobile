@@ -114,7 +114,7 @@ class MainScreen extends StatelessWidget {
               address: place.address,
               description: place.description,
               imagePath: place.imagePath,
-              rating: 200,
+              rating: place.rating,
               title: place.title,
               views: place.views,
             ))

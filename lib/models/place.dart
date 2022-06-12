@@ -8,6 +8,7 @@ class Place {
   final String _description;
   final String _imagePath;
   final int _views;
+  final Map<String, dynamic> _rating;
 
   Place.fromJson(QueryDocumentSnapshot<Map<String, dynamic>> json)
       : _placeId = json.id,
@@ -16,9 +17,11 @@ class Place {
         _address = json['address'],
         _description = json['description'],
         _imagePath = json['image'],
+        _rating = json['rating'],
         _views = json['views'];
 
   String get placeId => _placeId;
+  Map<String, dynamic> get rating => _rating;
   String get title => _title;
   String get country => _country;
   String get address => _address;

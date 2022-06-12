@@ -17,24 +17,15 @@ import 'package:flutter/foundation.dart'
 class DefaultFirebaseOptions {
   static FirebaseOptions get currentPlatform {
     if (kIsWeb) {
-      throw UnsupportedError(
-        'DefaultFirebaseOptions have not been configured for web - '
-        'you can reconfigure this by running the FlutterFire CLI again.',
-      );
+      return web;
     }
     switch (defaultTargetPlatform) {
       case TargetPlatform.android:
         return android;
       case TargetPlatform.iOS:
-        throw UnsupportedError(
-          'DefaultFirebaseOptions have not been configured for ios - '
-          'you can reconfigure this by running the FlutterFire CLI again.',
-        );
+        return ios;
       case TargetPlatform.macOS:
-        throw UnsupportedError(
-          'DefaultFirebaseOptions have not been configured for macos - '
-          'you can reconfigure this by running the FlutterFire CLI again.',
-        );
+        return macos;
       case TargetPlatform.windows:
         throw UnsupportedError(
           'DefaultFirebaseOptions have not been configured for windows - '
@@ -52,11 +43,43 @@ class DefaultFirebaseOptions {
     }
   }
 
+  static const FirebaseOptions web = FirebaseOptions(
+    apiKey: 'AIzaSyD5qD7QRvCd0msJVSgY1L24txUzyP9Y2r8',
+    appId: '1:563961632420:web:9c4942c6682bd81e213831',
+    messagingSenderId: '563961632420',
+    projectId: 'travelover-51b37',
+    authDomain: 'travelover-51b37.firebaseapp.com',
+    storageBucket: 'travelover-51b37.appspot.com',
+    measurementId: 'G-LG0F0FW9QG',
+  );
+
   static const FirebaseOptions android = FirebaseOptions(
     apiKey: 'AIzaSyCdnTNnb8jt0gEVXPP0HiwPBEGHmx7pRYI',
     appId: '1:563961632420:android:503c2886649b3c4d213831',
     messagingSenderId: '563961632420',
     projectId: 'travelover-51b37',
     storageBucket: 'travelover-51b37.appspot.com',
+  );
+
+  static const FirebaseOptions ios = FirebaseOptions(
+    apiKey: 'AIzaSyCMk9mgET0SY4pJ5Mz1X27oN9ErSfMG5zg',
+    appId: '1:563961632420:ios:1f7c2d48b84e12bc213831',
+    messagingSenderId: '563961632420',
+    projectId: 'travelover-51b37',
+    storageBucket: 'travelover-51b37.appspot.com',
+    androidClientId: '563961632420-ng91e54upqvfvrt0n735od04i3r4gssf.apps.googleusercontent.com',
+    iosClientId: '563961632420-venfqij3mof92fpqsnicm4dfn9sfaqlo.apps.googleusercontent.com',
+    iosBundleId: 'com.example.traveloverMobile',
+  );
+
+  static const FirebaseOptions macos = FirebaseOptions(
+    apiKey: 'AIzaSyCMk9mgET0SY4pJ5Mz1X27oN9ErSfMG5zg',
+    appId: '1:563961632420:ios:1f7c2d48b84e12bc213831',
+    messagingSenderId: '563961632420',
+    projectId: 'travelover-51b37',
+    storageBucket: 'travelover-51b37.appspot.com',
+    androidClientId: '563961632420-ng91e54upqvfvrt0n735od04i3r4gssf.apps.googleusercontent.com',
+    iosClientId: '563961632420-venfqij3mof92fpqsnicm4dfn9sfaqlo.apps.googleusercontent.com',
+    iosBundleId: 'com.example.traveloverMobile',
   );
 }
