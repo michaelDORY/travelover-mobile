@@ -2,6 +2,7 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:travelover_mobile/models/place.dart';
 import 'package:travelover_mobile/models/user.dart';
+import 'package:travelover_mobile/services/auth.dart';
 
 class Firestore {
   final FirebaseFirestore _fStore = FirebaseFirestore.instance;
@@ -27,7 +28,7 @@ class Firestore {
         .get()
         .then((snapshot) {
       if (snapshot.docs.isEmpty) {
-        return null;
+        _addUser(AuthService().currentUser!);
       } else {
         return FirestoreUser.fromJson(snapshot.docs[0]);
       }
@@ -63,24 +64,10 @@ class Firestore {
         .update({'favourites': newFavourites});
   }
 
-  Stream<List<Place>> getPlaces() =>
-      _fStore.collection('places').orderBy('country').snapshots().map((snapshot) =>
+  Stream<List<Place>> getPlaces() => _fStore
+      .collection('places')
+      .orderBy('country')
+      .snapshots()
+      .map((snapshot) =>
           snapshot.docs.map((gotPlace) => Place.fromJson(gotPlace)).toList());
-
-  Stream<FirestoreUser> getUser(User user) {
-    FirestoreUser? fUser;
-    fetchUser(user.uid).then((fetchedUser) {
-      fUser = fetchedUser;
-
-      if (fUser == null) {
-        _addUser(user);
-      }
-    });
-
-    return _fStore
-        .collection('users')
-        .doc(user.uid)
-        .snapshots()
-        .map((doc) => FirestoreUser.fromJson(doc.data()));
-  }
 }

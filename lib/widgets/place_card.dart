@@ -11,7 +11,7 @@ import 'package:unicons/unicons.dart';
 class PlaceCard extends StatefulWidget {
   final String placeId;
   final String imagePath;
-  final double rating;
+  final Map<String, dynamic> rating;
   final int views;
   final String title;
   final String address;
@@ -93,103 +93,109 @@ class _PlaceCardState extends State<PlaceCard> {
 
   @override
   Widget build(BuildContext context) {
-    return Card(
-      shape: RoundedRectangleBorder(
-        borderRadius: BorderRadius.circular(15.0),
-      ),
-      color: Colors.yellow[100],
-      child: Container(
-        width: 250,
-        padding: const EdgeInsets.fromLTRB(10, 10, 10, 20),
-        alignment: Alignment.center,
-        child: Column(
-          mainAxisAlignment: MainAxisAlignment.spaceBetween,
-          crossAxisAlignment: CrossAxisAlignment.start,
-          children: [
-            Container(
-              alignment: Alignment.topRight,
-              height: 150.0,
-              decoration: BoxDecoration(
-                  borderRadius: BorderRadius.circular(15.0),
-                  image: DecorationImage(
-                      fit: BoxFit.cover, image: NetworkImage(imageUrl))),
-              child: IconButton(
-                  onPressed: () => _isHeartLoading ? null : _toggleFavourite(),
-                  iconSize: 40,
-                  icon: _isFavourite
-                      ? Icon(
-                          EvaIcons.heart,
-                          color: Colors.pink[200],
-                        )
-                      : Icon(
-                          EvaIcons.heartOutline,
-                          color: Colors.grey[300],
-                        )),
-            ),
-            Row(
+    return Stack(children: [
+      GestureDetector(
+        onTap: () {
+          Navigator.pushNamed(context, '/place');
+        },
+        child: Card(
+          shape: RoundedRectangleBorder(
+            borderRadius: BorderRadius.circular(15.0),
+          ),
+          color: Colors.yellow[100],
+          child: Container(
+            width: 250,
+            padding: const EdgeInsets.fromLTRB(10, 10, 10, 20),
+            alignment: Alignment.center,
+            child: Column(
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
+              crossAxisAlignment: CrossAxisAlignment.start,
               children: [
-                _buildIconTextGroup(UniconsLine.star, '${widget.rating}/5'),
-                _buildIconTextGroup(UniconsLine.eye, '${widget.views}'),
-              ],
-            ),
-            Text(
-              widget.title,
-              style: TextStyle(
-                  overflow: TextOverflow.ellipsis,
-                  fontWeight: Theme.of(context).textTheme.headline3?.fontWeight,
-                  fontSize: Theme.of(context).textTheme.headline3?.fontSize,
-                  color: Colors.black),
-              maxLines: 1,
-              softWrap: false,
-            ),
-            Row(
-              mainAxisAlignment: MainAxisAlignment.spaceBetween,
-              crossAxisAlignment: CrossAxisAlignment.center,
-              children: [
-                SizedBox(
-                  width: 150.0,
-                  child: Column(
-                    crossAxisAlignment: CrossAxisAlignment.start,
-                    children: [
-                      Text(
-                        widget.address,
-                        maxLines: 1,
-                        softWrap: true,
-                        style: const TextStyle(
-                            overflow: TextOverflow.ellipsis,
-                            decoration: TextDecoration.underline,
-                            color: Colors.black),
-                      ),
-                      const SizedBox(
-                        height: 10,
-                      ),
-                      Text(
-                        widget.description,
-                        maxLines: 2,
-                        softWrap: true,
-                        style: const TextStyle(
-                            color: Colors.black,
-                            overflow: TextOverflow.ellipsis),
-                      ),
-                    ],
-                  ),
+                ClipRRect(
+                  borderRadius: BorderRadius.circular(8.0),
+                  child: Image.network(imageUrl,
+                      height: 150.0, width: double.infinity, fit: BoxFit.cover),
                 ),
-                IconButton(
-                    icon: const Icon(
+                Row(
+                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                  children: [
+                    _buildIconTextGroup(
+                        UniconsLine.star, '${widget.rating['mark']}/5'),
+                    _buildIconTextGroup(UniconsLine.eye, '${widget.views}'),
+                  ],
+                ),
+                Text(
+                  widget.title,
+                  style: TextStyle(
+                      overflow: TextOverflow.ellipsis,
+                      fontWeight:
+                          Theme.of(context).textTheme.headline3?.fontWeight,
+                      fontSize: Theme.of(context).textTheme.headline3?.fontSize,
+                      color: Colors.black),
+                  maxLines: 1,
+                  softWrap: false,
+                ),
+                Row(
+                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                  crossAxisAlignment: CrossAxisAlignment.center,
+                  children: [
+                    SizedBox(
+                      width: 150.0,
+                      child: Column(
+                        crossAxisAlignment: CrossAxisAlignment.start,
+                        children: [
+                          Text(
+                            widget.address,
+                            maxLines: 1,
+                            softWrap: true,
+                            style: const TextStyle(
+                                overflow: TextOverflow.ellipsis,
+                                decoration: TextDecoration.underline,
+                                color: Colors.black),
+                          ),
+                          const SizedBox(
+                            height: 10,
+                          ),
+                          Text(
+                            widget.description,
+                            maxLines: 2,
+                            softWrap: true,
+                            style: const TextStyle(
+                                color: Colors.black,
+                                overflow: TextOverflow.ellipsis),
+                          ),
+                        ],
+                      ),
+                    ),
+                    const Icon(
                       UniconsLine.angle_right,
                       color: Colors.black,
                       size: 40,
                     ),
-                    onPressed: () {
-                      Navigator.pushNamed(context, '/place');
-                    }),
+                  ],
+                )
               ],
-            )
-          ],
+            ),
+          ),
         ),
       ),
-    );
+      Positioned(
+        top: 15.0,
+        right: 15.0,
+        child: IconButton(
+            onPressed: () => _isHeartLoading ? null : _toggleFavourite(),
+            iconSize: 40,
+            icon: _isFavourite
+                ? Icon(
+                    EvaIcons.heart,
+                    color: Colors.pink[200],
+                  )
+                : Icon(
+                    EvaIcons.heartOutline,
+                    color: Colors.grey[300],
+                  )),
+      ),
+    ]);
   }
 
   Widget _buildIconTextGroup(icon, text) {
