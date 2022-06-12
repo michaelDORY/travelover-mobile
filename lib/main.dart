@@ -7,7 +7,6 @@ import 'package:travelover_mobile/firebase_options.dart';
 import 'package:travelover_mobile/screens/Premium_sub.dart';
 import 'package:travelover_mobile/screens/main_screen.dart';
 import 'package:travelover_mobile/screens/my_profile_screen.dart';
-import 'package:travelover_mobile/screens/place_screen.dart';
 import 'package:travelover_mobile/screens/sign_in_screen.dart';
 import 'package:travelover_mobile/screens/sign_up_screen.dart';
 import 'package:travelover_mobile/screens/quizes_screen.dart';
@@ -51,13 +50,12 @@ class MyApp extends StatelessWidget {
               '/signUp': (context) => const SignUpScreen(),
               '/': (context) => const Root(),
               '/user': (context) => const MyProfile(),
-              '/place': (context) => const PlaceScreen(),
               '/quizes': (context) => const QuizesScreen(),
               '/quizDesc': (context) => const QuizDescription(),
               '/quizEnd': (context) => const QuizEnd(),
               '/email': (context) => const EmailScreen(),
               '/support': (context) => const SupportScreen(),
-              '/premiumSub': (context) => const premiumScreen(),
+              '/premiumSub': (context) => const PremiumScreen(),
               '/UserLanguage': (context) => const UserLanguage(),
             },
             theme: CustomTheme(context)),
@@ -71,26 +69,26 @@ class MyApp extends StatelessWidget {
       fontFamily: CyrillicFonts.montserrat().fontFamily,
       textTheme: TextTheme(
         headline1: TextStyle(
-            fontSize: 20.0,
-            color: Theme.of(context).primaryColor,
+            fontSize: 30.0,
+            color: Colors.yellowAccent,
             fontWeight: FontWeight.w700),
         headline2: TextStyle(
-            fontSize: 18.0,
-            color: Theme.of(context).primaryColor,
+            fontSize: 25.0,
+            color: Colors.yellowAccent,
             fontWeight: FontWeight.w700),
-        headline3: const TextStyle(fontSize: 16.0, fontWeight: FontWeight.w700),
+        headline3: const TextStyle(fontSize: 20.0, fontWeight: FontWeight.w700),
         bodyText1: const TextStyle(
-          fontSize: 16.0,
+          fontSize: 18.0,
         ),
         button: const TextStyle(fontWeight: FontWeight.w700, fontSize: 18.0),
-        subtitle1: const TextStyle(fontSize: 12.0, fontWeight: FontWeight.w700),
+        subtitle1: const TextStyle(fontSize: 14.0, fontWeight: FontWeight.w700),
       ),
       appBarTheme: const AppBarTheme(
           backgroundColor: Colors.black,
           centerTitle: true,
-          actionsIconTheme: IconThemeData(color: Colors.yellowAccent),
+          iconTheme: IconThemeData(color: Colors.yellowAccent, size: 32),
           titleTextStyle: TextStyle(
-              fontSize: 18.0,
+              fontSize: 24.0,
               color: Colors.yellowAccent,
               fontWeight: FontWeight.w700)),
       backgroundColor: Colors.black,

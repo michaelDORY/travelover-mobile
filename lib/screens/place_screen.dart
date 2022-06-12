@@ -1,11 +1,44 @@
 import 'package:flutter/material.dart';
 import 'package:travelover_mobile/screens/menu_screen.dart';
-import 'package:travelover_mobile/widgets/place_view.dart';
+import 'package:travelover_mobile/widgets/place_card.dart';
 import 'package:travelover_mobile/widgets/comment.dart';
 import 'package:unicons/unicons.dart';
 
-class PlaceScreen extends StatelessWidget {
-  const PlaceScreen({Key? key}) : super(key: key);
+class PlaceScreen extends StatefulWidget {
+  final String placeId;
+  final String imageUrl;
+  final String imagePath;
+  final Map<String, dynamic> rating;
+  final int views;
+  final String title;
+  final String address;
+  final String description;
+  final BuildContext context;
+
+  const PlaceScreen(
+      {Key? key,
+      required this.context,
+      required this.imageUrl,
+      required this.rating,
+      required this.views,
+      required this.title,
+      required this.address,
+      required this.description,
+      required this.placeId,
+      required this.imagePath})
+      : super(key: key);
+
+  @override
+  State<PlaceScreen> createState() => _PlaceScreenState();
+}
+
+class _PlaceScreenState extends State<PlaceScreen> {
+  final filledStars = 0;
+
+  @override
+  void initState() {
+    super.initState();
+  }
 
   void _menuOpen(context) {
     Navigator.of(context).push(
@@ -23,7 +56,7 @@ class PlaceScreen extends StatelessWidget {
                 onPressed: () => _menuOpen(context),
                 icon: const Icon(UniconsLine.bars))
           ],
-          title: const Text('Mario Adrion'),
+          title: Text(widget.title),
         ),
         body: Container(
             alignment: Alignment.center,
@@ -33,26 +66,50 @@ class PlaceScreen extends StatelessWidget {
             ),
             child: ListView(children: <Widget>[
               Column(children: [
-                const PlaceView(
-                  imagePath: 'assets/images/mario.jpg',
-                  rating: 4.2,
-                  address: 'Gay Townnn nnnnnnnnnnnn nnnnn nnnnnn nnnn',
-                  title: 'Mario Adrionnn',
-                  views: 6969,
+                PlaceCard(
+                  isTapable: false,
+                  rating: widget.rating,
+                  address: widget.address,
+                  title: widget.title,
+                  views: widget.views,
+                  context: context,
+                  placeId: widget.placeId,
+                  imagePath: widget.imagePath,
                 ),
                 Container(
-                  alignment: Alignment.center,
+                  alignment: Alignment.topLeft,
                   padding: const EdgeInsets.symmetric(
-                    horizontal: 10.0,
+                    horizontal: 40.0,
                     vertical: 15.0,
                   ),
-                  child: const Text(
-                      "Софийский собор в Киеве — храм, в котором богослужения проводятся по графику. Один из символов украинской столицы фактически стал музеем. Молиться Богу здесь можно только в строго отведенные дни. Остальное время отведено для туристов и простых зевак.",
-                      textAlign: TextAlign.justify,
+                  child: Text(widget.description,
                       style: TextStyle(
                         fontSize: 16,
                         color: Colors.yellow,
                       )),
+                ),
+                SizedBox(
+                  height: 20.0,
+                ),
+                Text(
+                  'Address',
+                  textAlign: TextAlign.left,
+                  style: Theme.of(context).textTheme.headline2,
+                ),
+                Container(
+                  alignment: Alignment.topLeft,
+                  padding: const EdgeInsets.symmetric(
+                    horizontal: 40.0,
+                    vertical: 15.0,
+                  ),
+                  child: Text(
+                    widget.address,
+                    textAlign: TextAlign.center,
+                    style: Theme.of(context).textTheme.bodyText1,
+                  ),
+                ),
+                SizedBox(
+                  height: 10.0,
                 ),
                 Container(
                   height: 300.0,

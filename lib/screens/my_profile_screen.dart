@@ -40,7 +40,7 @@ class MyProfile extends StatelessWidget {
               icon: const Icon(UniconsLine.bars))
         ],
         title: const Text(
-          'Мой профиль',
+          'My profile',
           style: TextStyle(
             color: Colors.yellowAccent,
             fontSize: 20.0,
@@ -67,7 +67,7 @@ class MyProfile extends StatelessWidget {
                       decoration: const InputDecoration(
                         icon: Icon(UniconsLine.edit_alt),
                         border: OutlineInputBorder(),
-                        hintText: "ФИО",
+                        hintText: "Name",
                       ),
                     ),
                     const SizedBox(

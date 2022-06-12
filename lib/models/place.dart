@@ -1,4 +1,5 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:travelover_mobile/services/firebase_storage.dart';
 
 class Place {
   final String _placeId;

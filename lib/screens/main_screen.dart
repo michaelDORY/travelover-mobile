@@ -29,7 +29,7 @@ class MainScreen extends StatelessWidget {
                 onPressed: () => _menuOpen(context),
                 icon: const Icon(UniconsLine.bars))
           ],
-          title: const Text('Исследовать мир'),
+          title: const Text('Discover'),
         ),
         body: StreamBuilder<List<Place>>(
           stream: Firestore().getPlaces(),
@@ -55,23 +55,23 @@ class MainScreen extends StatelessWidget {
       ),
       child: Column(children: [
         Container(width: 270.0, child: SearchField()),
-        const SizedBox(
-          height: 25.0,
-        ),
-        Wrap(
-          spacing: 10,
-          runSpacing: 10,
-          children: [
-            FilterSortButton(onPressed: () {}, title: "Фильтровать"),
-            FilterSortButton(onPressed: () {}, title: "Сортировать"),
-          ],
-        ),
+        // const SizedBox(
+        //   height: 25.0,
+        // ),
+        // Wrap(
+        //   spacing: 10,
+        //   runSpacing: 10,
+        //   children: [
+        //     FilterSortButton(onPressed: () {}, title: "Filter"),
+        //     FilterSortButton(onPressed: () {}, title: "Sort"),
+        //   ],
+        // ),
         const SizedBox(
           height: 25.0,
         ),
         SizedBox(
           width: 600.0,
-          height: 500.0,
+          height: 580.0,
           child: ListView(
             scrollDirection: Axis.vertical,
             children: sortedPlaces
@@ -80,7 +80,9 @@ class MainScreen extends StatelessWidget {
                         title: obj['country'],
                         cards: _buildPlaceCards(context, obj['places']),
                       ),
-                      SizedBox(height: 25.0,)
+                      SizedBox(
+                        height: 25.0,
+                      )
                     ]))
                 .toList(),
           ),
@@ -107,17 +109,18 @@ class MainScreen extends StatelessWidget {
   }
 
   List<PlaceCard> _buildPlaceCards(BuildContext context, List<Place> list) {
-    return list
-        .map((place) => PlaceCard(
-              context: context,
-              placeId: place.placeId,
-              address: place.address,
-              description: place.description,
-              imagePath: place.imagePath,
-              rating: place.rating,
-              title: place.title,
-              views: place.views,
-            ))
-        .toList();
+    return list.map((place) {
+      return PlaceCard(
+        isTapable: true,
+        context: context,
+        placeId: place.placeId,
+        address: place.address,
+        description: place.description,
+        rating: place.rating,
+        title: place.title,
+        views: place.views,
+        imagePath: place.imagePath,
+      );
+    }).toList();
   }
 }

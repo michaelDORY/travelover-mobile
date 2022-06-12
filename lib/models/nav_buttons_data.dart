@@ -5,26 +5,26 @@ class NavButtonsData {
   final _menuButtons = [
     NavButton(
       icon: UniconsLine.dollar_alt,
-      title: 'Премиум подписка',
-      subTitle: 'Нужно больше функций?',
+      title: 'Premium',
+      subTitle: 'Need more functions?',
       path: '/premiumSub',
     ),
     NavButton(
       icon: UniconsLine.book_alt,
-      title: 'Пройти квизы',
-      subTitle: 'Проверить свои знания',
+      title: 'Take quizzes',
+      subTitle: 'Check your knowladge',
       path: '/quizes',
     ),
     NavButton(
       icon: UniconsLine.location_point,
-      title: 'Исследовать мир',
-      subTitle: 'Нужна идея куда поехать?',
+      title: 'Discover',
+      subTitle: 'Need an idea where to go?',
       path: '/main',
     ),
     NavButton(
       icon: UniconsLine.heart_alt,
-      title: 'Избранные места',
-      subTitle: 'Посмотри свои местечки',
+      title: 'Favourites',
+      subTitle: 'Look at your places',
       path: '',
     ),
   ];
@@ -32,18 +32,18 @@ class NavButtonsData {
   final _userButtons = <NavButton>[
     NavButton(
         icon: UniconsLine.language,
-        title: 'Язык',
-        subTitle: 'Русский',
+        title: 'Language',
+        subTitle: 'Enflish',
         path: '/UserLanguage'),
     NavButton(
         icon: UniconsLine.envelope,
-        title: 'Почта',
+        title: 'Email',
         subTitle: 'example@gmail.com',
         path: '/email'),
     NavButton(
         icon: UniconsLine.comments,
-        title: 'Необходима помощь?',
-        subTitle: 'Поддержка',
+        title: 'Need help?',
+        subTitle: 'Support',
         path: '/support')
   ];
 

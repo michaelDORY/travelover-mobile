@@ -51,7 +51,7 @@ class MenuScreen extends StatelessWidget {
                   const SizedBox(
                     height: 10.0,
                   ),
-                  const Text('Мой профиль')
+                  const Text('My profile')
                 ],
               )
             ],

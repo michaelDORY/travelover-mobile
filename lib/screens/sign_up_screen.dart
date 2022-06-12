@@ -71,7 +71,7 @@ class _SignUpScreenState extends State<SignUpScreen> {
       decoration: const InputDecoration(
         icon: Icon(UniconsLine.user),
         border: OutlineInputBorder(),
-        hintText: "Имя",
+        hintText: "Name",
       ),
     );
 
@@ -103,7 +103,7 @@ class _SignUpScreenState extends State<SignUpScreen> {
       decoration: const InputDecoration(
         icon: Icon(UniconsLine.key_skeleton_alt),
         border: OutlineInputBorder(),
-        hintText: "Пароль",
+        hintText: "Password",
       ),
     );
 
@@ -112,7 +112,7 @@ class _SignUpScreenState extends State<SignUpScreen> {
           minimumSize: const Size.fromHeight(50),
         ),
         onPressed: () => _signUpWithEmailAndPassword(context),
-        child: const Text("Зарегистрироваться"));
+        child: const Text("Sign Up"));
 
     final signInLink = OutlinedButton(
         style: OutlinedButton.styleFrom(
@@ -121,7 +121,7 @@ class _SignUpScreenState extends State<SignUpScreen> {
         onPressed: () {
           Navigator.pushNamed(context, '/signIn');
         },
-        child: const Text("Войти"));
+        child: const Text("Login"));
 
     return Scaffold(
       backgroundColor: Colors.black,
@@ -192,73 +192,5 @@ class _SignUpScreenState extends State<SignUpScreen> {
         ),
       ),
     );
-
-    // return Scaffold(
-    //   body: Container(
-    //     color: Colors.black,
-    //     alignment: Alignment.center,
-    //     padding:
-    //         const EdgeInsets.only(top: 40, bottom: 70, left: 30, right: 30),
-    //     child: Column(
-    //       mainAxisAlignment: MainAxisAlignment.spaceBetween,
-    //       children: [
-    //         Expanded(
-    //           flex: 5,
-    //           child: Column(
-    //               mainAxisAlignment: MainAxisAlignment.spaceBetween,
-    //               children: [
-    //                 Expanded(
-    //                   child: Container(
-    //                     constraints: BoxConstraints.loose(Size.infinite),
-    //                     margin: const EdgeInsets.only(bottom: 15),
-    //                     child: Image.asset(
-    //                       'assets/images/planet.png',
-    //                       fit: BoxFit.contain,
-    //                     ),
-    //                   ),
-    //                 ),
-    //                 Form(
-    //                     key: _formKey,
-    //                     child: Column(
-    //                       mainAxisSize: MainAxisSize.max,
-    //                       mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-    //                       children: [
-    //                         nameField,
-    //                         const SizedBox(
-    //                           height: 10.0,
-    //                         ),
-    //                         emailField,
-    //                         const SizedBox(
-    //                           height: 10.0,
-    //                         ),
-    //                         passwordField,
-    //                         const SizedBox(
-    //                           height: 20.0,
-    //                         ),
-    //                         signUpButton,
-    //                       ],
-    //                     ))
-    //               ]),
-    //         ),
-    //         const SizedBox(
-    //           height: 20.0,
-    //         ),
-    //         const Divider(
-    //           height: 3.0,
-    //           indent: 50.0,
-    //           endIndent: 50.0,
-    //           color: Colors.white,
-    //         ),
-    //         Expanded(
-    //           flex: 1,
-    //           child: Container(
-    //             alignment: Alignment.bottomCenter,
-    //             child: signInLink,
-    //           ),
-    //         ),
-    //       ],
-    //     ),
-    //   ),
-    // );
   }
 }

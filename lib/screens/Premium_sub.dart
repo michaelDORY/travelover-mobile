@@ -6,8 +6,15 @@ import 'package:unicons/unicons.dart';
 
 import '../widgets/nav_button.dart';
 
-class premiumScreen extends StatelessWidget {
-  const premiumScreen({Key? key}) : super(key: key);
+const List<String> BENEFITS = [
+  "Our app has many benefits when you purchase a subscription. One of them is access to comments, where you can leave your impressions of the place, as well as look at reviews from others about the same place.",
+  "Possibility to add the place you like to 'Favorites', as well as delete it.",
+  "The ability to edit your profile will improve your profile.",
+  "Unlimited access to premium quizzes, as well as the ability to share the result of the quiz on social networks."
+];
+
+class PremiumScreen extends StatelessWidget {
+  const PremiumScreen({Key? key}) : super(key: key);
 
   void _menuOpen(context) {
     Navigator.of(context).push(
@@ -36,7 +43,7 @@ class premiumScreen extends StatelessWidget {
             child: ListView(children: <Widget>[
               Column(
                 children: [
-                  const Text("\$60/Месяц",
+                  const Text("\$60/mounth",
                       textAlign: TextAlign.center,
                       style: TextStyle(
                         fontSize: 40,
@@ -54,94 +61,7 @@ class premiumScreen extends StatelessWidget {
                         const SizedBox(
                           height: 30,
                         ),
-                        Row(children: <Widget>[
-                          const Icon(
-                            UniconsLine.check_circle,
-                            color: Colors.yellow,
-                            size: 40,
-                          ),
-                          Container(
-                            width: 310,
-                            alignment: Alignment.center,
-                            padding: const EdgeInsets.symmetric(
-                              horizontal: 10.0,
-                              vertical: 15.0,
-                            ),
-                            child: const Text(
-                                "Наше приложение имеет множество преимуществ при покупке подписки. Одно из них — доступ к комментариям, где Вы сможете оставлять свои впечатления от места, а так же смотреть на отзывы от других об этом же месте.",
-                                textAlign: TextAlign.justify,
-                                style: TextStyle(
-                                  fontSize: 16,
-                                  color: Colors.yellow,
-                                )),
-                          ),
-                        ]),
-                        Row(children: <Widget>[
-                          const Icon(
-                            UniconsLine.check_circle,
-                            color: Colors.yellow,
-                            size: 40,
-                          ),
-                          Container(
-                            width: 310,
-                            alignment: Alignment.center,
-                            padding: const EdgeInsets.symmetric(
-                              horizontal: 10.0,
-                              vertical: 15.0,
-                            ),
-                            child: const Text(
-                                "Возможность добавлять понравив-шейся место в 'Избранное', а так же его удалять.",
-                                textAlign: TextAlign.justify,
-                                style: TextStyle(
-                                  fontSize: 16,
-                                  color: Colors.yellow,
-                                )),
-                          ),
-                        ]),
-                        Row(children: <Widget>[
-                          const Icon(
-                            UniconsLine.check_circle,
-                            color: Colors.yellow,
-                            size: 40,
-                          ),
-                          Container(
-                            width: 310,
-                            alignment: Alignment.center,
-                            padding: const EdgeInsets.symmetric(
-                              horizontal: 10.0,
-                              vertical: 15.0,
-                            ),
-                            child: const Text(
-                                "Возможность редактирования про-филя улучшит ваш профиль.",
-                                textAlign: TextAlign.justify,
-                                style: TextStyle(
-                                  fontSize: 16,
-                                  color: Colors.yellow,
-                                )),
-                          ),
-                        ]),
-                        Row(children: <Widget>[
-                          const Icon(
-                            UniconsLine.check_circle,
-                            color: Colors.yellow,
-                            size: 40,
-                          ),
-                          Container(
-                            width: 310,
-                            alignment: Alignment.center,
-                            padding: const EdgeInsets.symmetric(
-                              horizontal: 10.0,
-                              vertical: 15.0,
-                            ),
-                            child: const Text(
-                                "Неограниченный доступ к премиум-квизам, а так же возможность делиться результатом квиза в социальных сетях.",
-                                textAlign: TextAlign.justify,
-                                style: TextStyle(
-                                  fontSize: 16,
-                                  color: Colors.yellow,
-                                )),
-                          ),
-                        ]),
+                        ...BENEFITS.map((value) => _buildBetefitItem(value)),
                         Container(
                           alignment: Alignment.center,
                           padding: const EdgeInsets.symmetric(
@@ -150,8 +70,8 @@ class premiumScreen extends StatelessWidget {
                           ),
                           child: NavButton(
                               icon: UniconsLine.unlock_alt,
-                              title: 'Купить',
-                              subTitle: 'Месячный план',
+                              title: 'Buy',
+                              subTitle: 'Mounth plan',
                               path: '/'),
                         )
                       ],
@@ -160,5 +80,29 @@ class premiumScreen extends StatelessWidget {
                 ],
               ),
             ])));
+  }
+
+  Widget _buildBetefitItem(String text) {
+    return Row(children: <Widget>[
+      const Icon(
+        UniconsLine.check_circle,
+        color: Colors.yellow,
+        size: 40,
+      ),
+      Container(
+        width: 310,
+        alignment: Alignment.center,
+        padding: const EdgeInsets.symmetric(
+          horizontal: 10.0,
+          vertical: 15.0,
+        ),
+        child: Text(text,
+            textAlign: TextAlign.justify,
+            style: TextStyle(
+              fontSize: 16,
+              color: Colors.yellow,
+            )),
+      ),
+    ]);
   }
 }
