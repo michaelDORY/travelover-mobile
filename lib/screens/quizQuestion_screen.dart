@@ -27,14 +27,21 @@ class quizQuestionScreen extends StatelessWidget {
                 Answer3: 'Париж',
                 Answer4: 'Прага',
               ),
-              ElevatedButton(
-                  style: ElevatedButton.styleFrom(
-                    minimumSize: const Size.fromHeight(50),
-                  ),
-                  onPressed: () {
-                    Navigator.pushNamed(context, '/quizEnd');
-                  },
-                  child: const Text("Следующий")),
+              Container(
+                alignment: Alignment.center,
+                padding: const EdgeInsets.symmetric(
+                  horizontal: 10.0,
+                  vertical: 15.0,
+                ),
+                child: ElevatedButton(
+                    style: ElevatedButton.styleFrom(
+                      minimumSize: const Size.fromHeight(50),
+                    ),
+                    onPressed: () {
+                      Navigator.pushNamed(context, '/quizEnd');
+                    },
+                    child: const Text("Следующий")),
+              )
             ])));
   }
 }

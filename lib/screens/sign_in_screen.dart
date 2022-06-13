@@ -43,11 +43,12 @@ class _SignInScreenState extends State<SignInScreen> {
     try {
       await auth.signInWithEmailAndPassword(
           email: emailController.text, password: passwordController.text);
+          context.loaderOverlay.hide();
       Navigator.pushNamedAndRemoveUntil(context, '/main', (route) => false);
     } catch (e) {
       CustomToast(message: "No such user").show();
     } finally {
-      context.loaderOverlay.hide();
+      //context.loaderOverlay.hide();
     }
   }
 
@@ -93,7 +94,7 @@ class _SignInScreenState extends State<SignInScreen> {
       decoration: const InputDecoration(
         icon: Icon(UniconsLine.key_skeleton_alt),
         border: OutlineInputBorder(),
-        hintText: "Пароль",
+        hintText: "Password",
       ),
     );
 
@@ -102,7 +103,7 @@ class _SignInScreenState extends State<SignInScreen> {
           minimumSize: const Size.fromHeight(50),
         ),
         onPressed: () => _signInWithEmailAndPassword(context),
-        child: const Text("Войти"));
+        child: const Text("Login"));
 
     final signUpLink = OutlinedButton(
         style: OutlinedButton.styleFrom(
@@ -111,7 +112,7 @@ class _SignInScreenState extends State<SignInScreen> {
         onPressed: () {
           Navigator.pushNamed(context, '/signUp');
         },
-        child: const Text("Зарегистрироваться"));
+        child: const Text("Sign Up"));
 
     return Scaffold(
       backgroundColor: Colors.black,
@@ -141,15 +142,15 @@ class _SignInScreenState extends State<SignInScreen> {
                     ),
                     NavButton(
                       icon: UniconsLine.google,
-                      title: 'Авторизироваться',
-                      subTitle: 'Войти через Google',
+                      title: 'Authorize',
+                      subTitle: 'Login via Google',
                       action: () => _signInWithGoogle(context),
                     ),
                     const SizedBox(
                       height: 10.0,
                     ),
                     const Text(
-                      "или",
+                      "or",
                       style: TextStyle(
                           fontWeight: FontWeight.w800, fontSize: 18.0),
                     ),

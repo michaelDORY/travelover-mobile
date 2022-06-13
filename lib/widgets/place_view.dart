@@ -3,14 +3,14 @@ import 'package:flutter/material.dart';
 import 'package:unicons/unicons.dart';
 
 class PlaceView extends StatefulWidget {
-  final String imagePath;
+  final String imageUrl;
   final double rating;
   final int views;
   final String title;
   final String address;
   const PlaceView(
       {Key? key,
-      required this.imagePath,
+      required this.imageUrl,
       required this.rating,
       required this.views,
       required this.title,
@@ -60,7 +60,7 @@ class _PlaceViewState extends State<PlaceView> {
               decoration: BoxDecoration(
                   borderRadius: BorderRadius.circular(15.0),
                   image: DecorationImage(
-                      fit: BoxFit.cover, image: AssetImage(widget.imagePath))),
+                      fit: BoxFit.cover, image: AssetImage(widget.imageUrl))),
               child: IconButton(
                   onPressed: () {
                     setState(() => {_isFavourite = !_isFavourite});
