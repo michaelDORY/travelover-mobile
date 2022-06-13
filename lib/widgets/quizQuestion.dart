@@ -23,7 +23,7 @@ class QuizQuestion extends StatefulWidget {
 }
 
 class _Question extends State<QuizQuestion> {
-  String? val;
+  int selectedValue = 0;
   @override
   Widget build(BuildContext context) {
     return Expanded(
@@ -38,58 +38,11 @@ class _Question extends State<QuizQuestion> {
         const SizedBox(
           height: 20.0,
         ),
-        ListTile(
-          title: Text(widget.Answer1),
-          leading: Radio(
-            value: 1,
-            groupValue: val,
-            onChanged: (value) {
-              setState(() {
-                val = value.toString();
-              });
-            },
-            activeColor: Colors.white,
-          ),
-        ),
-        ListTile(
-          title: Text(widget.Answer2),
-          leading: Radio(
-            value: 2,
-            groupValue: val,
-            onChanged: (value) {
-              setState(() {
-                val = value.toString();
-              });
-            },
-            activeColor: Colors.green,
-          ),
-        ),
-        ListTile(
-          title: Text(widget.Answer3),
-          leading: Radio(
-            value: 3,
-            groupValue: val,
-            onChanged: (value) {
-              setState(() {
-                val = value.toString();
-              });
-            },
-            activeColor: Colors.green,
-          ),
-        ),
-        ListTile(
-          title: Text(widget.Answer4),
-          leading: Radio(
-            value: 4,
-            groupValue: val,
-            onChanged: (value) {
-              setState(() {
-                val = value.toString();
-              });
-            },
-            activeColor: Colors.green,
-          ),
-        ),
+        Radio<int>(
+          value: 1,
+          groupValue: selectedValue,
+          onChanged: (value) => setState(() => selectedValue = 1),
+        )
       ]),
     );
   }
