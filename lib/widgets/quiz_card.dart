@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:travelover_mobile/screens/quizDescription_screen.dart';
 import 'package:travelover_mobile/services/firebase_storage.dart';
 import 'package:unicons/unicons.dart';
 
@@ -7,11 +8,13 @@ class QuizCard extends StatefulWidget {
   final String imagePath;
   final String title;
   final String description;
+  final String time;
   const QuizCard(
       {Key? key,
       required this.isTapable,
       required this.imagePath,
       required this.title,
+      required this.time,
       required this.description})
       : super(key: key);
 
@@ -52,7 +55,14 @@ class _QuizCardState extends State<QuizCard> {
       widget.isTapable
           ? GestureDetector(
               onTap: () {
-                Navigator.pushNamed(context, '/quizDesc');
+                Navigator.push(
+                    context,
+                    MaterialPageRoute(
+                        builder: (context) => QuizDescription(
+                              title: widget.title,
+                              description: widget.description,
+                              time: widget.time,
+                            )));
               },
               child: _buildCard())
           : _buildCard(),

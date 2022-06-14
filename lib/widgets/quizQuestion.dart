@@ -39,7 +39,7 @@ class _Question extends State<QuizQuestion> {
       ),
       SizedBox(
           width: 600.0,
-          height: 400.0,
+          height: 300.0,
           child: ListView(
             children: [
               Container(

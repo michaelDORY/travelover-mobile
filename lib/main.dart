@@ -52,7 +52,6 @@ class MyApp extends StatelessWidget {
               '/': (context) => const Root(),
               '/user': (context) => const MyProfile(),
               '/quizes': (context) => const QuizesScreen(),
-              '/quizDesc': (context) => const QuizDescription(),
               '/quizEnd': (context) => const QuizEnd(),
               '/quizQuestion': (context) => const quizQuestionScreen(),
               '/email': (context) => const EmailScreen(),

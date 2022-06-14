@@ -98,6 +98,7 @@ class QuizesScreen extends StatelessWidget {
         title: quiz.nameOfQuiz,
         description: quiz.description,
         imagePath: quiz.image,
+        time: quiz.time,
       );
     }).toList();
   }
