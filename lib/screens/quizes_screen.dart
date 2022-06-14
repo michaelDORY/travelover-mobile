@@ -3,9 +3,19 @@ import 'package:travelover_mobile/screens/menu_screen.dart';
 import 'package:travelover_mobile/widgets/card_list.dart';
 import 'package:travelover_mobile/widgets/quiz_card.dart';
 import 'package:unicons/unicons.dart';
+import 'package:travelover_mobile/models/quiz.dart';
+import 'package:travelover_mobile/services/firestore.dart';
+import 'package:travelover_mobile/widgets/error_boundary.dart';
+import 'package:travelover_mobile/widgets/loader.dart';
 
 class QuizesScreen extends StatelessWidget {
   const QuizesScreen({Key? key}) : super(key: key);
+
+  void _menuOpen(context) {
+    Navigator.of(context).push(
+      MaterialPageRoute(builder: (context) => const MenuScreen()),
+    );
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -17,71 +27,78 @@ class QuizesScreen extends StatelessWidget {
                 onPressed: () => _menuOpen(context),
                 icon: const Icon(UniconsLine.bars))
           ],
-          title: const Text('Квизы'),
+          title: const Text('Quizes'),
         ),
-        body: Container(
-            alignment: Alignment.center,
-            padding: const EdgeInsets.symmetric(
-              horizontal: 10.0,
-              vertical: 15.0,
-            ),
-            child: ListView(children: <Widget>[
-              Column(children: [
-                CardList(
-                  title: 'Языки',
-                  cards: _getCardsLanguage(),
-                ),
-                CardList(
-                  title: 'Культура',
-                  cards: _getCardsCulture(),
-                )
-              ]),
-            ])));
+        body: StreamBuilder<List<Quiz>>(
+          stream: Firestore().getQuizes(),
+          builder: (BuildContext context, AsyncSnapshot<List<Quiz>> snapshot) {
+            if (snapshot.connectionState == ConnectionState.active) {
+              if (snapshot.hasData) {
+                return _buildBody(context, snapshot.requireData);
+              }
+              return const ErrorBoundary();
+            }
+            return const Loader();
+          },
+        ));
   }
 
-  void _menuOpen(context) {
-    Navigator.of(context).push(
-      MaterialPageRoute(builder: (context) => const MenuScreen()),
+  Widget _buildBody(BuildContext context, List<Quiz> quizes) {
+    final List<Map<String, dynamic>> sortedQuizes = _getSortedQuizes(quizes);
+    return Container(
+      alignment: Alignment.center,
+      padding: const EdgeInsets.symmetric(
+        horizontal: 10.0,
+        vertical: 15.0,
+      ),
+      child: Column(children: [
+        SizedBox(
+          width: 600.0,
+          height: 530.0,
+          child: ListView(
+            scrollDirection: Axis.vertical,
+            children: sortedQuizes
+                .map((obj) => Column(children: [
+                      CardList(
+                        title: obj['section'],
+                        cards: _buildQuizCards(context, obj['quizes']),
+                      ),
+                      const SizedBox(
+                        height: 25.0,
+                      )
+                    ]))
+                .toList(),
+          ),
+        )
+      ]),
     );
   }
 
-  List _getCardsLanguage() {
-    return [
-      const QuizCard(
-        imagePath: 'assets/images/Britain.jpeg',
-        description: 'Этот квиз прошли 1209 человек',
-        title: 'Английский',
-      ),
-      const QuizCard(
-        imagePath: 'assets/images/Britain.jpeg',
-        description: 'Этот квиз прошли 1209 человек',
-        title: 'Итальянский',
-      ),
-      const QuizCard(
-        imagePath: 'assets/images/Britain.jpeg',
-        description: 'Этот квиз прошли 1209 человек',
-        title: 'Японский',
-      ),
-    ];
+  List<Map<String, dynamic>> _getSortedQuizes(List<Quiz> quizes) {
+    List<Map<String, dynamic>> sortedQuizes = [];
+    quizes.forEach((quiz) {
+      int indexOfObject = sortedQuizes
+          .indexWhere((element) => element['section'] == quiz.section);
+      if (indexOfObject != -1) {
+        sortedQuizes[indexOfObject]['quizes'].add(quiz);
+      } else {
+        sortedQuizes.add({
+          'section': quiz.section,
+          'quizes': [quiz]
+        });
+      }
+    });
+    return sortedQuizes;
   }
 
-  List _getCardsCulture() {
-    return [
-      const QuizCard(
-        imagePath: 'assets/images/Britain.jpeg',
-        description: 'Этот квиз прошли 1209 человек',
-        title: 'Анлгийская культура',
-      ),
-      const QuizCard(
-        imagePath: 'assets/images/Britain.jpeg',
-        description: 'Этот квиз прошли 1209 человек',
-        title: 'Итальянская культура',
-      ),
-      const QuizCard(
-        imagePath: 'assets/images/Britain.jpeg',
-        description: 'Этот квиз прошли 1209 человек',
-        title: 'Японская культура',
-      ),
-    ];
+  List<QuizCard> _buildQuizCards(BuildContext context, List<Quiz> list) {
+    return list.map((quiz) {
+      return QuizCard(
+        isTapable: true,
+        title: quiz.nameOfQuiz,
+        description: quiz.description,
+        imagePath: quiz.image,
+      );
+    }).toList();
   }
 }

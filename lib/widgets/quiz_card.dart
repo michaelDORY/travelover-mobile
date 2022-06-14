@@ -1,12 +1,15 @@
 import 'package:flutter/material.dart';
+import 'package:travelover_mobile/services/firebase_storage.dart';
 import 'package:unicons/unicons.dart';
 
 class QuizCard extends StatefulWidget {
+  final bool isTapable;
   final String imagePath;
   final String title;
   final String description;
   const QuizCard(
       {Key? key,
+      required this.isTapable,
       required this.imagePath,
       required this.title,
       required this.description})
@@ -17,6 +20,17 @@ class QuizCard extends StatefulWidget {
 }
 
 class _QuizCardState extends State<QuizCard> {
+  String imageUrl =
+      "https://icons-for-free.com/iconfiles/png/512/maps+navigation+pin+place+icon-1320167831530096671.png";
+
+  @override
+  void initState() {
+    super.initState();
+    FStorage()
+        .getFile(widget.imagePath)
+        .then((value) => setState(() => {imageUrl = value}));
+  }
+
   Widget _buildIconTextGroup(icon, text) {
     return Row(
       children: [
@@ -34,6 +48,19 @@ class _QuizCardState extends State<QuizCard> {
 
   @override
   Widget build(BuildContext context) {
+    return Stack(children: [
+      widget.isTapable
+          ? GestureDetector(
+              onTap: () {
+                Navigator.pushNamed(context, '/quizDesc');
+              },
+              child: _buildCard())
+          : _buildCard(),
+    ]);
+  }
+
+  @override
+  Widget _buildCard() {
     return Card(
       shape: RoundedRectangleBorder(
         borderRadius: BorderRadius.circular(15.0),
@@ -47,13 +74,10 @@ class _QuizCardState extends State<QuizCard> {
           mainAxisAlignment: MainAxisAlignment.spaceBetween,
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
-            Container(
-              alignment: Alignment.topRight,
-              height: 200.0,
-              decoration: BoxDecoration(
-                  borderRadius: BorderRadius.circular(15.0),
-                  image: DecorationImage(
-                      fit: BoxFit.cover, image: AssetImage(widget.imagePath))),
+            ClipRRect(
+              borderRadius: BorderRadius.circular(8.0),
+              child: Image.network(imageUrl,
+                  height: 200.0, width: double.infinity, fit: BoxFit.cover),
             ),
             Text(
               widget.title,
@@ -85,15 +109,13 @@ class _QuizCardState extends State<QuizCard> {
                     ],
                   ),
                 ),
-                IconButton(
-                    icon: const Icon(
-                      UniconsLine.angle_right,
-                      color: Colors.black,
-                      size: 40,
-                    ),
-                    onPressed: () {
-                      Navigator.pushNamed(context, '/quizDesc');
-                    }),
+                widget.isTapable
+                    ? const Icon(
+                        UniconsLine.angle_right,
+                        color: Colors.black,
+                        size: 40,
+                      )
+                    : Container(),
               ],
             )
           ],
