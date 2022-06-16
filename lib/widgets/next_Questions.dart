@@ -18,9 +18,7 @@ class NextQuestion extends StatelessWidget {
           style: ElevatedButton.styleFrom(
             minimumSize: const Size.fromHeight(50),
           ),
-          onPressed: () {
-            // Navigator.pushNamed(context, '/quizEnd');
-          },
+          onPressed: () {},
           child: const Text("Следующий")),
     );
   }

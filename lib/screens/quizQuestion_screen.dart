@@ -22,25 +22,39 @@ class _quizQuestionScreenState extends State<quizQuestionScreen> {
         Answer4: "Париж"),
     QuizQuestion(
         textQuestion: "Как называется столица Британии",
-        Answer1: "Харьков",
-        Answer2: "Киев",
+        Answer1: "Краков",
+        Answer2: "Прага",
         Answer3: "Лондон",
+        Answer4: "Венисуелла"),
+    QuizQuestion(
+        textQuestion: "Как называется столица Франции",
+        Answer1: "Братислава",
+        Answer2: "Львов",
+        Answer3: "Гваделупа",
         Answer4: "Париж")
   ];
 
   int index = 0;
+
   void nextQuestion() {
-    setState(() {
-      index++;
-    });
+    if (index == questions.length - 1) {
+      Navigator.pushNamedAndRemoveUntil(context, '/quizEnd', (route) => true);
+      // Navigator.pushNamed(context, '/quizEnd');
+    } else {
+      setState(() {
+        index++;
+      });
+    }
   }
 
   @override
   Widget build(BuildContext context) {
+    int idexQuestion = index + 1;
+    int totalquestions = questions.length;
     return Scaffold(
       backgroundColor: Colors.black,
       appBar: AppBar(
-        title: const Text('Результат'),
+        title: Text("Question: $idexQuestion / $totalquestions"),
       ),
       body: Container(
           alignment: Alignment.center,
@@ -49,26 +63,25 @@ class _quizQuestionScreenState extends State<quizQuestionScreen> {
             vertical: 15.0,
           ),
           child: Column(children: [
-            questionWidget(
-                question: questions[index].textQuestion,
-                totalQuestions: questions.length,
-                indexAction: index)
-            // QuizQuestion()
-            //   textQuestion: 'Как назівается столица Франции?',
-            //   Answer1: 'Лондон',
-            //   Answer2: 'Киев',
-            //   Answer3: 'Париж',
-            //   Answer4: 'Прага',
-            // ),
+            QuizQuestion(
+              textQuestion: questions[index].textQuestion,
+              Answer1: questions[index].Answer1,
+              Answer2: questions[index].Answer2,
+              Answer3: questions[index].Answer3,
+              Answer4: questions[index].Answer4,
+            ),
           ])),
       bottomNavigationBar: Padding(
         padding: const EdgeInsets.symmetric(
           horizontal: 20.0,
           vertical: 60.0,
         ),
-        child: NextQuestion(
-          nextQuestion: nextQuestion,
-        ),
+        child: ElevatedButton(
+            style: ElevatedButton.styleFrom(
+              minimumSize: const Size.fromHeight(50),
+            ),
+            onPressed: nextQuestion,
+            child: const Text("Следующий")),
       ),
     );
   }
