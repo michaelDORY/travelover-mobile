@@ -25,7 +25,7 @@ class NavButtonsData {
       icon: UniconsLine.heart_alt,
       title: 'Favourites',
       subTitle: 'Look at your places',
-      path: '',
+      path: '/favourite',
     ),
   ];
 
