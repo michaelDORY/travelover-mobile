@@ -1,6 +1,7 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:travelover_mobile/models/place.dart';
+import 'package:travelover_mobile/models/quiz.dart';
 import 'package:travelover_mobile/models/user.dart';
 import 'package:travelover_mobile/services/auth.dart';
 
@@ -70,4 +71,11 @@ class Firestore {
       .snapshots()
       .map((snapshot) =>
           snapshot.docs.map((gotPlace) => Place.fromJson(gotPlace)).toList());
+
+  Stream<List<Quiz>> getQuizes() => _fStore
+      .collection('quizzes')
+      .orderBy('section')
+      .snapshots()
+      .map((snapshot) =>
+          snapshot.docs.map((gotQuiz) => Quiz.fromJson(gotQuiz)).toList());
 }
