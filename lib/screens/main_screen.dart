@@ -73,7 +73,7 @@ class MainScreen extends StatelessWidget {
         ),
         SizedBox(
           width: 600.0,
-          height: 530.0,
+          height: 580.0,
           child: ListView(
             scrollDirection: Axis.vertical,
             children: sortedPlaces
@@ -110,7 +110,8 @@ class MainScreen extends StatelessWidget {
     return sortedPlaces;
   }
 
-  List<PlaceCard> _buildPlaceCards(BuildContext context, AuthBase Auth, List<Place> list) {
+  List<PlaceCard> _buildPlaceCards(
+      BuildContext context, AuthBase Auth, List<Place> list) {
     return list.map((place) {
       return PlaceCard(
         Auth: Auth,

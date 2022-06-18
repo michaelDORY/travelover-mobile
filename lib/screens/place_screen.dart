@@ -137,15 +137,6 @@ class _PlaceScreenState extends State<PlaceScreen> {
                   height: 10.0,
                 ),
                 Container(
-                  height: 300.0,
-                  width: 300.0,
-                  decoration: BoxDecoration(
-                      borderRadius: BorderRadius.circular(15.0),
-                      image: const DecorationImage(
-                          fit: BoxFit.cover,
-                          image: AssetImage('assets/images/map.png'))),
-                ),
-                Container(
                   alignment: Alignment.center,
                   padding: const EdgeInsets.symmetric(
                     horizontal: 10.0,
@@ -175,7 +166,6 @@ class _PlaceScreenState extends State<PlaceScreen> {
                           color: Colors.yellow,
                         )),
                     TextFormField(
-                      autocorrect: false,
                       decoration: const InputDecoration(
                         icon: Icon(UniconsLine.edit_alt),
                         border: OutlineInputBorder(),
