@@ -1,10 +1,11 @@
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
 import 'package:travelover_mobile/models/place.dart';
 import 'package:travelover_mobile/screens/menu_screen.dart';
+import 'package:travelover_mobile/services/auth.dart';
 import 'package:travelover_mobile/services/firestore.dart';
 import 'package:travelover_mobile/widgets/card_list.dart';
 import 'package:travelover_mobile/widgets/error_boundary.dart';
-import 'package:travelover_mobile/widgets/filter_sort_button.dart';
 import 'package:travelover_mobile/widgets/loader.dart';
 import 'package:travelover_mobile/widgets/place_card.dart';
 import 'package:travelover_mobile/widgets/search_field.dart';
@@ -21,6 +22,7 @@ class MainScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    AuthBase Auth = Provider.of<AuthBase>(context);
     return Scaffold(
         backgroundColor: Colors.black,
         appBar: AppBar(
@@ -36,7 +38,7 @@ class MainScreen extends StatelessWidget {
           builder: (BuildContext context, AsyncSnapshot<List<Place>> snapshot) {
             if (snapshot.connectionState == ConnectionState.active) {
               if (snapshot.hasData) {
-                return _buildBody(context, snapshot.requireData);
+                return _buildBody(context, Auth, snapshot.requireData);
               }
               return ErrorBoundary();
             }
@@ -45,7 +47,7 @@ class MainScreen extends StatelessWidget {
         ));
   }
 
-  Widget _buildBody(BuildContext context, List<Place> places) {
+  Widget _buildBody(BuildContext context, AuthBase Auth, List<Place> places) {
     final List<Map<String, dynamic>> sortedPlaces = _getSortedPlaces(places);
     return Container(
       alignment: Alignment.center,
@@ -78,7 +80,7 @@ class MainScreen extends StatelessWidget {
                 .map((obj) => Column(children: [
                       CardList(
                         title: obj['country'],
-                        cards: _buildPlaceCards(context, obj['places']),
+                        cards: _buildPlaceCards(context, Auth, obj['places']),
                       ),
                       SizedBox(
                         height: 25.0,
@@ -108,9 +110,10 @@ class MainScreen extends StatelessWidget {
     return sortedPlaces;
   }
 
-  List<PlaceCard> _buildPlaceCards(BuildContext context, List<Place> list) {
+  List<PlaceCard> _buildPlaceCards(BuildContext context, AuthBase Auth, List<Place> list) {
     return list.map((place) {
       return PlaceCard(
+        Auth: Auth,
         isTapable: true,
         context: context,
         placeId: place.placeId,

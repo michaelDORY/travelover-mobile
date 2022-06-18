@@ -1,7 +1,12 @@
+import 'package:eva_icons_flutter/eva_icons_flutter.dart';
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
 import 'package:travelover_mobile/screens/menu_screen.dart';
+import 'package:travelover_mobile/services/auth.dart';
+import 'package:travelover_mobile/services/firestore.dart';
 import 'package:travelover_mobile/widgets/place_card.dart';
 import 'package:travelover_mobile/widgets/comment.dart';
+import 'package:travelover_mobile/widgets/star_icon_button.dart';
 import 'package:unicons/unicons.dart';
 
 class PlaceScreen extends StatefulWidget {
@@ -33,17 +38,36 @@ class PlaceScreen extends StatefulWidget {
 }
 
 class _PlaceScreenState extends State<PlaceScreen> {
-  final filledStars = 0;
+  int filledStars = 0;
+  late AuthBase Auth;
 
   @override
   void initState() {
     super.initState();
+    setState(() {
+      Auth = Provider.of<AuthBase>(widget.context);
+    });
+    Firestore()
+        .getUserRatingForPlace(Auth.currentUser!.uid, widget.placeId)
+        .then((value) => setState(() {
+              filledStars = value;
+            }));
   }
 
   void _menuOpen(context) {
     Navigator.of(context).push(
       MaterialPageRoute(builder: (context) => const MenuScreen()),
     );
+  }
+
+  void updateRating(int newRating) async {
+    if (newRating != filledStars) {
+      setState(() {
+        filledStars = newRating;
+      });
+      await Firestore().updateUserPlaceRating(
+          Auth.currentUser!.uid, widget.placeId, newRating);
+    }
   }
 
   @override
@@ -67,6 +91,7 @@ class _PlaceScreenState extends State<PlaceScreen> {
             child: ListView(children: <Widget>[
               Column(children: [
                 PlaceCard(
+                  Auth: Auth,
                   isTapable: false,
                   rating: widget.rating,
                   address: widget.address,
@@ -127,49 +152,13 @@ class _PlaceScreenState extends State<PlaceScreen> {
                     vertical: 15.0,
                   ),
                   child: Column(children: [
-                    const Text("Оцените это место",
+                    const Text("Rate the place",
                         textAlign: TextAlign.center,
                         style: TextStyle(
                           fontSize: 14,
                           color: Colors.yellow,
                         )),
-                    Row(mainAxisAlignment: MainAxisAlignment.center, children: [
-                      IconButton(
-                          icon: const Icon(
-                            UniconsLine.favorite,
-                            color: Colors.yellow,
-                            size: 40,
-                          ),
-                          onPressed: () {}),
-                      IconButton(
-                          icon: const Icon(
-                            UniconsLine.favorite,
-                            color: Colors.yellow,
-                            size: 40,
-                          ),
-                          onPressed: () {}),
-                      IconButton(
-                          icon: const Icon(
-                            UniconsLine.favorite,
-                            color: Colors.yellow,
-                            size: 40,
-                          ),
-                          onPressed: () {}),
-                      IconButton(
-                          icon: const Icon(
-                            UniconsLine.favorite,
-                            color: Colors.yellow,
-                            size: 40,
-                          ),
-                          onPressed: () {}),
-                      IconButton(
-                          icon: const Icon(
-                            UniconsLine.favorite,
-                            color: Colors.yellow,
-                            size: 40,
-                          ),
-                          onPressed: () {}),
-                    ]),
+                    _buildRatingStars(filledStars)
                   ]),
                 ),
                 Container(
@@ -179,7 +168,7 @@ class _PlaceScreenState extends State<PlaceScreen> {
                     vertical: 15.0,
                   ),
                   child: Column(children: [
-                    const Text("Комментарии",
+                    const Text("Comments",
                         textAlign: TextAlign.center,
                         style: TextStyle(
                           fontSize: 16,
@@ -190,7 +179,7 @@ class _PlaceScreenState extends State<PlaceScreen> {
                       decoration: const InputDecoration(
                         icon: Icon(UniconsLine.edit_alt),
                         border: OutlineInputBorder(),
-                        hintText: "Напишите саой комментарий здесь",
+                        hintText: "Leave your comment",
                       ),
                     ),
                   ]),
@@ -202,5 +191,21 @@ class _PlaceScreenState extends State<PlaceScreen> {
                 )
               ])
             ])));
+  }
+
+  Widget _buildRatingStars(int filledStars) {
+    List<StarIconButton> filledStarsList = [];
+    List<StarIconButton> outlinedStarsList = [];
+    for (int i = 1; i <= filledStars; i++) {
+      filledStarsList.add(
+          StarIconButton(isFilled: true, onPressed: () => updateRating(i)));
+    }
+    for (int i = filledStars + 1; i <= 5; i++) {
+      outlinedStarsList.add(
+          StarIconButton(isFilled: false, onPressed: () => updateRating(i)));
+    }
+    return Row(
+        mainAxisAlignment: MainAxisAlignment.center,
+        children: [...filledStarsList, ...outlinedStarsList]);
   }
 }
