@@ -62,7 +62,8 @@ class FavoutiteScreen extends StatelessWidget {
                 .map((obj) => Column(children: [
                       CardList(
                         title: obj['country'],
-                        cards: _buildPlaceCards(context, obj['places']),
+                        cards: []
+                        // cards: _buildPlaceCards(context, obj['places']),
                       ),
                       SizedBox(
                         height: 25.0,
@@ -92,19 +93,19 @@ class FavoutiteScreen extends StatelessWidget {
     return sortedPlaces;
   }
 
-  List<PlaceCard> _buildPlaceCards(BuildContext context, List<Place> list) {
-    return list.map((place) {
-      return PlaceCard(
-        isTapable: true,
-        context: context,
-        placeId: place.placeId,
-        address: place.address,
-        description: place.description,
-        rating: place.rating,
-        title: place.title,
-        views: place.views,
-        imagePath: place.imagePath,
-      );
-    }).toList();
-  }
+  // List<PlaceCard> _buildPlaceCards(BuildContext context, Auth List<Place> list) {
+  //   return list.map((place) {
+  //     return PlaceCard(
+  //       isTapable: true,
+  //       context: context,
+  //       placeId: place.placeId,
+  //       address: place.address,
+  //       description: place.description,
+  //       rating: place.rating,
+  //       title: place.title,
+  //       views: place.views,
+  //       imagePath: place.imagePath,
+  //     );
+  //   }).toList();
+  // }
 }

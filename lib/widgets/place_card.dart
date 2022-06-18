@@ -10,6 +10,7 @@ import 'package:travelover_mobile/utils/toast.dart';
 import 'package:unicons/unicons.dart';
 
 class PlaceCard extends StatefulWidget {
+  final AuthBase Auth;
   final bool isTapable;
   final String placeId;
   final String imagePath;
@@ -20,7 +21,7 @@ class PlaceCard extends StatefulWidget {
   final String description;
   final BuildContext context;
 
-  const PlaceCard(
+  PlaceCard(
       {Key? key,
       required this.isTapable,
       required this.context,
@@ -30,7 +31,8 @@ class PlaceCard extends StatefulWidget {
       required this.title,
       required this.address,
       this.description = "",
-      required this.placeId})
+      required this.placeId,
+      required this.Auth})
       : super(key: key);
 
   @override
@@ -38,7 +40,6 @@ class PlaceCard extends StatefulWidget {
 }
 
 class _PlaceCardState extends State<PlaceCard> {
-  late AuthBase auth;
   List _favourites = [];
   bool _isFavourite = false;
   bool _isHeartLoading = true;
@@ -49,15 +50,11 @@ class _PlaceCardState extends State<PlaceCard> {
   void initState() {
     super.initState();
 
-    setState(() {
-      auth = Provider.of<AuthBase>(widget.context);
-    });
-
     FStorage()
         .getFile(widget.imagePath)
         .then((value) => setState(() => {imageUrl = value}));
 
-    Firestore().fetchUser(auth.currentUser!.uid).then((user) {
+    Firestore().fetchUser(widget.Auth.currentUser!.uid).then((user) {
       setState(() {
         _favourites = user!.favourites;
         _isHeartLoading = false;
@@ -79,13 +76,13 @@ class _PlaceCardState extends State<PlaceCard> {
           _isFavourite = false;
         });
         await Firestore()
-            .deletePlaceFromFavourites(auth.currentUser!.uid, widget.placeId);
+            .deletePlaceFromFavourites(widget.Auth.currentUser!.uid, widget.placeId);
       } else {
         setState(() {
           _isFavourite = true;
         });
         await Firestore()
-            .addPlaceToFavourites(auth.currentUser!.uid, widget.placeId);
+            .addPlaceToFavourites(widget.Auth.currentUser!.uid, widget.placeId);
       }
     } on FirebaseException catch (e) {
       CustomToast();

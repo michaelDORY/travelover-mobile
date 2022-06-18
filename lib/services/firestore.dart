@@ -65,6 +65,54 @@ class Firestore {
         .update({'favourites': newFavourites});
   }
 
+  Future<int> getUserRatingForPlace(String userId, String placeId) async {
+    try {
+      FirestoreUser? user = await fetchUser(userId);
+      if (user == null) return 0;
+      int indexOfObject =
+          user.placesRatings.indexWhere((item) => item['placeId'] == placeId);
+      if (indexOfObject == -1) {
+        return 0;
+      } else {
+        return await user.placesRatings[indexOfObject]['rating'];
+      }
+    } on FirebaseException catch (e) {
+      return 0;
+    }
+  }
+
+  Future<bool> updateUserPlaceRating(
+      String userId, String placeId, int newRating) async {
+    try {
+      FirestoreUser? fUser = await fetchUser(userId);
+      if (fUser == null) return false;
+      print('index ${fUser.placesRatings[0]}');
+      int indexOfPlace =
+          fUser.placesRatings.indexWhere((item) => item['placeId'] == placeId);
+      if (indexOfPlace == -1) {
+        await _fStore.collection('users').doc(userId).update({
+          'placesRatings': [
+            ...fUser.placesRatings,
+            {'placeId': placeId, 'rating': newRating}
+          ]
+        });
+      } else {
+        List newRatings = [...fUser.placesRatings];
+        newRatings[indexOfPlace] = {
+          ...newRatings[indexOfPlace],
+          'rating': newRating
+        };
+        await _fStore
+            .collection('users')
+            .doc(userId)
+            .update({'placesRatings': newRatings});
+      }
+      return true;
+    } catch (e) {
+      return false;
+    }
+  }
+
   Stream<List<Place>> getPlaces() => _fStore
       .collection('places')
       .orderBy('country')
