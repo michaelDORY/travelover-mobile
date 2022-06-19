@@ -86,7 +86,6 @@ class Firestore {
     try {
       FirestoreUser? fUser = await fetchUser(userId);
       if (fUser == null) return false;
-      print('index ${fUser.placesRatings[0]}');
       int indexOfPlace =
           fUser.placesRatings.indexWhere((item) => item['placeId'] == placeId);
       if (indexOfPlace == -1) {

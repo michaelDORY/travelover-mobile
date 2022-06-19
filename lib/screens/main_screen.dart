@@ -8,11 +8,19 @@ import 'package:travelover_mobile/widgets/card_list.dart';
 import 'package:travelover_mobile/widgets/error_boundary.dart';
 import 'package:travelover_mobile/widgets/loader.dart';
 import 'package:travelover_mobile/widgets/place_card.dart';
+import 'package:travelover_mobile/widgets/search_bar.dart';
 import 'package:travelover_mobile/widgets/search_field.dart';
 import 'package:unicons/unicons.dart';
 
-class MainScreen extends StatelessWidget {
+class MainScreen extends StatefulWidget {
   const MainScreen({Key? key}) : super(key: key);
+
+  @override
+  State<MainScreen> createState() => _MainScreenState();
+}
+
+class _MainScreenState extends State<MainScreen> {
+  String? searchTerm;
 
   void _menuOpen(context) {
     Navigator.of(context).push(
@@ -20,11 +28,19 @@ class MainScreen extends StatelessWidget {
     );
   }
 
+  void updateSearchTerm(String newTerm) {
+    setState(() {
+      searchTerm = newTerm;
+    });
+  }
+
   @override
   Widget build(BuildContext context) {
     AuthBase Auth = Provider.of<AuthBase>(context);
+
     return Scaffold(
         backgroundColor: Colors.black,
+        resizeToAvoidBottomInset: false,
         appBar: AppBar(
           actions: [
             IconButton(
@@ -38,7 +54,7 @@ class MainScreen extends StatelessWidget {
           builder: (BuildContext context, AsyncSnapshot<List<Place>> snapshot) {
             if (snapshot.connectionState == ConnectionState.active) {
               if (snapshot.hasData) {
-                return _buildBody(context, Auth, snapshot.requireData);
+                return _buildTemplate(context, Auth, snapshot.requireData);
               }
               return ErrorBoundary();
             }
@@ -47,8 +63,65 @@ class MainScreen extends StatelessWidget {
         ));
   }
 
+  Widget _buildTemplate(
+      BuildContext context, AuthBase Auth, List<Place> places) {
+    return Container(
+        alignment: Alignment.center,
+        child: Column(
+          children: [
+            _buildSearchBar(),
+            searchTerm == null || searchTerm!.isEmpty
+                ? _buildBody(context, Auth, places)
+                : _buildSearchResult(context, Auth, places)
+          ],
+        ));
+  }
+
+  Widget _buildSearchBar() {
+    return Container(
+        width: 270.0,
+        height: 70,
+        child: SearchBar(
+          term: searchTerm,
+          onSubmit: updateSearchTerm,
+        ));
+  }
+
+  Widget _buildSearchResult(
+      BuildContext context, AuthBase Auth, List<Place> places) {
+    final List<Place> searchedPlaces = _getSearchedPlaces(places, searchTerm!);
+
+    if (searchedPlaces.isEmpty) {
+      return Center(
+          child: Padding(
+        padding: EdgeInsets.only(top: 20),
+        child: Text(
+          'Nothing Found',
+          style: Theme.of(context).textTheme.headline2,
+        ),
+      ));
+    }
+
+    return Container(
+        alignment: Alignment.center,
+        padding: const EdgeInsets.symmetric(
+          horizontal: 10.0,
+          vertical: 15.0,
+        ),
+        child: SizedBox(
+          height: 550.0,
+          width: 250,
+          child: Center(
+            child: ListView(
+                scrollDirection: Axis.vertical,
+                children: _buildPlaceCards(context, Auth, searchedPlaces)),
+          ),
+        ));
+  }
+
   Widget _buildBody(BuildContext context, AuthBase Auth, List<Place> places) {
     final List<Map<String, dynamic>> sortedPlaces = _getSortedPlaces(places);
+
     return Container(
       alignment: Alignment.center,
       padding: const EdgeInsets.symmetric(
@@ -56,7 +129,7 @@ class MainScreen extends StatelessWidget {
         vertical: 15.0,
       ),
       child: Column(children: [
-        Container(width: 270.0, child: SearchField()),
+        //Container(width: 270.0, child: SearchField()),
         // const SizedBox(
         //   height: 25.0,
         // ),
@@ -73,7 +146,7 @@ class MainScreen extends StatelessWidget {
         ),
         SizedBox(
           width: 600.0,
-          height: 530.0,
+          height: 550.0,
           child: ListView(
             scrollDirection: Axis.vertical,
             children: sortedPlaces
@@ -93,6 +166,22 @@ class MainScreen extends StatelessWidget {
     );
   }
 
+  List<Place> _getSearchedPlaces(List<Place> places, String term) {
+    List<Place> res = [];
+    places.forEach((place) {
+      String country = place.country.toLowerCase();
+      String address = place.address.toLowerCase();
+      String title = place.title.toLowerCase();
+      term = term.toLowerCase();
+      if (country.contains(term) ||
+          address.contains(term) ||
+          title.contains(term)) {
+        res.add(place);
+      }
+    });
+    return res;
+  }
+
   List<Map<String, dynamic>> _getSortedPlaces(List<Place> places) {
     List<Map<String, dynamic>> sortedPlaces = [];
     places.forEach((place) {
@@ -110,7 +199,8 @@ class MainScreen extends StatelessWidget {
     return sortedPlaces;
   }
 
-  List<PlaceCard> _buildPlaceCards(BuildContext context, AuthBase Auth, List<Place> list) {
+  List<PlaceCard> _buildPlaceCards(
+      BuildContext context, AuthBase Auth, List<Place> list) {
     return list.map((place) {
       return PlaceCard(
         Auth: Auth,

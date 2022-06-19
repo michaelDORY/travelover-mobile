@@ -57,6 +57,7 @@ class _SignInScreenState extends State<SignInScreen> {
     AuthBase? auth = Provider.of<AuthBase>(context, listen: false);
     try {
       await auth.signInWithGoogle();
+      Navigator.pushNamedAndRemoveUntil(context, '/main', (route) => false);
     } catch (e) {
       CustomToast(message: "Something went wrong").show();
     } finally {
