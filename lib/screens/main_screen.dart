@@ -9,7 +9,6 @@ import 'package:travelover_mobile/widgets/error_boundary.dart';
 import 'package:travelover_mobile/widgets/loader.dart';
 import 'package:travelover_mobile/widgets/place_card.dart';
 import 'package:travelover_mobile/widgets/search_bar.dart';
-import 'package:travelover_mobile/widgets/search_field.dart';
 import 'package:unicons/unicons.dart';
 
 class MainScreen extends StatefulWidget {

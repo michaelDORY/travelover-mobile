@@ -53,7 +53,6 @@ class MyApp extends StatelessWidget {
               '/user': (context) => const MyProfile(),
               '/quizes': (context) => const QuizesScreen(),
               '/quizEnd': (context) => const QuizEnd(),
-              '/quizQuestion': (context) => const quizQuestionScreen(),
               '/email': (context) => const EmailScreen(),
               '/support': (context) => const SupportScreen(),
               '/premiumSub': (context) => const PremiumScreen(),

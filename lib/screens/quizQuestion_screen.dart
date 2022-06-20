@@ -1,45 +1,24 @@
 import 'package:flutter/material.dart';
-import 'package:travelover_mobile/models/nav_buttons_data.dart';
-import 'package:travelover_mobile/widgets/questions_widget.dart';
 import 'package:travelover_mobile/widgets/quizQuestion.dart';
-import 'package:unicons/unicons.dart';
-import 'package:travelover_mobile/widgets/next_Questions.dart';
 
 class quizQuestionScreen extends StatefulWidget {
-  const quizQuestionScreen({Key? key}) : super(key: key);
+  final String quiz_id;
+  final List<dynamic> questions;
+  const quizQuestionScreen(
+      {Key? key, required this.quiz_id, required this.questions})
+      : super(key: key);
 
   @override
   State<quizQuestionScreen> createState() => _quizQuestionScreenState();
 }
 
 class _quizQuestionScreenState extends State<quizQuestionScreen> {
-  List<QuizQuestion> questions = [
-    QuizQuestion(
-        textQuestion: "Как называется столица Украины",
-        Answer1: "Харьков",
-        Answer2: "Киев",
-        Answer3: "Лондон",
-        Answer4: "Париж"),
-    QuizQuestion(
-        textQuestion: "Как называется столица Британии",
-        Answer1: "Краков",
-        Answer2: "Прага",
-        Answer3: "Лондон",
-        Answer4: "Венисуелла"),
-    QuizQuestion(
-        textQuestion: "Как называется столица Франции",
-        Answer1: "Братислава",
-        Answer2: "Львов",
-        Answer3: "Гваделупа",
-        Answer4: "Париж")
-  ];
-
   int index = 0;
 
   void nextQuestion() {
-    if (index == questions.length - 1) {
+    if (index == widget.questions.length - 1) {
       Navigator.pushNamedAndRemoveUntil(context, '/quizEnd', (route) => true);
-      // Navigator.pushNamed(context, '/quizEnd');
+      Navigator.pushNamed(context, '/quizEnd');
     } else {
       setState(() {
         index++;
@@ -50,7 +29,7 @@ class _quizQuestionScreenState extends State<quizQuestionScreen> {
   @override
   Widget build(BuildContext context) {
     int idexQuestion = index + 1;
-    int totalquestions = questions.length;
+    int totalquestions = widget.questions.length;
     return Scaffold(
       backgroundColor: Colors.black,
       appBar: AppBar(
@@ -64,11 +43,9 @@ class _quizQuestionScreenState extends State<quizQuestionScreen> {
           ),
           child: Column(children: [
             QuizQuestion(
-              textQuestion: questions[index].textQuestion,
-              Answer1: questions[index].Answer1,
-              Answer2: questions[index].Answer2,
-              Answer3: questions[index].Answer3,
-              Answer4: questions[index].Answer4,
+              title: widget.questions[index]["title"],
+              incorrectAnswers: widget.questions[index]["incorrectAnswers"],
+              rightAnswer: widget.questions[index]["rightAnswer"],
             ),
           ])),
       bottomNavigationBar: Padding(

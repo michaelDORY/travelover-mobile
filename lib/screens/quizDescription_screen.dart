@@ -1,17 +1,21 @@
 import 'package:flutter/material.dart';
 import 'package:travelover_mobile/screens/menu_screen.dart';
+import 'package:travelover_mobile/screens/quizQuestion_screen.dart';
 import 'package:unicons/unicons.dart';
 
 class QuizDescription extends StatefulWidget {
+  final String quiz_id;
   final String title;
   final String description;
   final String time;
-
+  final List<dynamic> questions;
   const QuizDescription({
     Key? key,
     required this.title,
+    required this.quiz_id,
     required this.description,
     required this.time,
+    required this.questions,
   }) : super(key: key);
 
   @override
@@ -117,7 +121,12 @@ class _QuizDescriptionState extends State<QuizDescription> {
               minimumSize: const Size.fromHeight(50),
             ),
             onPressed: () {
-              Navigator.pushNamed(context, '/quizQuestion');
+              Navigator.push(
+                  context,
+                  MaterialPageRoute(
+                      builder: ((context) => quizQuestionScreen(
+                          quiz_id: widget.quiz_id,
+                          questions: widget.questions))));
             },
             child: const Text("Начать")),
       ),

@@ -95,9 +95,11 @@ class QuizesScreen extends StatelessWidget {
     return list.map((quiz) {
       return QuizCard(
         isTapable: true,
+        quiz_id: quiz.quizId,
         title: quiz.nameOfQuiz,
         description: quiz.description,
         imagePath: quiz.image,
+        questions: quiz.questions,
         time: quiz.time,
       );
     }).toList();
