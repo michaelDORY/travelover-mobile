@@ -3,7 +3,8 @@ import 'package:travelover_mobile/screens/menu_screen.dart';
 import 'package:unicons/unicons.dart';
 
 class QuizEnd extends StatelessWidget {
-  const QuizEnd({Key? key}) : super(key: key);
+  final double result;
+  const QuizEnd({Key? key, required this.result}) : super(key: key);
 
   void _menuOpen(context) {
     Navigator.of(context).push(
@@ -33,10 +34,10 @@ class QuizEnd extends StatelessWidget {
               const SizedBox(
                 height: 50.0,
               ),
-              const Text("Вы набрали 95% - это больше чем 99% пользователей",
+              Text("Вы набрали $result%",
                   textAlign: TextAlign.center,
-                  style: TextStyle(
-                    fontSize: 18,
+                  style: const TextStyle(
+                    fontSize: 25,
                     color: Colors.yellow,
                     fontWeight: FontWeight.w800,
                   )),

@@ -1,30 +1,20 @@
 import 'package:flutter/material.dart';
-import 'dart:math';
 
 class QuizQuestion extends StatefulWidget {
   final String title;
-  final String rightAnswer;
-  final List<dynamic> incorrectAnswers;
-  final List<dynamic> randomAnswers = [];
+  final Function setAnswer;
+  final List<dynamic> randomAnswers;
   QuizQuestion(
       {Key? key,
       required this.title,
-      required this.rightAnswer,
-      required this.incorrectAnswers})
-      : super(key: key) {
-    List<dynamic> answers = [...incorrectAnswers, rightAnswer];
-    List<int> list = [];
-    while (list.length != 4) {
-      int num = Random().nextInt(4);
-      if (!list.contains(num)) {
-        list.add(num);
-        randomAnswers.add(answers[num]);
-      }
-    }
-  }
+      required this.setAnswer,
+      required this.randomAnswers})
+      : super(key: key) {}
 
   @override
-  State<QuizQuestion> createState() => _Question();
+  State<QuizQuestion> createState() {
+    return _Question();
+  }
 }
 
 class _Question extends State<QuizQuestion> {
@@ -67,9 +57,12 @@ class _Question extends State<QuizQuestion> {
             activeColor: Colors.yellow,
             groupValue: selectedValue,
             title: Text(widget.randomAnswers[i]),
-            onChanged: (value) => setState(() {
-              selectedValue = widget.randomAnswers[i];
-            }),
+            onChanged: (value) {
+              widget.setAnswer(value);
+              setState(() {
+                selectedValue = value ?? "";
+              });
+            },
           )));
     }
     return ListView(children: buttons);
