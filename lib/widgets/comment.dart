@@ -19,8 +19,8 @@ class Comment extends StatelessWidget {
           height: 50.0,
           child: ClipOval(
             child: Image.asset(
-              'assets/images/profile.png',
-              fit: BoxFit.contain,
+              imagePath,
+              fit: BoxFit.cover,
             ),
           ),
         ),

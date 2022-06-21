@@ -125,8 +125,23 @@ class Firestore {
       'user_email': user_email,
       'status': 'pending',
       'timeStamp': Timestamp.fromDate(DateTime.now()),
-      'placeName': place_name
+      'place_name': place_name
     });
+  }
+
+  Future<List<dynamic>> getPlaceComments(String place_id) async {
+    return await _fStore
+        .collection('comments')
+        .where('place_id', isEqualTo: place_id)
+        .where('status', isEqualTo: 'approved')
+        .orderBy('timeStamp', descending: true)
+        .get()
+        .then((snapshot) => snapshot.docs.map((doc) {
+              return {
+                'comment': doc['comment'],
+                'avatarUrl': 'assets/images/user_placeholder.jpg'
+              };
+            }).toList());
   }
 
   Stream<List<Place>> getPlaces() => _fStore

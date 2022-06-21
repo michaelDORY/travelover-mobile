@@ -28,7 +28,8 @@ class _SearchBarState extends State<SearchBar> {
             crossAxisAlignment: CrossAxisAlignment.center,
             children: [
               SizedBox(
-                width: widget.term == null || widget.term!.isEmpty ? 250 : 200,
+                width:
+                    (widget.term == null || widget.term!.isEmpty) ? 250 : 200,
                 height: 80,
                 child: FloatingSearchBar(
                   automaticallyImplyBackButton: false,

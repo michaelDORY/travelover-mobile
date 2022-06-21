@@ -44,6 +44,7 @@ class _PlaceScreenState extends State<PlaceScreen> {
 
   TextEditingController _textFieldController = new TextEditingController();
   String commentText = '';
+  List<dynamic> comments = [];
 
   @override
   void initState() {
@@ -56,6 +57,13 @@ class _PlaceScreenState extends State<PlaceScreen> {
         .then((value) => setState(() {
               filledStars = value;
             }));
+    Firestore().getPlaceComments(widget.placeId).then((value) {
+      print(value);
+      setState(() {
+        comments = value;
+      });
+    });
+    CustomToast(color: Colors.green, message: 'Wait till approving').show();
   }
 
   void _menuOpen(context) {
@@ -180,11 +188,10 @@ class _PlaceScreenState extends State<PlaceScreen> {
                         onPressed: () => _showPopup())
                   ]),
                 ),
-                const Comment(
-                  imagePath: 'assets/images/mario.jpg',
-                  commentText:
-                      "Это невероятное место в самом центре города. Рекомендую каждому к посещению",
-                )
+                ...comments.map((item) => Comment(
+                      commentText: item['comment'],
+                      imagePath: item['avatarUrl'],
+                    ))
               ])
             ])));
   }
@@ -210,15 +217,19 @@ class _PlaceScreenState extends State<PlaceScreen> {
                         EdgeInsets.symmetric(vertical: 15, horizontal: 30)),
                 onPressed: () {
                   if (commentText != '') {
-                    Firestore().addComment(
-                        comment: commentText,
-                        place_id: widget.placeId,
-                        place_name: widget.title,
-                        user_email: Auth.currentUser!.email ?? '',
-                        user_id: Auth.currentUser!.uid);
-                    CustomToast(
-                        color: Colors.green, message: 'Wait till approving');
+                    Firestore()
+                        .addComment(
+                            comment: commentText,
+                            place_id: widget.placeId,
+                            place_name: widget.title,
+                            user_email: Auth.currentUser!.email ?? '',
+                            user_id: Auth.currentUser!.uid)
+                        .then((value) => CustomToast(
+                                color: Colors.green,
+                                message: 'Wait till approving')
+                            .show());
                   }
+                  _textFieldController.clear();
                   setState(() {
                     commentText = '';
                   });

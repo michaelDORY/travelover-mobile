@@ -12,8 +12,9 @@ class CustomToast {
   void show() {
     Fluttertoast.showToast(
         msg: message,
-        // toastLength: Toast.LENGTH_SHORT,
-        gravity: ToastGravity.TOP_RIGHT,
+        toastLength: Toast.LENGTH_LONG,
+        webPosition: "top",
+        gravity: ToastGravity.TOP,
         timeInSecForIosWeb: 1,
         backgroundColor: color,
         textColor: const Color.fromARGB(255, 0, 0, 0),
