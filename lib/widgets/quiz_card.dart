@@ -5,18 +5,22 @@ import 'package:unicons/unicons.dart';
 
 class QuizCard extends StatefulWidget {
   final bool isTapable;
+  final String quiz_id;
   final String imagePath;
   final String title;
   final String description;
   final String time;
-  const QuizCard(
-      {Key? key,
-      required this.isTapable,
-      required this.imagePath,
-      required this.title,
-      required this.time,
-      required this.description})
-      : super(key: key);
+  final List<dynamic> questions;
+  const QuizCard({
+    Key? key,
+    required this.isTapable,
+    required this.quiz_id,
+    required this.imagePath,
+    required this.title,
+    required this.time,
+    required this.description,
+    required this.questions,
+  }) : super(key: key);
 
   @override
   State<QuizCard> createState() => _QuizCardState();
@@ -59,6 +63,9 @@ class _QuizCardState extends State<QuizCard> {
                     context,
                     MaterialPageRoute(
                         builder: (context) => QuizDescription(
+                              quiz_id: widget.quiz_id,
+                              imageUrl: imageUrl,
+                              questions: widget.questions,
                               title: widget.title,
                               description: widget.description,
                               time: widget.time,

@@ -7,6 +7,7 @@ class Quiz {
   final String _image;
   final String _section;
   final String _time;
+  final List<dynamic> _questions;
 
   Quiz.fromJson(QueryDocumentSnapshot<Map<String, dynamic>> json)
       : _quizId = json.id,
@@ -14,6 +15,7 @@ class Quiz {
         _nameOfQuiz = json['nameOfQuiz'],
         _image = json['image'],
         _section = json['section'],
+        _questions = json['questions'],
         _time = json['time'];
 
   String get quizId => _quizId;
@@ -21,5 +23,6 @@ class Quiz {
   String get nameOfQuiz => _nameOfQuiz;
   String get image => _image;
   String get section => _section;
+  List<dynamic> get questions => _questions;
   String get time => _time;
 }

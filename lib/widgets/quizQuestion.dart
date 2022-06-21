@@ -1,33 +1,28 @@
-import 'dart:ffi';
-
 import 'package:flutter/material.dart';
-import 'package:unicons/unicons.dart';
 
 class QuizQuestion extends StatefulWidget {
-  final String textQuestion;
-  final String Answer1;
-  final String Answer2;
-  final String Answer3;
-  final String Answer4;
-  const QuizQuestion(
+  final String title;
+  final Function setAnswer;
+  final List<dynamic> randomAnswers;
+  QuizQuestion(
       {Key? key,
-      required this.textQuestion,
-      required this.Answer1,
-      required this.Answer2,
-      required this.Answer3,
-      required this.Answer4})
-      : super(key: key);
+      required this.title,
+      required this.setAnswer,
+      required this.randomAnswers})
+      : super(key: key) {}
 
   @override
-  State<QuizQuestion> createState() => _Question();
+  State<QuizQuestion> createState() {
+    return _Question();
+  }
 }
 
 class _Question extends State<QuizQuestion> {
-  int selectedValue = 0;
+  String selectedValue = "";
   @override
   Widget build(BuildContext context) {
     return Column(children: [
-      Text(widget.textQuestion,
+      Text(widget.title,
           textAlign: TextAlign.justify,
           style: const TextStyle(
             fontSize: 16,
@@ -38,77 +33,38 @@ class _Question extends State<QuizQuestion> {
         height: 50.0,
       ),
       SizedBox(
-          width: 600.0,
-          height: 300.0,
-          child: ListView(
-            children: [
-              Container(
-                margin: const EdgeInsets.symmetric(
-                  horizontal: 15.0,
-                  vertical: 7.0,
-                ),
-                decoration: BoxDecoration(
-                  border: Border.all(color: Colors.grey, width: 2.0),
-                  borderRadius: const BorderRadius.all(Radius.circular(25.0)),
-                ),
-                child: RadioListTile<int>(
-                    value: 1,
-                    groupValue: selectedValue,
-                    activeColor: Colors.yellow,
-                    title: Text(widget.Answer1),
-                    onChanged: (value) => setState(() => selectedValue = 1)),
-              ),
-              Container(
-                margin: const EdgeInsets.symmetric(
-                  horizontal: 15.0,
-                  vertical: 7.0,
-                ),
-                decoration: BoxDecoration(
-                  border: Border.all(color: Colors.grey, width: 2.0),
-                  borderRadius: const BorderRadius.all(Radius.circular(25.0)),
-                ),
-                child: RadioListTile<int>(
-                    value: 2,
-                    activeColor: Colors.yellow,
-                    groupValue: selectedValue,
-                    title: Text(widget.Answer2),
-                    onChanged: (value) => setState(() => selectedValue = 2)),
-              ),
-              Container(
-                margin: const EdgeInsets.symmetric(
-                  horizontal: 15.0,
-                  vertical: 7.0,
-                ),
-                decoration: BoxDecoration(
-                  border: Border.all(color: Colors.grey, width: 2.0),
-                  borderRadius: const BorderRadius.all(Radius.circular(25.0)),
-                ),
-                child: RadioListTile<int>(
-                    value: 3,
-                    activeColor: Colors.yellow,
-                    groupValue: selectedValue,
-                    title: Text(widget.Answer3),
-                    onChanged: (value) => setState(() => selectedValue = 3)),
-              ),
-              Container(
-                margin: const EdgeInsets.symmetric(
-                  horizontal: 15.0,
-                  vertical: 7.0,
-                ),
-                decoration: BoxDecoration(
-                  border: Border.all(color: Colors.grey, width: 2.0),
-                  borderRadius:
-                      const BorderRadius.all(const Radius.circular(25.0)),
-                ),
-                child: RadioListTile<int>(
-                    value: 4,
-                    activeColor: Colors.yellow,
-                    groupValue: selectedValue,
-                    title: Text(widget.Answer4),
-                    onChanged: (value) => setState(() => selectedValue = 4)),
-              ),
-            ],
-          ))
+        width: 600.0,
+        height: 300.0,
+        child: _buildRadioButton(),
+      )
     ]);
+  }
+
+  Widget _buildRadioButton() {
+    List<Widget> buttons = [];
+    for (int i = 0; i < 4; i++) {
+      buttons.add(Container(
+          margin: const EdgeInsets.symmetric(
+            horizontal: 15.0,
+            vertical: 7.0,
+          ),
+          decoration: BoxDecoration(
+            border: Border.all(color: Colors.grey, width: 2.0),
+            borderRadius: const BorderRadius.all(Radius.circular(25.0)),
+          ),
+          child: RadioListTile<String>(
+            value: widget.randomAnswers[i],
+            activeColor: Colors.yellow,
+            groupValue: selectedValue,
+            title: Text(widget.randomAnswers[i]),
+            onChanged: (value) {
+              widget.setAnswer(value);
+              setState(() {
+                selectedValue = value ?? "";
+              });
+            },
+          )));
+    }
+    return ListView(children: buttons);
   }
 }

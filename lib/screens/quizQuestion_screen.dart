@@ -1,56 +1,77 @@
 import 'package:flutter/material.dart';
-import 'package:travelover_mobile/models/nav_buttons_data.dart';
-import 'package:travelover_mobile/widgets/questions_widget.dart';
+import 'package:travelover_mobile/screens/quizEnd_screen.dart';
 import 'package:travelover_mobile/widgets/quizQuestion.dart';
-import 'package:unicons/unicons.dart';
-import 'package:travelover_mobile/widgets/next_Questions.dart';
+import 'dart:math';
 
 class quizQuestionScreen extends StatefulWidget {
-  const quizQuestionScreen({Key? key}) : super(key: key);
+  final String quiz_id;
+  final List<dynamic> questions;
+  quizQuestionScreen({
+    Key? key,
+    required this.quiz_id,
+    required this.questions,
+  }) : super(key: key);
 
   @override
   State<quizQuestionScreen> createState() => _quizQuestionScreenState();
 }
 
 class _quizQuestionScreenState extends State<quizQuestionScreen> {
-  List<QuizQuestion> questions = [
-    QuizQuestion(
-        textQuestion: "Как называется столица Украины",
-        Answer1: "Харьков",
-        Answer2: "Киев",
-        Answer3: "Лондон",
-        Answer4: "Париж"),
-    QuizQuestion(
-        textQuestion: "Как называется столица Британии",
-        Answer1: "Краков",
-        Answer2: "Прага",
-        Answer3: "Лондон",
-        Answer4: "Венисуелла"),
-    QuizQuestion(
-        textQuestion: "Как называется столица Франции",
-        Answer1: "Братислава",
-        Answer2: "Львов",
-        Answer3: "Гваделупа",
-        Answer4: "Париж")
-  ];
-
   int index = 0;
+  String selectedValue = "";
+  List<dynamic> randomAnswers = [];
+  int result = 0;
 
   void nextQuestion() {
-    if (index == questions.length - 1) {
-      Navigator.pushNamedAndRemoveUntil(context, '/quizEnd', (route) => true);
-      // Navigator.pushNamed(context, '/quizEnd');
+    if (index == widget.questions.length - 1) {
+      double percent = (result / widget.questions.length) * 100;
+      Navigator.push(context,
+          MaterialPageRoute(builder: ((context) => QuizEnd(result: percent))));
     } else {
       setState(() {
         index++;
+        randomizer();
       });
     }
+  }
+
+  void initState() {
+    randomizer();
+  }
+
+  void setAnswer(String newValue) {
+    setState(() {
+      selectedValue = newValue;
+    });
+  }
+
+  void randomizer() {
+    List<dynamic> answers = [
+      ...widget.questions[index]["incorrectAnswers"],
+      widget.questions[index]["rightAnswer"]
+    ];
+    List<int> list = [];
+    randomAnswers = [];
+    while (list.length != 4) {
+      int num = Random().nextInt(4);
+      if (!list.contains(num)) {
+        list.add(num);
+        randomAnswers.add(answers[num]);
+      }
+    }
+  }
+
+  void markAnswer() {
+    if (selectedValue == widget.questions[index]["rightAnswer"]) {
+      result = result + 1;
+    }
+    nextQuestion();
   }
 
   @override
   Widget build(BuildContext context) {
     int idexQuestion = index + 1;
-    int totalquestions = questions.length;
+    int totalquestions = widget.questions.length;
     return Scaffold(
       backgroundColor: Colors.black,
       appBar: AppBar(
@@ -64,11 +85,9 @@ class _quizQuestionScreenState extends State<quizQuestionScreen> {
           ),
           child: Column(children: [
             QuizQuestion(
-              textQuestion: questions[index].textQuestion,
-              Answer1: questions[index].Answer1,
-              Answer2: questions[index].Answer2,
-              Answer3: questions[index].Answer3,
-              Answer4: questions[index].Answer4,
+              setAnswer: setAnswer,
+              randomAnswers: randomAnswers,
+              title: widget.questions[index]["title"],
             ),
           ])),
       bottomNavigationBar: Padding(
@@ -80,7 +99,7 @@ class _quizQuestionScreenState extends State<quizQuestionScreen> {
             style: ElevatedButton.styleFrom(
               minimumSize: const Size.fromHeight(50),
             ),
-            onPressed: nextQuestion,
+            onPressed: markAnswer,
             child: const Text("Следующий")),
       ),
     );

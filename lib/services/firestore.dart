@@ -123,6 +123,7 @@ class Firestore {
       .collection('quizzes')
       .orderBy('section')
       .snapshots()
-      .map((snapshot) =>
-          snapshot.docs.map((gotQuiz) => Quiz.fromJson(gotQuiz)).toList());
+      .map((snapshot) => snapshot.docs.map((gotQuiz) {
+            return Quiz.fromJson(gotQuiz);
+          }).toList());
 }

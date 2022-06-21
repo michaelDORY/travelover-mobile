@@ -9,7 +9,6 @@ import 'package:travelover_mobile/widgets/error_boundary.dart';
 import 'package:travelover_mobile/widgets/loader.dart';
 import 'package:travelover_mobile/widgets/place_card.dart';
 import 'package:travelover_mobile/widgets/search_bar.dart';
-import 'package:travelover_mobile/widgets/search_field.dart';
 import 'package:unicons/unicons.dart';
 
 class MainScreen extends StatefulWidget {
@@ -146,7 +145,7 @@ class _MainScreenState extends State<MainScreen> {
         ),
         SizedBox(
           width: 600.0,
-          height: 550.0,
+          height: 530.0,
           child: ListView(
             scrollDirection: Axis.vertical,
             children: sortedPlaces
