@@ -112,6 +112,23 @@ class Firestore {
     }
   }
 
+  Future<void> addComment(
+      {required String comment,
+      required String user_id,
+      required String user_email,
+      required String place_id,
+      required String place_name}) async {
+    _fStore.collection('comments').doc().set({
+      'user_id': user_id,
+      'place_id': place_id,
+      'comment': comment,
+      'user_email': user_email,
+      'status': 'pending',
+      'timeStamp': Timestamp.fromDate(DateTime.now()),
+      'placeName': place_name
+    });
+  }
+
   Stream<List<Place>> getPlaces() => _fStore
       .collection('places')
       .orderBy('country')
