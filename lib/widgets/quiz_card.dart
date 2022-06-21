@@ -64,6 +64,7 @@ class _QuizCardState extends State<QuizCard> {
                     MaterialPageRoute(
                         builder: (context) => QuizDescription(
                               quiz_id: widget.quiz_id,
+                              imageUrl: imageUrl,
                               questions: widget.questions,
                               title: widget.title,
                               description: widget.description,

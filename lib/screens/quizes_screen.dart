@@ -54,7 +54,7 @@ class QuizesScreen extends StatelessWidget {
       child: Column(children: [
         SizedBox(
           width: 600.0,
-          height: 530.0,
+          height: 620.0,
           child: ListView(
             scrollDirection: Axis.vertical,
             children: sortedQuizes

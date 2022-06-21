@@ -5,6 +5,7 @@ import 'package:unicons/unicons.dart';
 
 class QuizDescription extends StatefulWidget {
   final String quiz_id;
+  final String imageUrl;
   final String title;
   final String description;
   final String time;
@@ -16,6 +17,7 @@ class QuizDescription extends StatefulWidget {
     required this.description,
     required this.time,
     required this.questions,
+    required this.imageUrl,
   }) : super(key: key);
 
   @override
@@ -48,67 +50,79 @@ class _QuizDescriptionState extends State<QuizDescription> {
           vertical: 15.0,
         ),
         child: Column(children: [
-          Text(widget.title,
-              textAlign: TextAlign.center,
-              style: const TextStyle(
-                fontSize: 22,
-                color: Colors.yellow,
-                fontWeight: FontWeight.w800,
-              )),
-          const SizedBox(
-            height: 30.0,
-          ),
-          Container(
-              alignment: Alignment.center,
-              padding: const EdgeInsets.symmetric(
-                horizontal: 10.0,
-                vertical: 15.0,
-              ),
-              child: Column(
+          SizedBox(
+              width: 600.0,
+              height: 480.0,
+              child: ListView(
                 children: [
-                  Row(children: <Widget>[
-                    const Icon(
-                      UniconsLine.check_circle,
-                      color: Colors.yellow,
-                      size: 40,
-                    ),
-                    Container(
-                      width: 310,
+                  ClipRRect(
+                    borderRadius: BorderRadius.circular(8.0),
+                    child: Image.network(widget.imageUrl,
+                        height: 150.0, width: 300.0, fit: BoxFit.cover),
+                  ),
+                  const SizedBox(
+                    height: 15.0,
+                  ),
+                  Text(widget.title,
+                      textAlign: TextAlign.center,
+                      style: const TextStyle(
+                        fontSize: 22,
+                        color: Colors.yellow,
+                        fontWeight: FontWeight.w800,
+                      )),
+                  Container(
                       alignment: Alignment.center,
                       padding: const EdgeInsets.symmetric(
                         horizontal: 10.0,
                         vertical: 15.0,
                       ),
-                      child: Text(widget.description,
-                          textAlign: TextAlign.start,
-                          style: const TextStyle(
-                            fontSize: 16,
-                            color: Colors.yellow,
-                          )),
-                    ),
-                  ]),
-                  Row(children: <Widget>[
-                    const Icon(
-                      UniconsLine.clock,
-                      color: Colors.yellow,
-                      size: 40,
-                    ),
-                    Container(
-                      width: 310,
-                      padding: const EdgeInsets.symmetric(
-                        horizontal: 10.0,
-                        vertical: 15.0,
-                      ),
-                      child: Text(widget.time,
-                          textAlign: TextAlign.start,
-                          style: const TextStyle(
-                            fontSize: 16,
-                            color: Colors.yellow,
-                          )),
-                    ),
-                  ]),
+                      child: Column(
+                        children: [
+                          Row(children: <Widget>[
+                            const Icon(
+                              UniconsLine.check_circle,
+                              color: Colors.yellow,
+                              size: 40,
+                            ),
+                            Container(
+                              width: 310,
+                              alignment: Alignment.center,
+                              padding: const EdgeInsets.symmetric(
+                                horizontal: 10.0,
+                                vertical: 15.0,
+                              ),
+                              child: Text(widget.description,
+                                  textAlign: TextAlign.start,
+                                  style: const TextStyle(
+                                    fontSize: 16,
+                                    color: Colors.yellow,
+                                  )),
+                            ),
+                          ]),
+                          Row(children: <Widget>[
+                            const Icon(
+                              UniconsLine.clock,
+                              color: Colors.yellow,
+                              size: 40,
+                            ),
+                            Container(
+                              width: 310,
+                              padding: const EdgeInsets.symmetric(
+                                horizontal: 10.0,
+                                vertical: 15.0,
+                              ),
+                              child: Text(widget.time,
+                                  textAlign: TextAlign.start,
+                                  style: const TextStyle(
+                                    fontSize: 16,
+                                    color: Colors.yellow,
+                                  )),
+                            ),
+                          ]),
+                        ],
+                      ))
                 ],
-              )),
+              ))
         ]),
       ),
       bottomNavigationBar: Padding(

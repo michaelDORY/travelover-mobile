@@ -145,7 +145,7 @@ class _MainScreenState extends State<MainScreen> {
         ),
         SizedBox(
           width: 600.0,
-          height: 550.0,
+          height: 530.0,
           child: ListView(
             scrollDirection: Axis.vertical,
             children: sortedPlaces

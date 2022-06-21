@@ -5,12 +5,23 @@ class QuizQuestion extends StatefulWidget {
   final String title;
   final String rightAnswer;
   final List<dynamic> incorrectAnswers;
-  const QuizQuestion(
+  final List<dynamic> randomAnswers = [];
+  QuizQuestion(
       {Key? key,
       required this.title,
       required this.rightAnswer,
       required this.incorrectAnswers})
-      : super(key: key);
+      : super(key: key) {
+    List<dynamic> answers = [...incorrectAnswers, rightAnswer];
+    List<int> list = [];
+    while (list.length != 4) {
+      int num = Random().nextInt(4);
+      if (!list.contains(num)) {
+        list.add(num);
+        randomAnswers.add(answers[num]);
+      }
+    }
+  }
 
   @override
   State<QuizQuestion> createState() => _Question();
@@ -41,34 +52,25 @@ class _Question extends State<QuizQuestion> {
 
   Widget _buildRadioButton() {
     List<Widget> buttons = [];
-    final List<dynamic> answers = [
-      ...widget.incorrectAnswers,
-      widget.rightAnswer
-    ];
-    List<int> list = [];
-    while (list.length != 4) {
-      int num = Random().nextInt(4);
-      if (!list.contains(num)) {
-        list.add(num);
-        buttons.add(Container(
-            margin: const EdgeInsets.symmetric(
-              horizontal: 15.0,
-              vertical: 7.0,
-            ),
-            decoration: BoxDecoration(
-              border: Border.all(color: Colors.grey, width: 2.0),
-              borderRadius: const BorderRadius.all(Radius.circular(25.0)),
-            ),
-            child: RadioListTile<String>(
-              value: answers[num],
-              activeColor: Colors.yellow,
-              groupValue: selectedValue,
-              title: Text(answers[num]),
-              onChanged: (value) => setState(() {
-                selectedValue = answers[num];
-              }),
-            )));
-      }
+    for (int i = 0; i < 4; i++) {
+      buttons.add(Container(
+          margin: const EdgeInsets.symmetric(
+            horizontal: 15.0,
+            vertical: 7.0,
+          ),
+          decoration: BoxDecoration(
+            border: Border.all(color: Colors.grey, width: 2.0),
+            borderRadius: const BorderRadius.all(Radius.circular(25.0)),
+          ),
+          child: RadioListTile<String>(
+            value: widget.randomAnswers[i],
+            activeColor: Colors.yellow,
+            groupValue: selectedValue,
+            title: Text(widget.randomAnswers[i]),
+            onChanged: (value) => setState(() {
+              selectedValue = widget.randomAnswers[i];
+            }),
+          )));
     }
     return ListView(children: buttons);
   }
