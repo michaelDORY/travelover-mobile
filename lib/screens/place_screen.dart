@@ -4,6 +4,7 @@ import 'package:provider/provider.dart';
 import 'package:travelover_mobile/screens/menu_screen.dart';
 import 'package:travelover_mobile/services/auth.dart';
 import 'package:travelover_mobile/services/firestore.dart';
+import 'package:travelover_mobile/utils/toast.dart';
 import 'package:travelover_mobile/widgets/place_card.dart';
 import 'package:travelover_mobile/widgets/comment.dart';
 import 'package:travelover_mobile/widgets/star_icon_button.dart';
@@ -41,6 +42,10 @@ class _PlaceScreenState extends State<PlaceScreen> {
   int filledStars = 0;
   late AuthBase Auth;
 
+  TextEditingController _textFieldController = new TextEditingController();
+  String commentText = '';
+  List<dynamic> comments = [];
+
   @override
   void initState() {
     super.initState();
@@ -52,6 +57,13 @@ class _PlaceScreenState extends State<PlaceScreen> {
         .then((value) => setState(() {
               filledStars = value;
             }));
+    Firestore().getPlaceComments(widget.placeId).then((value) {
+      print(value);
+      setState(() {
+        comments = value;
+      });
+    });
+    CustomToast(color: Colors.green, message: 'Wait till approving').show();
   }
 
   void _menuOpen(context) {
@@ -159,28 +171,74 @@ class _PlaceScreenState extends State<PlaceScreen> {
                     vertical: 15.0,
                   ),
                   child: Column(children: [
-                    const Text("Comments",
-                        textAlign: TextAlign.center,
-                        style: TextStyle(
-                          fontSize: 16,
-                          color: Colors.yellow,
-                        )),
-                    TextFormField(
-                      decoration: const InputDecoration(
-                        icon: Icon(UniconsLine.edit_alt),
-                        border: OutlineInputBorder(),
-                        hintText: "Leave your comment",
-                      ),
+                    Padding(
+                      padding: const EdgeInsets.all(8.0),
+                      child: const Text("Comments",
+                          textAlign: TextAlign.center,
+                          style: TextStyle(
+                            fontSize: 16,
+                            color: Colors.yellow,
+                          )),
                     ),
+                    ElevatedButton(
+                        child: Text('Add comment'),
+                        style: ElevatedButton.styleFrom(
+                            padding: EdgeInsets.symmetric(
+                                vertical: 15, horizontal: 30)),
+                        onPressed: () => _showPopup())
                   ]),
                 ),
-                const Comment(
-                  imagePath: 'assets/images/mario.jpg',
-                  commentText:
-                      "Это невероятное место в самом центре города. Рекомендую каждому к посещению",
-                )
+                ...comments.map((item) => Comment(
+                      commentText: item['comment'],
+                      imagePath: item['avatarUrl'],
+                    ))
               ])
             ])));
+  }
+
+  Future _showPopup() async {
+    return showDialog(
+        context: context,
+        builder: (context) {
+          return AlertDialog(
+            title: Text('Add your comment'),
+            content: TextField(
+              onChanged: (value) {
+                commentText = value;
+              },
+              controller: _textFieldController,
+              decoration: InputDecoration(hintText: "Comment..."),
+            ),
+            actions: <Widget>[
+              ElevatedButton(
+                child: Text('Add'),
+                style: ElevatedButton.styleFrom(
+                    padding:
+                        EdgeInsets.symmetric(vertical: 15, horizontal: 30)),
+                onPressed: () {
+                  if (commentText != '') {
+                    Firestore()
+                        .addComment(
+                            comment: commentText,
+                            place_id: widget.placeId,
+                            place_name: widget.title,
+                            user_email: Auth.currentUser!.email ?? '',
+                            user_id: Auth.currentUser!.uid)
+                        .then((value) => CustomToast(
+                                color: Colors.green,
+                                message: 'Wait till approving')
+                            .show());
+                  }
+                  _textFieldController.clear();
+                  setState(() {
+                    commentText = '';
+                  });
+                  Navigator.pop(context);
+                },
+              ),
+            ],
+          );
+        });
   }
 
   Widget _buildRatingStars(int filledStars) {

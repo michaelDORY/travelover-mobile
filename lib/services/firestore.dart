@@ -112,6 +112,38 @@ class Firestore {
     }
   }
 
+  Future<void> addComment(
+      {required String comment,
+      required String user_id,
+      required String user_email,
+      required String place_id,
+      required String place_name}) async {
+    _fStore.collection('comments').doc().set({
+      'user_id': user_id,
+      'place_id': place_id,
+      'comment': comment,
+      'user_email': user_email,
+      'status': 'pending',
+      'timeStamp': Timestamp.fromDate(DateTime.now()),
+      'place_name': place_name
+    });
+  }
+
+  Future<List<dynamic>> getPlaceComments(String place_id) async {
+    return await _fStore
+        .collection('comments')
+        .where('place_id', isEqualTo: place_id)
+        .where('status', isEqualTo: 'approved')
+        .orderBy('timeStamp', descending: true)
+        .get()
+        .then((snapshot) => snapshot.docs.map((doc) {
+              return {
+                'comment': doc['comment'],
+                'avatarUrl': 'assets/images/user_placeholder.jpg'
+              };
+            }).toList());
+  }
+
   Stream<List<Place>> getPlaces() => _fStore
       .collection('places')
       .orderBy('country')
