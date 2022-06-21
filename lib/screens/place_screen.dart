@@ -63,7 +63,6 @@ class _PlaceScreenState extends State<PlaceScreen> {
         comments = value;
       });
     });
-    CustomToast(color: Colors.green, message: 'Wait till approving').show();
   }
 
   void _menuOpen(context) {
