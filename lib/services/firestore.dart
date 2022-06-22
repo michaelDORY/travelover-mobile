@@ -45,10 +45,20 @@ class Firestore {
         .then((doc) => doc['favourites']);
   }
 
+  Future<List<Place>> getPlacesByIds(List<dynamic> ids) async {
+    QuerySnapshot snapshot = await _fStore
+        .collection('places')
+        .where(FieldPath.documentId, whereIn: ids)
+        .get();
+    return snapshot.docs
+        .map((doc) =>
+            Place.fromJson(doc as QueryDocumentSnapshot<Map<String, dynamic>>))
+        .toList();
+  }
+
   Future addPlaceToFavourites(String userId, String placeId) async {
     List<dynamic> newFavourites = await getUserFavourites(userId);
     newFavourites.add(placeId);
-
     return _fStore
         .collection('users')
         .doc(userId)
