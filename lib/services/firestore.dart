@@ -16,7 +16,8 @@ class Firestore {
       "_id": user.uid,
       "timeStamp": timestamp,
       "hasPro": false,
-      "favourites": []
+      "favourites": [],
+      "viewedPlaces": []
     };
 
     _fStore.collection('users').doc(user.uid).set(newUser);
@@ -44,10 +45,20 @@ class Firestore {
         .then((doc) => doc['favourites']);
   }
 
+  Future<List<Place>> getPlacesByIds(List<dynamic> ids) async {
+    QuerySnapshot snapshot = await _fStore
+        .collection('places')
+        .where(FieldPath.documentId, whereIn: ids)
+        .get();
+    return snapshot.docs
+        .map((doc) =>
+            Place.fromJson(doc as QueryDocumentSnapshot<Map<String, dynamic>>))
+        .toList();
+  }
+
   Future addPlaceToFavourites(String userId, String placeId) async {
     List<dynamic> newFavourites = await getUserFavourites(userId);
     newFavourites.add(placeId);
-
     return _fStore
         .collection('users')
         .doc(userId)
@@ -74,7 +85,7 @@ class Firestore {
       if (indexOfObject == -1) {
         return 0;
       } else {
-        return await user.placesRatings[indexOfObject]['rating'];
+        return user.placesRatings[indexOfObject]['rating'].toInt();
       }
     } on FirebaseException catch (e) {
       return 0;
@@ -142,6 +153,53 @@ class Firestore {
                 'avatarUrl': 'assets/images/user_placeholder.jpg'
               };
             }).toList());
+  }
+
+  Future<Map<String, dynamic>> updatePlaceRating(
+      {required String placeId,
+      required int newUserRating,
+      required int oldUserRating,
+      required double oldMark,
+      required int usersCount}) async {
+    int newUsersCount = oldUserRating == 0 ? usersCount + 1 : usersCount;
+    print('((oldMark * usersCount - oldUserRating + newUserRating))' +
+        (oldMark * usersCount - oldUserRating + newUserRating).toString());
+    print('newUsersCount' + newUsersCount.toString());
+    Map<String, dynamic> newRating = {
+      'mark': oldUserRating == 0
+          ? (oldMark * usersCount + newUserRating) / newUsersCount
+          : (oldMark * usersCount - oldUserRating + newUserRating) /
+              newUsersCount,
+      'users': newUsersCount
+    };
+    await _fStore
+        .collection('places')
+        .doc(placeId)
+        .update({'rating': newRating});
+    return newRating;
+  }
+
+  Future<List<dynamic>> getUserViews(String userId) async {
+    return await _fStore
+        .collection('users')
+        .doc(userId)
+        .get()
+        .then((value) => value['viewedPlaces']);
+  }
+
+  Future<int> viewPlace(String userId, String placeId) async {
+    List<dynamic> usersViews = await getUserViews(userId);
+    if (!usersViews.contains(placeId)) {
+      await _fStore.collection('users').doc(userId).update({
+        'viewedPlaces': [...usersViews, placeId]
+      });
+      await _fStore
+          .collection('places')
+          .doc(placeId)
+          .update({'views': FieldValue.increment(1)});
+      return 1;
+    }
+    return 0;
   }
 
   Stream<List<Place>> getPlaces() => _fStore

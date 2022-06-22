@@ -5,7 +5,7 @@ class Place {
   final String _placeId;
   final String _title;
   final String _country;
-  final String _address;
+  final Map<String, dynamic> _address;
   final String _description;
   final String _imagePath;
   final int _views;
@@ -25,7 +25,7 @@ class Place {
   Map<String, dynamic> get rating => _rating;
   String get title => _title;
   String get country => _country;
-  String get address => _address;
+  Map<String, dynamic> get address => _address;
   String get description => _description;
   String get imagePath => _imagePath;
   int get views => _views;

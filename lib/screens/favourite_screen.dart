@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
 import 'package:travelover_mobile/models/place.dart';
 import 'package:travelover_mobile/screens/menu_screen.dart';
+import 'package:travelover_mobile/services/auth.dart';
 import 'package:travelover_mobile/services/firestore.dart';
 import 'package:travelover_mobile/widgets/card_list.dart';
 import 'package:travelover_mobile/widgets/error_boundary.dart';
@@ -9,8 +11,16 @@ import 'package:travelover_mobile/widgets/place_card.dart';
 import 'package:travelover_mobile/widgets/search_field.dart';
 import 'package:unicons/unicons.dart';
 
-class FavoutiteScreen extends StatelessWidget {
+class FavoutiteScreen extends StatefulWidget {
   const FavoutiteScreen({Key? key}) : super(key: key);
+
+  @override
+  State<FavoutiteScreen> createState() => _FavoutiteScreenState();
+}
+
+class _FavoutiteScreenState extends State<FavoutiteScreen> {
+  List<Place> _favourites = [];
+  bool _isLoading = true;
 
   void _menuOpen(context) {
     Navigator.of(context).push(
@@ -20,6 +30,19 @@ class FavoutiteScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    AuthBase Auth = Provider.of<AuthBase>(context);
+    Firestore().getUserFavourites(Auth.currentUser!.uid).then((value) {
+      Firestore().getPlacesByIds(value).then((res) {
+        setState(() {
+          _favourites = res;
+        });
+      });
+    }).whenComplete(() => setState(() {
+          _isLoading = false;
+        }));
+    if (_isLoading) {
+      return Loader();
+    }
     return Scaffold(
         backgroundColor: Colors.black,
         appBar: AppBar(
@@ -30,82 +53,62 @@ class FavoutiteScreen extends StatelessWidget {
           ],
           title: const Text('Favourite places'),
         ),
-        body: StreamBuilder<List<Place>>(
-          stream: Firestore().getPlaces(),
-          builder: (BuildContext context, AsyncSnapshot<List<Place>> snapshot) {
-            if (snapshot.connectionState == ConnectionState.active) {
-              if (snapshot.hasData) {
-                return _buildBody(context, snapshot.requireData);
-              }
-              return ErrorBoundary();
-            }
-            return const Loader();
-          },
-        ));
+        body: _buildBody(context, Auth));
   }
 
-  Widget _buildBody(BuildContext context, List<Place> places) {
-    final List<Map<String, dynamic>> sortedPlaces = _getSortedPlaces(places);
-    return Container(
-      alignment: Alignment.center,
-      padding: const EdgeInsets.symmetric(
-        horizontal: 10.0,
-        vertical: 15.0,
-      ),
-      child: Column(children: [
-        SizedBox(
-          width: 600.0,
-          height: 530.0,
-          child: ListView(
-            scrollDirection: Axis.vertical,
-            children: sortedPlaces
-                .map((obj) => Column(children: [
-                      CardList(
-                        title: obj['country'],
-                        cards: []
-                        // cards: _buildPlaceCards(context, obj['places']),
-                      ),
-                      SizedBox(
-                        height: 25.0,
-                      )
-                    ]))
-                .toList(),
+  Widget _buildBody(BuildContext context, AuthBase Auth) {
+    if (_favourites.length == 0) {
+      return Center(
+          child: Column(
+        children: [
+          Padding(
+            padding: const EdgeInsets.symmetric(vertical: 20),
+            child: Text(
+              'You don\'t have favourites',
+              style: Theme.of(context).textTheme.headline3,
+            ),
           ),
-        )
-      ]),
-    );
-  }
+          ClipRRect(
+            borderRadius: BorderRadius.circular(8.0),
+            child: Image.asset(
+              'assets/images/empty.jpg',
+              height: 175,
+              width: 350,
+              fit: BoxFit.cover,
+            ),
+          )
+        ],
+      ));
+    }
 
-  List<Map<String, dynamic>> _getSortedPlaces(List<Place> places) {
-    List<Map<String, dynamic>> sortedPlaces = [];
-    places.forEach((place) {
-      int indexOfObject = sortedPlaces
-          .indexWhere((element) => element['country'] == place.country);
-      if (indexOfObject != -1) {
-        sortedPlaces[indexOfObject]['places'].add(place);
-      } else {
-        sortedPlaces.add({
-          'country': place.country,
-          'places': [place]
-        });
-      }
-    });
-    return sortedPlaces;
+    return Container(
+        alignment: Alignment.center,
+        padding: const EdgeInsets.symmetric(
+          horizontal: 10.0,
+          vertical: 15.0,
+        ),
+        child: SizedBox(
+            height: 550.0,
+            width: 250,
+            child: Center(
+              child: ListView(
+                scrollDirection: Axis.vertical,
+                children: _favourites
+                    .map(
+                      (obj) => PlaceCard(
+                        Auth: Auth,
+                        isTapable: true,
+                        rating: obj.rating,
+                        address: obj.address,
+                        title: obj.title,
+                        views: obj.views,
+                        context: context,
+                        placeId: obj.placeId,
+                        imagePath: obj.imagePath,
+                      ),
+                    )
+                    .toList(),
+              ),
+            )));
   }
-
-  // List<PlaceCard> _buildPlaceCards(BuildContext context, Auth List<Place> list) {
-  //   return list.map((place) {
-  //     return PlaceCard(
-  //       isTapable: true,
-  //       context: context,
-  //       placeId: place.placeId,
-  //       address: place.address,
-  //       description: place.description,
-  //       rating: place.rating,
-  //       title: place.title,
-  //       views: place.views,
-  //       imagePath: place.imagePath,
-  //     );
-  //   }).toList();
-  // }
 }

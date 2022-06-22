@@ -17,7 +17,7 @@ class PlaceScreen extends StatefulWidget {
   final Map<String, dynamic> rating;
   final int views;
   final String title;
-  final String address;
+  final Map<String, dynamic> address;
   final String description;
   final BuildContext context;
 
@@ -39,16 +39,22 @@ class PlaceScreen extends StatefulWidget {
 }
 
 class _PlaceScreenState extends State<PlaceScreen> {
+  Map<String, dynamic> _placeRating = {'mark': 0, 'users': 0};
+  int? _placeViews;
+  bool _isRatingSending = false;
   int filledStars = 0;
   late AuthBase Auth;
 
-  TextEditingController _textFieldController = new TextEditingController();
+  final TextEditingController _textFieldController = TextEditingController();
   String commentText = '';
   List<dynamic> comments = [];
 
   @override
   void initState() {
     super.initState();
+    setState(() {
+      _placeRating = widget.rating;
+    });
     setState(() {
       Auth = Provider.of<AuthBase>(widget.context);
     });
@@ -63,7 +69,11 @@ class _PlaceScreenState extends State<PlaceScreen> {
         comments = value;
       });
     });
-    CustomToast(color: Colors.green, message: 'Wait till approving').show();
+    Firestore().viewPlace(Auth.currentUser!.uid, widget.placeId).then((value) {
+      setState(() {
+        _placeViews = widget.views + value;
+      });
+    });
   }
 
   void _menuOpen(context) {
@@ -73,13 +83,29 @@ class _PlaceScreenState extends State<PlaceScreen> {
   }
 
   void updateRating(int newRating) async {
+    setState(() {
+      _isRatingSending = true;
+    });
     if (newRating != filledStars) {
+      int oldUserRating = filledStars;
       setState(() {
         filledStars = newRating;
       });
+      Map<String, dynamic> newPlaceRating = await Firestore().updatePlaceRating(
+          oldUserRating: oldUserRating,
+          newUserRating: newRating,
+          oldMark: _placeRating['mark'].toDouble(),
+          placeId: widget.placeId,
+          usersCount: _placeRating['users']);
       await Firestore().updateUserPlaceRating(
           Auth.currentUser!.uid, widget.placeId, newRating);
+      setState(() {
+        _placeRating = newPlaceRating;
+      });
     }
+    setState(() {
+      _isRatingSending = false;
+    });
   }
 
   @override
@@ -105,10 +131,10 @@ class _PlaceScreenState extends State<PlaceScreen> {
                 PlaceCard(
                   Auth: Auth,
                   isTapable: false,
-                  rating: widget.rating,
+                  rating: _placeRating,
                   address: widget.address,
                   title: widget.title,
-                  views: widget.views,
+                  views: _placeViews != null ? _placeViews! : widget.views,
                   context: context,
                   placeId: widget.placeId,
                   imagePath: widget.imagePath,
@@ -140,7 +166,7 @@ class _PlaceScreenState extends State<PlaceScreen> {
                     vertical: 15.0,
                   ),
                   child: Text(
-                    widget.address,
+                    widget.address['description'],
                     textAlign: TextAlign.center,
                     style: Theme.of(context).textTheme.bodyText1,
                   ),
@@ -245,12 +271,16 @@ class _PlaceScreenState extends State<PlaceScreen> {
     List<StarIconButton> filledStarsList = [];
     List<StarIconButton> outlinedStarsList = [];
     for (int i = 1; i <= filledStars; i++) {
-      filledStarsList.add(
-          StarIconButton(isFilled: true, onPressed: () => updateRating(i)));
+      filledStarsList.add(StarIconButton(
+          isFilled: true,
+          isDisabled: _isRatingSending,
+          onPressed: () => updateRating(i)));
     }
     for (int i = filledStars + 1; i <= 5; i++) {
-      outlinedStarsList.add(
-          StarIconButton(isFilled: false, onPressed: () => updateRating(i)));
+      outlinedStarsList.add(StarIconButton(
+          isFilled: false,
+          isDisabled: _isRatingSending,
+          onPressed: () => updateRating(i)));
     }
     return Row(
         mainAxisAlignment: MainAxisAlignment.center,
