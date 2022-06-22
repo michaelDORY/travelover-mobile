@@ -169,7 +169,7 @@ class _MainScreenState extends State<MainScreen> {
     List<Place> res = [];
     places.forEach((place) {
       String country = place.country.toLowerCase();
-      String address = place.address.toLowerCase();
+      String address = place.address['description'].toLowerCase();
       String title = place.title.toLowerCase();
       term = term.toLowerCase();
       if (country.contains(term) ||

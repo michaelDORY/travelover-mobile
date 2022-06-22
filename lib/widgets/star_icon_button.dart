@@ -4,10 +4,12 @@ import 'package:flutter/material.dart';
 class StarIconButton extends StatelessWidget {
   final bool isFilled;
   final VoidCallback onPressed;
+  final bool isDisabled;
   const StarIconButton(
       {Key? key,
       required this.isFilled,
-      required this.onPressed})
+      required this.onPressed,
+      required this.isDisabled})
       : super(key: key);
 
   @override
@@ -18,6 +20,6 @@ class StarIconButton extends StatelessWidget {
           color: Colors.yellow,
           size: 40,
         ),
-        onPressed: onPressed);
+        onPressed: isDisabled ? () {} : onPressed);
   }
 }

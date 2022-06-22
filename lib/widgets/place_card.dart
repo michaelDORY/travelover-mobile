@@ -17,7 +17,7 @@ class PlaceCard extends StatefulWidget {
   final Map<String, dynamic> rating;
   final int views;
   final String title;
-  final String address;
+  final Map<String, dynamic> address;
   final String description;
   final BuildContext context;
 
@@ -75,8 +75,8 @@ class _PlaceCardState extends State<PlaceCard> {
         setState(() {
           _isFavourite = false;
         });
-        await Firestore()
-            .deletePlaceFromFavourites(widget.Auth.currentUser!.uid, widget.placeId);
+        await Firestore().deletePlaceFromFavourites(
+            widget.Auth.currentUser!.uid, widget.placeId);
       } else {
         setState(() {
           _isFavourite = true;
@@ -178,7 +178,7 @@ class _PlaceCardState extends State<PlaceCard> {
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
                       Text(
-                        widget.address,
+                        widget.address['description'],
                         maxLines: 1,
                         softWrap: true,
                         style: const TextStyle(
