@@ -10,6 +10,7 @@ import 'package:travelover_mobile/widgets/loader.dart';
 import 'package:travelover_mobile/widgets/place_card.dart';
 import 'package:travelover_mobile/widgets/search_bar.dart';
 import 'package:unicons/unicons.dart';
+import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 
 class MainScreen extends StatefulWidget {
   const MainScreen({Key? key}) : super(key: key);
@@ -140,6 +141,7 @@ class _MainScreenState extends State<MainScreen> {
         //     FilterSortButton(onPressed: () {}, title: "Sort"),
         //   ],
         // ),
+        Text(AppLocalizations.of(context).helloWorld),
         const SizedBox(
           height: 25.0,
         ),
