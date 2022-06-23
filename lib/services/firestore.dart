@@ -65,6 +65,11 @@ class Firestore {
         .update({'favourites': newFavourites});
   }
 
+  Future updatePremium(String userId) async {
+    return _fStore.collection('users').doc(userId).update(
+        {'hasPro': true, 'whenGotPro': Timestamp.fromDate(DateTime.now())});
+  }
+
   Future deletePlaceFromFavourites(String userId, String placeId) async {
     List<dynamic> currentFavourites = await getUserFavourites(userId);
     List<dynamic> newFavourites =
@@ -74,6 +79,15 @@ class Firestore {
         .collection('users')
         .doc(userId)
         .update({'favourites': newFavourites});
+  }
+
+  Future<dynamic> hasUserPremium(String userId) async {
+    return _fStore
+        .collection('users')
+        .doc(userId)
+        .get()
+        .then((value) => value.data()!['hasPro'])
+        .catchError((_) => false);
   }
 
   Future<int> getUserRatingForPlace(String userId, String placeId) async {

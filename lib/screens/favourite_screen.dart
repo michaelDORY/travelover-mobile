@@ -24,7 +24,7 @@ class _FavoutiteScreenState extends State<FavoutiteScreen> {
 
   void _menuOpen(context) {
     Navigator.of(context).push(
-      MaterialPageRoute(builder: (context) => const MenuScreen()),
+      MaterialPageRoute(builder: (context) => MenuScreen()),
     );
   }
 
