@@ -1,5 +1,6 @@
 import 'package:firebase_core/firebase_core.dart';
 import "package:flutter/material.dart";
+import 'package:flutter_localizations/flutter_localizations.dart';
 import 'package:google_language_fonts/google_language_fonts.dart';
 import 'package:loader_overlay/loader_overlay.dart';
 import 'package:provider/provider.dart';
@@ -17,6 +18,7 @@ import 'package:travelover_mobile/screens/support_screen.dart';
 import 'package:travelover_mobile/services/auth.dart';
 import 'package:flutter_spinkit/flutter_spinkit.dart';
 import 'package:travelover_mobile/widgets/root.dart';
+import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 
 main() async {
   WidgetsFlutterBinding.ensureInitialized();
@@ -42,6 +44,8 @@ class MyApp extends StatelessWidget {
         ),
         child: MaterialApp(
             title: "TraveLover",
+            localizationsDelegates: AppLocalizations.localizationsDelegates,
+            supportedLocales: AppLocalizations.supportedLocales,
             initialRoute: '/',
             routes: {
               '/main': (context) => const MainScreen(),
