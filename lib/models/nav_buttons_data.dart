@@ -4,12 +4,6 @@ import 'package:unicons/unicons.dart';
 class NavButtonsData {
   final _menuButtons = [
     NavButton(
-      icon: UniconsLine.dollar_alt,
-      title: 'Premium',
-      subTitle: 'Need more functions?',
-      path: '/premiumSub',
-    ),
-    NavButton(
       icon: UniconsLine.book_alt,
       title: 'Take quizzes',
       subTitle: 'Check your knowladge',
@@ -28,6 +22,13 @@ class NavButtonsData {
       path: '/favourite',
     ),
   ];
+
+  final _premiumButton = NavButton(
+    icon: UniconsLine.dollar_alt,
+    title: 'Premium',
+    subTitle: 'Need more functions?',
+    path: '/premiumSub',
+  );
 
   final _userButtons = <NavButton>[
     NavButton(
@@ -72,4 +73,5 @@ class NavButtonsData {
 
   List<NavButton> get menuButtons => [..._menuButtons];
   List<NavButton> get userButtons => [..._userButtons];
+  NavButton get premiumButton => _premiumButton;
 }

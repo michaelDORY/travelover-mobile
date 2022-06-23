@@ -27,7 +27,7 @@ class QuizDescription extends StatefulWidget {
 class _QuizDescriptionState extends State<QuizDescription> {
   void _menuOpen(context) {
     Navigator.of(context).push(
-      MaterialPageRoute(builder: (context) => const MenuScreen()),
+      MaterialPageRoute(builder: (context) => MenuScreen()),
     );
   }
 
@@ -135,14 +135,15 @@ class _QuizDescriptionState extends State<QuizDescription> {
               minimumSize: const Size.fromHeight(50),
             ),
             onPressed: () {
-              Navigator.push(
-                  context,
-                  MaterialPageRoute(
-                      builder: ((context) => quizQuestionScreen(
-                          quiz_id: widget.quiz_id,
-                          questions: widget.questions))));
+              Navigator.pushAndRemoveUntil(
+                context,
+                MaterialPageRoute(
+                    builder: ((context) => quizQuestionScreen(
+                        quiz_id: widget.quiz_id, questions: widget.questions))),
+                (route) => false,
+              );
             },
-            child: const Text("Начать")),
+            child: const Text("Start")),
       ),
     );
   }

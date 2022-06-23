@@ -78,7 +78,7 @@ class _PlaceScreenState extends State<PlaceScreen> {
 
   void _menuOpen(context) {
     Navigator.of(context).push(
-      MaterialPageRoute(builder: (context) => const MenuScreen()),
+      MaterialPageRoute(builder: (context) => MenuScreen()),
     );
   }
 

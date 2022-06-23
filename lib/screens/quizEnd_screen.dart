@@ -12,42 +12,106 @@ class QuizEnd extends StatefulWidget {
 }
 
 class _QuizEndState extends State<QuizEnd> {
-  void _menuOpen(context) {
-    Navigator.of(context).push(
-      MaterialPageRoute(builder: (context) => const MenuScreen()),
-    );
+  Widget _buildResultContainer(List<Widget> children) {
+    return Column(children: children);
   }
 
-  textIn() {
-    if (widget.result < 20) {
-      const Text("Don't be upset!Try again",
-          style: TextStyle(
-            fontSize: 25,
-            color: Colors.yellow,
-            fontWeight: FontWeight.w800,
-          ));
-    } else if (20 < widget.result && widget.result < 70) {
-      const Text("You are on the right way!",
-          style: TextStyle(
-            fontSize: 25,
-            color: Colors.yellow,
-            fontWeight: FontWeight.w800,
-          ));
-    } else if (widget.result > 70 && widget.result < 90) {
-      const Text("Good job!",
-          style: TextStyle(
-            fontSize: 25,
-            color: Colors.yellow,
-            fontWeight: FontWeight.w800,
-          ));
-    } else if (widget.result > 90) {
-      const Text("Well done!Perfect job!",
-          style: TextStyle(
-            fontSize: 25,
-            color: Colors.yellow,
-            fontWeight: FontWeight.w800,
-          ));
+  Widget _buildResultInfo(double result) {
+    List<Widget> children = [];
+
+    if (result < 20.0) {
+      children = [
+        const Text("Don't be upset! Try again",
+            style: TextStyle(
+              fontSize: 20,
+              color: Colors.yellow,
+              fontWeight: FontWeight.w800,
+            )),
+        const SizedBox(
+          height: 15.0,
+        ),
+        ClipRRect(
+          borderRadius: BorderRadius.circular(8.0),
+          child: Image.asset(
+            'assets/images/low_mark.jpg',
+            height: 175,
+            width: 275,
+            fit: BoxFit.cover,
+          ),
+        )
+      ];
+    } else if (result >= 20.0 && result < 60.0) {
+      children = [
+        const Text("You are on the right way!",
+            style: TextStyle(
+              fontSize: 20,
+              color: Colors.yellow,
+              fontWeight: FontWeight.w800,
+            )),
+        const SizedBox(
+          height: 15.0,
+        ),
+        ClipRRect(
+          borderRadius: BorderRadius.circular(8.0),
+          child: Image.asset(
+            'assets/images/middle_mark1.jpg',
+            height: 175,
+            width: 275,
+            fit: BoxFit.cover,
+          ),
+        )
+      ];
+    } else if (result >= 60.0 && result < 90) {
+      children = [
+        const Text("Good job!",
+            style: TextStyle(
+              fontSize: 20,
+              color: Colors.yellow,
+              fontWeight: FontWeight.w800,
+            )),
+        const SizedBox(
+          height: 15.0,
+        ),
+        ClipRRect(
+          borderRadius: BorderRadius.circular(8.0),
+          child: Image.asset(
+            'assets/images/middle_mark2.jpg',
+            height: 175,
+            width: 275,
+            fit: BoxFit.cover,
+          ),
+        )
+      ];
+    } else {
+      children = [
+        const Text("Well done! Perfect job!",
+            style: TextStyle(
+              fontSize: 20,
+              color: Colors.yellow,
+              fontWeight: FontWeight.w800,
+            )),
+        const SizedBox(
+          height: 15.0,
+        ),
+        ClipRRect(
+          borderRadius: BorderRadius.circular(8.0),
+          child: Image.asset(
+            'assets/images/high_mark.jpg',
+            height: 175,
+            width: 275,
+            fit: BoxFit.cover,
+          ),
+        )
+      ];
     }
+
+    return _buildResultContainer(children);
+  }
+
+  void _menuOpen(context) {
+    Navigator.of(context).push(
+      MaterialPageRoute(builder: (context) => MenuScreen()),
+    );
   }
 
   @override
@@ -70,7 +134,7 @@ class _QuizEndState extends State<QuizEnd> {
             ),
             child: Column(children: [
               const SizedBox(
-                height: 50.0,
+                height: 30.0,
               ),
               Text("You have scored ${widget.result}%",
                   textAlign: TextAlign.center,
@@ -80,40 +144,9 @@ class _QuizEndState extends State<QuizEnd> {
                     fontWeight: FontWeight.w800,
                   )),
               const SizedBox(
-                height: 70.0,
+                height: 40.0,
               ),
-              (widget.result < 20.0)
-                  ? const Text("Don't be upset!Try again",
-                      style: TextStyle(
-                        fontSize: 25,
-                        color: Colors.yellow,
-                        fontWeight: FontWeight.w800,
-                      ))
-                  : (20.0 < widget.result && widget.result < 70.0)
-                      ? const Text("You are on the right way!",
-                          style: TextStyle(
-                            fontSize: 25,
-                            color: Colors.yellow,
-                            fontWeight: FontWeight.w800,
-                          ))
-                      : (widget.result > 70.0 && widget.result < 90.0)
-                          ? const Text("Good job!",
-                              style: TextStyle(
-                                fontSize: 25,
-                                color: Colors.yellow,
-                                fontWeight: FontWeight.w800,
-                              ))
-                          : (widget.result > 90.0)
-                              ? const Text("Well done!Perfect job!")
-                              : const Text("Oops",
-                                  style: TextStyle(
-                                    fontSize: 25,
-                                    color: Colors.yellow,
-                                    fontWeight: FontWeight.w800,
-                                  )),
-              const SizedBox(
-                height: 70.0,
-              ),
+              _buildResultInfo(widget.result),
               Container(
                 alignment: Alignment.center,
                 padding: const EdgeInsets.symmetric(
@@ -122,16 +155,16 @@ class _QuizEndState extends State<QuizEnd> {
                 ),
                 child: Column(children: [
                   const SizedBox(
-                    height: 120.0,
+                    height: 65.0,
                   ),
                   const Text("SHARE YOUR RESULTS",
                       textAlign: TextAlign.center,
                       style: TextStyle(
                         fontSize: 20,
-                        color: Colors.white,
+                        color: Colors.yellow,
                       )),
                   const SizedBox(
-                    height: 50.0,
+                    height: 30.0,
                   ),
                   OutlinedButton.icon(
                     style: OutlinedButton.styleFrom(

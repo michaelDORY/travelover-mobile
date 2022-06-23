@@ -9,7 +9,7 @@ class SupportScreen extends StatelessWidget {
 
   void _menuOpen(context) {
     Navigator.of(context).push(
-      MaterialPageRoute(builder: (context) => const MenuScreen()),
+      MaterialPageRoute(builder: (context) => MenuScreen()),
     );
   }
 

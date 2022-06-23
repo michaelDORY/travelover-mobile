@@ -25,8 +25,10 @@ class _quizQuestionScreenState extends State<quizQuestionScreen> {
   void nextQuestion() {
     if (index == widget.questions.length - 1) {
       double percent = (result / widget.questions.length) * 100;
-      Navigator.push(context,
-          MaterialPageRoute(builder: ((context) => QuizEnd(result: percent))));
+      Navigator.pushAndRemoveUntil(
+          context,
+          MaterialPageRoute(builder: ((context) => QuizEnd(result: percent))),
+          (route) => false);
     } else {
       setState(() {
         index++;
@@ -100,7 +102,7 @@ class _quizQuestionScreenState extends State<quizQuestionScreen> {
               minimumSize: const Size.fromHeight(50),
             ),
             onPressed: markAnswer,
-            child: const Text("Следующий")),
+            child: const Text("Next")),
       ),
     );
   }
