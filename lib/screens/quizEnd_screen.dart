@@ -1,14 +1,116 @@
 import 'package:flutter/material.dart';
 import 'package:travelover_mobile/screens/menu_screen.dart';
 import 'package:unicons/unicons.dart';
+import 'package:share_plus/share_plus.dart';
 
-class QuizEnd extends StatelessWidget {
+class QuizEnd extends StatefulWidget {
   final double result;
   const QuizEnd({Key? key, required this.result}) : super(key: key);
 
+  @override
+  State<QuizEnd> createState() => _QuizEndState();
+}
+
+class _QuizEndState extends State<QuizEnd> {
+  Widget _buildResultContainer(List<Widget> children) {
+    return Column(children: children);
+  }
+
+  Widget _buildResultInfo(double result) {
+    List<Widget> children = [];
+
+    if (result < 20.0) {
+      children = [
+        const Text("Don't be upset! Try again",
+            style: TextStyle(
+              fontSize: 20,
+              color: Colors.yellow,
+              fontWeight: FontWeight.w800,
+            )),
+        const SizedBox(
+          height: 15.0,
+        ),
+        ClipRRect(
+          borderRadius: BorderRadius.circular(8.0),
+          child: Image.asset(
+            'assets/images/low_mark.jpg',
+            height: 175,
+            width: 275,
+            fit: BoxFit.cover,
+          ),
+        )
+      ];
+    } else if (result >= 20.0 && result < 60.0) {
+      children = [
+        const Text("You are on the right way!",
+            style: TextStyle(
+              fontSize: 20,
+              color: Colors.yellow,
+              fontWeight: FontWeight.w800,
+            )),
+        const SizedBox(
+          height: 15.0,
+        ),
+        ClipRRect(
+          borderRadius: BorderRadius.circular(8.0),
+          child: Image.asset(
+            'assets/images/middle_mark1.jpg',
+            height: 175,
+            width: 275,
+            fit: BoxFit.cover,
+          ),
+        )
+      ];
+    } else if (result >= 60.0 && result < 90) {
+      children = [
+        const Text("Good job!",
+            style: TextStyle(
+              fontSize: 20,
+              color: Colors.yellow,
+              fontWeight: FontWeight.w800,
+            )),
+        const SizedBox(
+          height: 15.0,
+        ),
+        ClipRRect(
+          borderRadius: BorderRadius.circular(8.0),
+          child: Image.asset(
+            'assets/images/middle_mark2.jpg',
+            height: 175,
+            width: 275,
+            fit: BoxFit.cover,
+          ),
+        )
+      ];
+    } else {
+      children = [
+        const Text("Well done! Perfect job!",
+            style: TextStyle(
+              fontSize: 20,
+              color: Colors.yellow,
+              fontWeight: FontWeight.w800,
+            )),
+        const SizedBox(
+          height: 15.0,
+        ),
+        ClipRRect(
+          borderRadius: BorderRadius.circular(8.0),
+          child: Image.asset(
+            'assets/images/high_mark.jpg',
+            height: 175,
+            width: 275,
+            fit: BoxFit.cover,
+          ),
+        )
+      ];
+    }
+
+    return _buildResultContainer(children);
+  }
+
   void _menuOpen(context) {
     Navigator.of(context).push(
-      MaterialPageRoute(builder: (context) => const MenuScreen()),
+      MaterialPageRoute(builder: (context) => MenuScreen()),
     );
   }
 
@@ -22,7 +124,7 @@ class QuizEnd extends StatelessWidget {
                 onPressed: () => _menuOpen(context),
                 icon: const Icon(UniconsLine.bars))
           ],
-          title: const Text('Результат'),
+          title: const Text('Result'),
         ),
         body: Container(
             alignment: Alignment.center,
@@ -32,9 +134,9 @@ class QuizEnd extends StatelessWidget {
             ),
             child: Column(children: [
               const SizedBox(
-                height: 50.0,
+                height: 30.0,
               ),
-              Text("Вы набрали $result%",
+              Text("You have scored ${widget.result}%",
                   textAlign: TextAlign.center,
                   style: const TextStyle(
                     fontSize: 25,
@@ -42,8 +144,9 @@ class QuizEnd extends StatelessWidget {
                     fontWeight: FontWeight.w800,
                   )),
               const SizedBox(
-                height: 70.0,
+                height: 40.0,
               ),
+              _buildResultInfo(widget.result),
               Container(
                 alignment: Alignment.center,
                 padding: const EdgeInsets.symmetric(
@@ -51,48 +154,42 @@ class QuizEnd extends StatelessWidget {
                   vertical: 15.0,
                 ),
                 child: Column(children: [
-                  const Text("ПОДЕЛИТЕСЬ СВОИМ РЕЗУЛЬТАТОМ",
+                  const SizedBox(
+                    height: 65.0,
+                  ),
+                  const Text("SHARE YOUR RESULTS",
                       textAlign: TextAlign.center,
                       style: TextStyle(
                         fontSize: 20,
-                        color: Colors.white,
+                        color: Colors.yellow,
                       )),
                   const SizedBox(
-                    height: 10.0,
+                    height: 30.0,
                   ),
-                  Row(mainAxisAlignment: MainAxisAlignment.center, children: [
-                    IconButton(
-                        icon: const Icon(
-                          UniconsLine.telegram_alt,
-                          color: Colors.yellow,
-                          size: 40,
-                        ),
-                        onPressed: () {}),
-                    IconButton(
-                        icon: const Icon(
-                          UniconsLine.facebook_f,
-                          color: Colors.yellow,
-                          size: 40,
-                        ),
-                        onPressed: () {}),
-                    IconButton(
-                        icon: const Icon(
-                          UniconsLine.instagram,
-                          color: Colors.yellow,
-                          size: 40,
-                        ),
-                        onPressed: () {}),
-                  ]),
+                  OutlinedButton.icon(
+                    style: OutlinedButton.styleFrom(
+                      minimumSize: const Size.fromHeight(50),
+                    ),
+                    onPressed: () async {
+                      Share.share(
+                          'Look what I got in this test!I scored ${widget.result} out of 100!\nI completed this quiz on the incredible Travelover app! Download this app to test your knowledge!');
+                    },
+                    icon: const Icon(
+                      UniconsLine.share,
+                      size: 30.0,
+                    ),
+                    label: const Text('Share'),
+                  ),
                 ]),
               ),
               const SizedBox(
-                height: 120.0,
+                height: 5.0,
               ),
               Container(
                 alignment: Alignment.center,
                 padding: const EdgeInsets.symmetric(
                   horizontal: 10.0,
-                  vertical: 20.0,
+                  vertical: 10.0,
                 ),
                 child: ElevatedButton(
                     style: ElevatedButton.styleFrom(
@@ -101,7 +198,7 @@ class QuizEnd extends StatelessWidget {
                     onPressed: () {
                       Navigator.pushNamed(context, '/');
                     },
-                    child: const Text("Главная")),
+                    child: const Text("Home")),
               )
             ])));
   }
