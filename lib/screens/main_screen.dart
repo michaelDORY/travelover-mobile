@@ -141,7 +141,6 @@ class _MainScreenState extends State<MainScreen> {
         //     FilterSortButton(onPressed: () {}, title: "Sort"),
         //   ],
         // ),
-        Text(AppLocalizations.of(context).helloWorld),
         const SizedBox(
           height: 25.0,
         ),
