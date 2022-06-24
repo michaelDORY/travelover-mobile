@@ -50,6 +50,7 @@ dependencies:
   share_plus: ^4.0.9
   unicons: ^2.1.0
   intl: ^0.17.0
+  google_maps_flutter: ^2.1.8
 
 dev_dependencies:
   # The "flutter_lints" package below contains a set of recommended lints to
