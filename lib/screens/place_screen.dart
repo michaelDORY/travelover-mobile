@@ -9,6 +9,7 @@ import 'package:travelover_mobile/widgets/place_card.dart';
 import 'package:travelover_mobile/widgets/comment.dart';
 import 'package:travelover_mobile/widgets/star_icon_button.dart';
 import 'package:unicons/unicons.dart';
+import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 
 class PlaceScreen extends StatefulWidget {
   final String placeId;
@@ -146,16 +147,16 @@ class _PlaceScreenState extends State<PlaceScreen> {
                     vertical: 15.0,
                   ),
                   child: Text(widget.description,
-                      style: TextStyle(
+                      style: const TextStyle(
                         fontSize: 16,
                         color: Colors.yellow,
                       )),
                 ),
-                SizedBox(
+                const SizedBox(
                   height: 20.0,
                 ),
                 Text(
-                  'Address',
+                  AppLocalizations.of(context).address,
                   textAlign: TextAlign.left,
                   style: Theme.of(context).textTheme.headline2,
                 ),
@@ -181,9 +182,9 @@ class _PlaceScreenState extends State<PlaceScreen> {
                     vertical: 15.0,
                   ),
                   child: Column(children: [
-                    const Text("Rate the place",
+                    Text(AppLocalizations.of(context).rate,
                         textAlign: TextAlign.center,
-                        style: TextStyle(
+                        style: const TextStyle(
                           fontSize: 14,
                           color: Colors.yellow,
                         )),
@@ -198,18 +199,18 @@ class _PlaceScreenState extends State<PlaceScreen> {
                   ),
                   child: Column(children: [
                     Padding(
-                      padding: const EdgeInsets.all(8.0),
-                      child: const Text("Comments",
+                      padding: EdgeInsets.all(8.0),
+                      child: Text(AppLocalizations.of(context).comm,
                           textAlign: TextAlign.center,
-                          style: TextStyle(
+                          style: const TextStyle(
                             fontSize: 16,
                             color: Colors.yellow,
                           )),
                     ),
                     ElevatedButton(
-                        child: Text('Add comment'),
+                        child: Text(AppLocalizations.of(context).addComm),
                         style: ElevatedButton.styleFrom(
-                            padding: EdgeInsets.symmetric(
+                            padding: const EdgeInsets.symmetric(
                                 vertical: 15, horizontal: 30)),
                         onPressed: () => _showPopup())
                   ]),
@@ -227,17 +228,18 @@ class _PlaceScreenState extends State<PlaceScreen> {
         context: context,
         builder: (context) {
           return AlertDialog(
-            title: Text('Add your comment'),
+            title: Text(AppLocalizations.of(context).addYourComm),
             content: TextField(
               onChanged: (value) {
                 commentText = value;
               },
               controller: _textFieldController,
-              decoration: InputDecoration(hintText: "Comment..."),
+              decoration:
+                  InputDecoration(hintText: AppLocalizations.of(context).comm),
             ),
             actions: <Widget>[
               ElevatedButton(
-                child: Text('Add'),
+                child: Text(AppLocalizations.of(context).add),
                 style: ElevatedButton.styleFrom(
                     padding:
                         EdgeInsets.symmetric(vertical: 15, horizontal: 30)),

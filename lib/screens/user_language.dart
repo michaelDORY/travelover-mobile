@@ -4,6 +4,7 @@ import 'package:flutter/src/widgets/framework.dart';
 import 'package:unicons/unicons.dart';
 import '../widgets/nav_button.dart';
 import 'menu_screen.dart';
+import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 
 class UserLanguage extends StatefulWidget {
   const UserLanguage({Key? key}) : super(key: key);
@@ -30,7 +31,7 @@ class _UserLanguageState extends State<UserLanguage> {
                 onPressed: () => _menuOpen(context),
                 icon: const Icon(UniconsLine.bars))
           ],
-          title: const Text('Язык'),
+          title: Text(AppLocalizations.of(context).language),
         ),
         body: Container(
             alignment: Alignment.center,
@@ -40,9 +41,9 @@ class _UserLanguageState extends State<UserLanguage> {
             ),
             child: Column(
               children: [
-                const Text("Выберите подходящий язык",
+                Text(AppLocalizations.of(context).chooseTheLan,
                     textAlign: TextAlign.center,
-                    style: TextStyle(
+                    style: const TextStyle(
                       fontSize: 20,
                       color: Colors.yellow,
                       fontWeight: FontWeight.w800,
@@ -69,71 +70,37 @@ class _UserLanguageState extends State<UserLanguage> {
                                   borderRadius: const BorderRadius.all(
                                       Radius.circular(25.0)),
                                 ),
-                                child: RadioListTile<int>(
-                                    value: 1,
-                                    groupValue: selectedValue,
-                                    activeColor: Colors.yellow,
-                                    title: const Text('English'),
-                                    onChanged: (value) =>
-                                        setState(() => selectedValue = 1)),
+                                child: Text(""),
                               ),
-                              Container(
-                                margin: const EdgeInsets.symmetric(
-                                  horizontal: 15.0,
-                                  vertical: 7.0,
-                                ),
-                                decoration: BoxDecoration(
-                                  border: Border.all(
-                                      color: Colors.grey, width: 2.0),
-                                  borderRadius: const BorderRadius.all(
-                                      Radius.circular(25.0)),
-                                ),
-                                child: RadioListTile<int>(
-                                    value: 2,
-                                    activeColor: Colors.yellow,
-                                    groupValue: selectedValue,
-                                    title: const Text('Русский'),
-                                    onChanged: (value) =>
-                                        setState(() => selectedValue = 2)),
-                              ),
-                              Container(
-                                margin: const EdgeInsets.symmetric(
-                                  horizontal: 15.0,
-                                  vertical: 7.0,
-                                ),
-                                decoration: BoxDecoration(
-                                  border: Border.all(
-                                      color: Colors.grey, width: 2.0),
-                                  borderRadius: const BorderRadius.all(
-                                      Radius.circular(25.0)),
-                                ),
-                                child: RadioListTile<int>(
-                                    value: 3,
-                                    activeColor: Colors.yellow,
-                                    groupValue: selectedValue,
-                                    title: const Text("日本"),
-                                    onChanged: (value) =>
-                                        setState(() => selectedValue = 3)),
-                              ),
-                              Container(
-                                margin: const EdgeInsets.symmetric(
-                                  horizontal: 15.0,
-                                  vertical: 7.0,
-                                ),
-                                decoration: BoxDecoration(
-                                  border: Border.all(
-                                      color: Colors.grey, width: 2.0),
-                                  borderRadius: const BorderRadius.all(
-                                      Radius.circular(25.0)),
-                                ),
-                                child: RadioListTile<int>(
-                                    value: 4,
-                                    activeColor: Colors.yellow,
-                                    groupValue: selectedValue,
-                                    title: const Text('Украинска'),
-                                    onChanged: (value) =>
-                                        setState(() => selectedValue = 4)),
-                              ),
+
+                              // RadioListTile<int>(
+                              //           value: 1,
+                              //           groupValue: selectedValue,
+                              //           activeColor: Colors.yellow,
+                              //           title: const Text('English'),
+                              //           onChanged: (value) =>
+                              //               setState(() => selectedValue = 1)),
+
+                              //     ),
+                              //     Container(
+                              //       margin: const EdgeInsets.symmetric(
+                              //         horizontal: 15.0,
+                              //         vertical: 7.0,
+                              //       ),
+                              //       decoration: BoxDecoration(
+                              //         border: Border.all(
+                              //             color: Colors.grey, width: 2.0),
+                              //         borderRadius: const BorderRadius.all(
+                              //             Radius.circular(25.0)),
+                              //       ),
+                              //       child: RadioListTile<int>(
+                              //           value: 2,
+                              //           activeColor: Colors.yellow,
+                              //           groupValue: selectedValue,
+                              //           title: const Text('Русский'),
+                              //           onChanged: (value) =>
+                              //               setState(() => selectedValue = 2)),
+                              //     ),
                             ],
                           )),
                       Container(
@@ -147,9 +114,9 @@ class _UserLanguageState extends State<UserLanguage> {
                               minimumSize: const Size.fromHeight(50),
                             ),
                             onPressed: () {
-                              Navigator.pushNamed(context, '/quizEnd');
+                              Navigator.pushNamed(context, '/user');
                             },
-                            child: const Text("Подтвердить")),
+                            child: Text(AppLocalizations.of(context).confirm)),
                       )
                     ],
                   ),

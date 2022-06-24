@@ -10,6 +10,7 @@ import 'package:travelover_mobile/widgets/loader.dart';
 import 'package:travelover_mobile/widgets/place_card.dart';
 import 'package:travelover_mobile/widgets/search_field.dart';
 import 'package:unicons/unicons.dart';
+import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 
 class FavoutiteScreen extends StatefulWidget {
   const FavoutiteScreen({Key? key}) : super(key: key);
@@ -51,7 +52,7 @@ class _FavoutiteScreenState extends State<FavoutiteScreen> {
                 onPressed: () => _menuOpen(context),
                 icon: const Icon(UniconsLine.bars))
           ],
-          title: const Text('Favourite places'),
+          title: Text(AppLocalizations.of(context).favPlaces),
         ),
         body: _buildBody(context, Auth));
   }
@@ -64,7 +65,7 @@ class _FavoutiteScreenState extends State<FavoutiteScreen> {
           Padding(
             padding: const EdgeInsets.symmetric(vertical: 20),
             child: Text(
-              'You don\'t have favourites',
+              AppLocalizations.of(context).dontHaveFav,
               style: Theme.of(context).textTheme.headline3,
             ),
           ),

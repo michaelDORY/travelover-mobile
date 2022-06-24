@@ -1,3 +1,77 @@
 {
-  "helloWorld": "Hello World!"
+  "title": "Travelover",
+  "login": "login",
+  "signUp": "Sign Up",
+  "name": "name",
+  "authorize": "Authorize",
+  "loginViaGoogle":"Login via Google",
+  "or":"or",
+  "email": "Email",
+  "password": "Password",
+
+  "nothingFound":"Nothing Found",
+  "discover": "Discover",
+  "takeQuizes": "take Quizes",
+
+  "myProfile":"My Profile",
+  "checkKnowladge":"Check your knowladge",
+  "needAnIdea":"Need an idea where to go?",
+  "fav":"Favourites",
+  "lookPlace":"Look at your places",
+  "premium":"Premium",
+  "needFunction":"Need more functions?",
+  "add":"Add",
+  "address":"Address",
+  "totalScore": "Question: ",
+  "logOut":"LogOut",
+  "language":"Language",
+  "needHelp":"Need help?",
+  "support":"Support",
+  "currentEmail":"Current mail",
+  "confirm":"Confirm",
+  
+  "favPlaces":"Favourite places",
+  "dontHaveFav":"You don't have favourites",
+  
+  "rate":"Rate the place",
+  "comm":"Comments",
+  "addComm":"Add comment",
+  "addYourComm":"Add your comment",
+
+  
+  "toPay":"$60/mounth",
+  "buy":"Buy",
+  "mounthPlan":"Mounth plan",
+  "premiumActivation":"Premium activation",
+  "areYouShure": "Are you sure you want to activate the premium for $60 per month?",
+  "activate":"Activate",
+  "cancel":"Cancel",
+  "successActivation":"You have successfully activated premium",
+  "ok":"Okay",
+  "premiumSub1":"Our app has many benefits when you purchase a subscription. One of them is access to comments, where you can leave your impressions of the place, as well as look at reviews from others about the same place.",
+  "premiumSub2":"Possibility to add the place you like to 'Favorites', as well as delete it.",
+  "premiumSub3":"The ability to edit your profile will improve your profile.",
+  "premiumSub4":"Unlimited access to premium quizzes, as well as the ability to share the result of the quiz on social networks.",
+
+  "quiz":"quiz",
+  "quizes":"Quizes",
+  "start":"Start",
+  "dontBeUpset":"Don't be upset! Try again",
+  "rightWay":"You are on the right way!",
+  "goodGob":"Good job!",
+  "weelDone":"Well done! Perfect job!",
+  "res":"Result",
+  "scored":"You have scored ",
+  "share":"SHARE YOUR RESULTS",
+  "shapeLink1":"Look what I got in this test!I scored",
+  "shapeLink2": "out of 100!I completed this quiz on the incredible Travelover app! Download this app to test your knowledge!",
+  "shareButton":"Share",
+  "home":"Home",
+  "next":"Next",
+  
+  "contactUs":"contact us",
+  "supportText":"Our unique TraveLover app invites users to take advantage of our support! Write to us on social networks or by mail what worries you or you notice an error. Our staff will be happy to answer you during the working day. All your suggestions will be heard. Stay with us! ",
+  
+  "chooseTheLan":"Choose the right language"
 }
+

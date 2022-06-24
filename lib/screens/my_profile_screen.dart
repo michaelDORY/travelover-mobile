@@ -6,6 +6,7 @@ import 'package:travelover_mobile/models/nav_buttons_data.dart';
 import 'package:travelover_mobile/services/auth.dart';
 import 'package:travelover_mobile/utils/toast.dart';
 import 'package:unicons/unicons.dart';
+import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 
 class MyProfile extends StatelessWidget {
   const MyProfile({Key? key}) : super(key: key);
@@ -39,8 +40,8 @@ class MyProfile extends StatelessWidget {
               onPressed: () => _menuOpen(context),
               icon: const Icon(UniconsLine.bars))
         ],
-        title: const Text(
-          'My profile',
+        title: Text(
+          AppLocalizations.of(context).myProfile,
           style: TextStyle(
             color: Colors.yellowAccent,
             fontSize: 20.0,
@@ -86,8 +87,9 @@ class MyProfile extends StatelessWidget {
                 height: 15,
               ),
               OutlinedButton(
-                  onPressed: () => _logOut(context),
-                  child: const Text('LogOut'))
+                onPressed: () => _logOut(context),
+                child: Text(AppLocalizations.of(context).logOut),
+              )
             ],
           )),
     );

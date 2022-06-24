@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:travelover_mobile/screens/menu_screen.dart';
 import 'package:travelover_mobile/screens/quizQuestion_screen.dart';
 import 'package:unicons/unicons.dart';
+import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 
 class QuizDescription extends StatefulWidget {
   final String quiz_id;
@@ -41,7 +42,7 @@ class _QuizDescriptionState extends State<QuizDescription> {
               onPressed: () => _menuOpen(context),
               icon: const Icon(UniconsLine.bars))
         ],
-        title: const Text('Quiz'),
+        title: Text(AppLocalizations.of(context).quiz),
       ),
       body: Container(
         alignment: Alignment.center,
@@ -143,7 +144,7 @@ class _QuizDescriptionState extends State<QuizDescription> {
                 (route) => false,
               );
             },
-            child: const Text("Start")),
+            child: Text(AppLocalizations.of(context).start)),
       ),
     );
   }

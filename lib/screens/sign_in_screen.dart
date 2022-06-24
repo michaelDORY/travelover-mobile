@@ -6,6 +6,7 @@ import 'package:travelover_mobile/services/auth.dart';
 import 'package:travelover_mobile/utils/toast.dart';
 import 'package:travelover_mobile/widgets/nav_button.dart';
 import 'package:unicons/unicons.dart';
+import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 
 class SignInScreen extends StatefulWidget {
   const SignInScreen({Key? key}) : super(key: key);
@@ -43,7 +44,7 @@ class _SignInScreenState extends State<SignInScreen> {
     try {
       await auth.signInWithEmailAndPassword(
           email: emailController.text, password: passwordController.text);
-          context.loaderOverlay.hide();
+      context.loaderOverlay.hide();
       Navigator.pushNamedAndRemoveUntil(context, '/main', (route) => false);
     } catch (e) {
       CustomToast(message: "No such user").show();
@@ -75,10 +76,10 @@ class _SignInScreenState extends State<SignInScreen> {
       onSaved: (value) {
         emailController.text = value!;
       },
-      decoration: const InputDecoration(
+      decoration: InputDecoration(
         icon: Icon(UniconsLine.envelope_alt),
         border: OutlineInputBorder(),
-        hintText: "Email",
+        hintText: AppLocalizations.of(context).email,
       ),
     );
 
@@ -92,10 +93,10 @@ class _SignInScreenState extends State<SignInScreen> {
       onSaved: (value) {
         passwordController.text = value!;
       },
-      decoration: const InputDecoration(
+      decoration: InputDecoration(
         icon: Icon(UniconsLine.key_skeleton_alt),
         border: OutlineInputBorder(),
-        hintText: "Password",
+        hintText: AppLocalizations.of(context).password,
       ),
     );
 
@@ -104,7 +105,7 @@ class _SignInScreenState extends State<SignInScreen> {
           minimumSize: const Size.fromHeight(50),
         ),
         onPressed: () => _signInWithEmailAndPassword(context),
-        child: const Text("Login"));
+        child: Text(AppLocalizations.of(context).login));
 
     final signUpLink = OutlinedButton(
         style: OutlinedButton.styleFrom(
@@ -113,7 +114,7 @@ class _SignInScreenState extends State<SignInScreen> {
         onPressed: () {
           Navigator.pushNamed(context, '/signUp');
         },
-        child: const Text("Sign Up"));
+        child: Text(AppLocalizations.of(context).signUp));
 
     return Scaffold(
       backgroundColor: Colors.black,
@@ -143,16 +144,16 @@ class _SignInScreenState extends State<SignInScreen> {
                     ),
                     NavButton(
                       icon: UniconsLine.google,
-                      title: 'Authorize',
-                      subTitle: 'Login via Google',
+                      title: AppLocalizations.of(context).authorize,
+                      subTitle: AppLocalizations.of(context).loginViaGoogle,
                       action: () => _signInWithGoogle(context),
                     ),
                     const SizedBox(
                       height: 10.0,
                     ),
-                    const Text(
-                      "or",
-                      style: TextStyle(
+                    Text(
+                      AppLocalizations.of(context).or,
+                      style: const TextStyle(
                           fontWeight: FontWeight.w800, fontSize: 18.0),
                     ),
                     Form(

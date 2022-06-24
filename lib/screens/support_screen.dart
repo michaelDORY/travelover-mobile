@@ -3,6 +3,7 @@
 import 'package:flutter/material.dart';
 import 'package:travelover_mobile/screens/menu_screen.dart';
 import 'package:unicons/unicons.dart';
+import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 
 class SupportScreen extends StatelessWidget {
   const SupportScreen({Key? key}) : super(key: key);
@@ -23,7 +24,7 @@ class SupportScreen extends StatelessWidget {
                 onPressed: () => _menuOpen(context),
                 icon: const Icon(UniconsLine.bars))
           ],
-          title: const Text('Почта'),
+          title: Text(AppLocalizations.of(context).email),
         ),
         body: Container(
             alignment: Alignment.center,
@@ -40,10 +41,9 @@ class SupportScreen extends StatelessWidget {
                 padding: const EdgeInsets.symmetric(
                   horizontal: 20.0,
                 ),
-                child: const Text(
-                    "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed quis aliquam id id in pharetra lorem. Purus tortor velit sed consequat urna, ipsum. Sit nullam ultrices sed morbi sed. Et blandit commodo vel blandit praesent sed donec ultrices a. Vel, laoreet in et quam elit, sed viverra faucibus. Proin nisi amet urna purus vivamus felis cursus nulla. ",
+                child: Text(AppLocalizations.of(context).supportText,
                     textAlign: TextAlign.justify,
-                    style: TextStyle(
+                    style: const TextStyle(
                       fontSize: 18,
                       fontWeight: FontWeight.w800,
                       color: Colors.yellow,
@@ -52,9 +52,9 @@ class SupportScreen extends StatelessWidget {
               const SizedBox(
                 height: 50.0,
               ),
-              const Text("Связь с нами",
+              Text(AppLocalizations.of(context).contactUs,
                   textAlign: TextAlign.center,
-                  style: TextStyle(
+                  style: const TextStyle(
                     fontSize: 18,
                     fontWeight: FontWeight.w800,
                     color: Colors.yellow,

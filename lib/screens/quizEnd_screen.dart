@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:travelover_mobile/screens/menu_screen.dart';
 import 'package:unicons/unicons.dart';
 import 'package:share_plus/share_plus.dart';
+import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 
 class QuizEnd extends StatefulWidget {
   final double result;
@@ -21,8 +22,8 @@ class _QuizEndState extends State<QuizEnd> {
 
     if (result < 20.0) {
       children = [
-        const Text("Don't be upset! Try again",
-            style: TextStyle(
+        Text(AppLocalizations.of(context).dontBeUpset,
+            style: const TextStyle(
               fontSize: 20,
               color: Colors.yellow,
               fontWeight: FontWeight.w800,
@@ -42,8 +43,8 @@ class _QuizEndState extends State<QuizEnd> {
       ];
     } else if (result >= 20.0 && result < 60.0) {
       children = [
-        const Text("You are on the right way!",
-            style: TextStyle(
+        Text(AppLocalizations.of(context).rightWay,
+            style: const TextStyle(
               fontSize: 20,
               color: Colors.yellow,
               fontWeight: FontWeight.w800,
@@ -63,8 +64,8 @@ class _QuizEndState extends State<QuizEnd> {
       ];
     } else if (result >= 60.0 && result < 90) {
       children = [
-        const Text("Good job!",
-            style: TextStyle(
+        Text(AppLocalizations.of(context).goodGob,
+            style: const TextStyle(
               fontSize: 20,
               color: Colors.yellow,
               fontWeight: FontWeight.w800,
@@ -84,8 +85,8 @@ class _QuizEndState extends State<QuizEnd> {
       ];
     } else {
       children = [
-        const Text("Well done! Perfect job!",
-            style: TextStyle(
+        Text(AppLocalizations.of(context).weelDone,
+            style: const TextStyle(
               fontSize: 20,
               color: Colors.yellow,
               fontWeight: FontWeight.w800,
@@ -124,7 +125,7 @@ class _QuizEndState extends State<QuizEnd> {
                 onPressed: () => _menuOpen(context),
                 icon: const Icon(UniconsLine.bars))
           ],
-          title: const Text('Result'),
+          title: Text(AppLocalizations.of(context).res),
         ),
         body: Container(
             alignment: Alignment.center,
@@ -136,7 +137,8 @@ class _QuizEndState extends State<QuizEnd> {
               const SizedBox(
                 height: 30.0,
               ),
-              Text("You have scored ${widget.result}%",
+              Text(
+                  "${AppLocalizations.of(context).scored} ${widget.result}%", // !!!!!!!!!!!!!!!!!!!!!!!!
                   textAlign: TextAlign.center,
                   style: const TextStyle(
                     fontSize: 25,
@@ -157,9 +159,9 @@ class _QuizEndState extends State<QuizEnd> {
                   const SizedBox(
                     height: 65.0,
                   ),
-                  const Text("SHARE YOUR RESULTS",
+                  Text(AppLocalizations.of(context).share,
                       textAlign: TextAlign.center,
-                      style: TextStyle(
+                      style: const TextStyle(
                         fontSize: 20,
                         color: Colors.yellow,
                       )),
@@ -172,13 +174,13 @@ class _QuizEndState extends State<QuizEnd> {
                     ),
                     onPressed: () async {
                       Share.share(
-                          'Look what I got in this test!I scored ${widget.result} out of 100!\nI completed this quiz on the incredible Travelover app! Download this app to test your knowledge!');
+                          "${AppLocalizations.of(context).shapeLink1} ${widget.result}% ${AppLocalizations.of(context).shapeLink2}");
                     },
                     icon: const Icon(
                       UniconsLine.share,
                       size: 30.0,
                     ),
-                    label: const Text('Share'),
+                    label: Text(AppLocalizations.of(context).shareButton),
                   ),
                 ]),
               ),
@@ -198,7 +200,7 @@ class _QuizEndState extends State<QuizEnd> {
                     onPressed: () {
                       Navigator.pushNamed(context, '/');
                     },
-                    child: const Text("Home")),
+                    child: Text(AppLocalizations.of(context).home)),
               )
             ])));
   }
