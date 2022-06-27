@@ -15,4 +15,14 @@ class L10n {
         return '🇺🇸';
     }
   }
+
+  static String getLanguage(String code) {
+    switch (code) {
+      case 'es':
+        return 'Español';
+      case 'en':
+      default:
+        return 'English';
+    }
+  }
 }

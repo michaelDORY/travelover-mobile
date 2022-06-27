@@ -35,7 +35,7 @@ class NavButton extends StatelessWidget {
         ),
         onPressed: () => _onAction(context, path),
         child: Container(
-          padding: const EdgeInsets.symmetric(vertical: 12),
+          padding: const EdgeInsets.symmetric(vertical: 20),
           child: Row(
             mainAxisAlignment: MainAxisAlignment.spaceBetween,
             children: [

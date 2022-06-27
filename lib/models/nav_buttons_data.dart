@@ -1,27 +1,29 @@
+import 'package:flutter/material.dart';
 import 'package:travelover_mobile/widgets/nav_button.dart';
 import 'package:unicons/unicons.dart';
+import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 
 class NavButtonsData {
-  final _menuButtons = [
-    NavButton(
-      icon: UniconsLine.book_alt,
-      title: 'Take quizzes',
-      subTitle: 'Check your knowladge',
-      path: '/quizes',
-    ),
-    NavButton(
-      icon: UniconsLine.location_point,
-      title: 'Discover',
-      subTitle: 'Need an idea where to go?',
-      path: '/main',
-    ),
-    NavButton(
-      icon: UniconsLine.heart_alt,
-      title: 'Favourites',
-      subTitle: 'Look at your places',
-      path: '/favourite',
-    ),
-  ];
+  // final _menuButtons = [
+  //   NavButton(
+  //     icon: UniconsLine.book_alt,
+  //    title: AppLocalizations.of(context).takeQuizes,
+  //     subTitle: 'Check your knowladge',
+  //     path: '/quizes',
+  //   ),
+  //   NavButton(
+  //     icon: UniconsLine.location_point,
+  //     title: 'Discover',
+  //     subTitle: 'Need an idea where to go?',
+  //     path: '/main',
+  //   ),
+  //   NavButton(
+  //     icon: UniconsLine.heart_alt,
+  //     title: 'Favourites',
+  //     subTitle: 'Look at your places',
+  //     path: '/favourite',
+  //   ),
+  // ];
 
   final _premiumButton = NavButton(
     icon: UniconsLine.dollar_alt,
@@ -48,7 +50,7 @@ class NavButtonsData {
         path: '/support')
   ];
 
-  List<NavButton> get menuButtons => [..._menuButtons];
+  // List<NavButton> get menuButtons => [..._menuButtons];
   List<NavButton> get userButtons => [..._userButtons];
   NavButton get premiumButton => _premiumButton;
 }

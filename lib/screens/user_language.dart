@@ -23,11 +23,14 @@ void _menuOpen(context) {
 }
 
 class _UserLanguageState extends State<UserLanguage> {
-  Locale selectedValue = const Locale('en');
+  late Locale selectedValue;
   @override
   Widget build(BuildContext context) {
-    final provider = Provider.of<LocaleProvider>(context);
+    final provider = Provider.of<LocaleProvider>(context, listen: false);
     final locale = provider.locale ?? Locale('en');
+    setState(() {
+      selectedValue = locale;
+    });
 
     return Scaffold(
         backgroundColor: Colors.black,
@@ -65,26 +68,33 @@ class _UserLanguageState extends State<UserLanguage> {
                           height: 400.0,
                           child: ListView(children: [
                             ...L10n.all.map((locale) {
-                              final flag = L10n.getFlag(locale.languageCode);
+                              final language =
+                                  L10n.getLanguage(locale.languageCode);
                               return _buildRadioButton(
-                                  title: flag, onChanged: () {}, value: locale);
+                                  title: language, value: locale);
                             })
                           ])),
-                      Container(
-                        alignment: Alignment.center,
-                        padding: const EdgeInsets.symmetric(
-                          horizontal: 10.0,
-                          vertical: 20.0,
-                        ),
-                        child: ElevatedButton(
-                            style: ElevatedButton.styleFrom(
-                              minimumSize: const Size.fromHeight(50),
-                            ),
-                            onPressed: () {
-                              Navigator.pushNamed(context, '/user');
-                            },
-                            child: Text(AppLocalizations.of(context).confirm)),
-                      )
+                      // Container(
+                      //   alignment: Alignment.center,
+                      //   padding: const EdgeInsets.symmetric(
+                      //     horizontal: 10.0,
+                      //     vertical: 20.0,
+                      //   ),
+                      //   child: ElevatedButton(
+                      //       style: ElevatedButton.styleFrom(
+                      //         minimumSize: const Size.fromHeight(50),
+                      //       ),
+                      //       onPressed: () {
+                      //         final provider = Provider.of<LocaleProvider>(
+                      //             context,
+                      //             listen: false);
+
+                      //         provider.setLocale(selectedValue);
+                      //         Navigator.pushNamedAndRemoveUntil(
+                      //             context, '/user', (route) => false);
+                      //       },
+                      //       child: Text(AppLocalizations.of(context).confirm)),
+                      // )
                     ],
                   ),
                 )
@@ -92,25 +102,28 @@ class _UserLanguageState extends State<UserLanguage> {
             )));
   }
 
-  Widget _buildRadioButton(
-      {required String title,
-      required Function onChanged,
-      required Locale value}) {
+  Widget _buildRadioButton({required String title, required Locale value}) {
     return Container(
-      margin: const EdgeInsets.symmetric(
-        horizontal: 15.0,
-        vertical: 7.0,
-      ),
-      decoration: BoxDecoration(
-        border: Border.all(color: Colors.grey, width: 2.0),
-        borderRadius: const BorderRadius.all(Radius.circular(25.0)),
-      ),
-      child: RadioListTile<Locale>(
-          value: value,
-          groupValue: selectedValue,
-          activeColor: Colors.yellow,
-          title: Text(title),
-          onChanged: (value) => setState(() => selectedValue = value!)),
-    );
+        margin: const EdgeInsets.symmetric(
+          horizontal: 15.0,
+          vertical: 7.0,
+        ),
+        decoration: BoxDecoration(
+          border: Border.all(color: Colors.grey, width: 2.0),
+          borderRadius: const BorderRadius.all(Radius.circular(25.0)),
+        ),
+        child: RadioListTile<Locale>(
+            value: value,
+            groupValue: selectedValue,
+            activeColor: Colors.yellow,
+            title: Text(title),
+            onChanged: (value) {
+              final provider =
+                  Provider.of<LocaleProvider>(context, listen: false);
+
+              provider.setLocale(value!);
+              print(AppLocalizations.of(context).login);
+              setState(() => selectedValue = value);
+            }));
   }
 }

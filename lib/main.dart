@@ -45,44 +45,45 @@ class _MyAppState extends State<MyApp> {
           create: (context) => AuthService(),
         ),
         ChangeNotifierProvider<LocaleProvider>(
-          create: (context) => LocaleProvider(),
-        ),
-      ],
-      child: GlobalLoaderOverlay(
-        useDefaultLoading: false,
-        overlayWidget: const Center(
-          child: SpinKitThreeInOut(
-            color: Colors.yellowAccent,
-            size: 50.0,
-          ),
-        ),
-        child: MaterialApp(
-            title: "TraveLover",
-            supportedLocales: L10n.all,
-            localizationsDelegates: const [
-              AppLocalizations.delegate,
-              GlobalMaterialLocalizations.delegate,
-              GlobalCupertinoLocalizations.delegate,
-              GlobalWidgetsLocalizations.delegate,
-            ],
-            initialRoute: '/',
-            routes: {
-              '/main': (context) => const MainScreen(),
-              '/signIn': (context) => const SignInScreen(),
-              '/signUp': (context) => const SignUpScreen(),
-              '/': (context) => const Root(),
-              '/user': (context) => const MyProfile(
-                    name: '',
+            create: (context) => LocaleProvider(),
+            builder: (context, child) {
+              final provider = Provider.of<LocaleProvider>(context);
+              return GlobalLoaderOverlay(
+                useDefaultLoading: false,
+                overlayWidget: const Center(
+                  child: SpinKitThreeInOut(
+                    color: Colors.yellowAccent,
+                    size: 50.0,
                   ),
-              '/quizes': (context) => const QuizesScreen(),
-              '/email': (context) => const EmailScreen(),
-              '/support': (context) => const SupportScreen(),
-              '/premiumSub': (context) => const PremiumScreen(),
-              '/UserLanguage': (context) => const UserLanguage(),
-              '/favourite': (context) => const FavoutiteScreen(),
-            },
-            theme: CustomTheme(context)),
-      ),
+                ),
+                child: MaterialApp(
+                    title: "TraveLover",
+                    supportedLocales: L10n.all,
+                    localizationsDelegates: const [
+                      AppLocalizations.delegate,
+                      GlobalMaterialLocalizations.delegate,
+                      GlobalCupertinoLocalizations.delegate,
+                      GlobalWidgetsLocalizations.delegate,
+                    ],
+                    locale: provider.locale,
+                    initialRoute: '/',
+                    routes: {
+                      '/main': (context) => const MainScreen(),
+                      '/signIn': (context) => const SignInScreen(),
+                      '/signUp': (context) => const SignUpScreen(),
+                      '/': (context) => const Root(),
+                      '/user': (context) => const MyProfile(),
+                      '/quizes': (context) => const QuizesScreen(),
+                      '/email': (context) => const EmailScreen(),
+                      '/support': (context) => const SupportScreen(),
+                      '/premiumSub': (context) => const PremiumScreen(),
+                      '/UserLanguage': (context) => const UserLanguage(),
+                      '/favourite': (context) => const FavoutiteScreen(),
+                    },
+                    theme: CustomTheme(context)),
+              );
+            }),
+      ],
     );
   }
 
