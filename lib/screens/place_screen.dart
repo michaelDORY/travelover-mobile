@@ -5,6 +5,7 @@ import 'package:travelover_mobile/screens/menu_screen.dart';
 import 'package:travelover_mobile/services/auth.dart';
 import 'package:travelover_mobile/services/firestore.dart';
 import 'package:travelover_mobile/utils/toast.dart';
+import 'package:travelover_mobile/widgets/MapContainer.dart';
 import 'package:travelover_mobile/widgets/place_card.dart';
 import 'package:travelover_mobile/widgets/comment.dart';
 import 'package:travelover_mobile/widgets/star_icon_button.dart';
@@ -171,6 +172,11 @@ class _PlaceScreenState extends State<PlaceScreen> {
                     textAlign: TextAlign.center,
                     style: Theme.of(context).textTheme.bodyText1,
                   ),
+                ),
+                SizedBox(
+                  width: 400,
+                  height: 400,
+                    child: MapContainer(location: widget.address['location']),
                 ),
                 SizedBox(
                   height: 10.0,
