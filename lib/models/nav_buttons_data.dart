@@ -48,29 +48,6 @@ class NavButtonsData {
         path: '/support')
   ];
 
-  final _answerButtons = <NavButton>[
-    NavButton(
-        icon: UniconsLine.language,
-        title: 'Язык',
-        subTitle: 'Русский',
-        path: '/googleAuth'),
-    NavButton(
-        icon: UniconsLine.envelope,
-        title: 'Почта',
-        subTitle: 'example@gmail.com',
-        path: '/googleAuth'),
-    NavButton(
-        icon: UniconsLine.comments,
-        title: 'Необходима помощь?',
-        subTitle: 'Поддержка',
-        path: '/googleAuth'),
-    NavButton(
-        icon: UniconsLine.language,
-        title: 'Язык',
-        subTitle: 'Русский',
-        path: '/googleAuth'),
-  ];
-
   List<NavButton> get menuButtons => [..._menuButtons];
   List<NavButton> get userButtons => [..._userButtons];
   NavButton get premiumButton => _premiumButton;

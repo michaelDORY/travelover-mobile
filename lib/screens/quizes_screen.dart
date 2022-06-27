@@ -7,6 +7,7 @@ import 'package:travelover_mobile/models/quiz.dart';
 import 'package:travelover_mobile/services/firestore.dart';
 import 'package:travelover_mobile/widgets/error_boundary.dart';
 import 'package:travelover_mobile/widgets/loader.dart';
+import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 
 class QuizesScreen extends StatelessWidget {
   const QuizesScreen({Key? key}) : super(key: key);
@@ -27,7 +28,7 @@ class QuizesScreen extends StatelessWidget {
                 onPressed: () => _menuOpen(context),
                 icon: const Icon(UniconsLine.bars))
           ],
-          title: const Text('Quizes'),
+          title: Text(AppLocalizations.of(context).quizes),
         ),
         body: StreamBuilder<List<Quiz>>(
           stream: Firestore().getQuizes(),

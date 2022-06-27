@@ -7,13 +7,7 @@ import 'package:travelover_mobile/services/firestore.dart';
 import 'package:travelover_mobile/widgets/nav_button.dart';
 import 'package:travelover_mobile/services/auth.dart';
 import 'package:unicons/unicons.dart';
-
-const List<String> BENEFITS = [
-  "Our app has many benefits when you purchase a subscription. One of them is access to comments, where you can leave your impressions of the place, as well as look at reviews from others about the same place.",
-  "Possibility to add the place you like to 'Favorites', as well as delete it.",
-  "The ability to edit your profile will improve your profile.",
-  "Unlimited access to premium quizzes, as well as the ability to share the result of the quiz on social networks."
-];
+import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 
 class PremiumScreen extends StatefulWidget {
   const PremiumScreen({Key? key}) : super(key: key);
@@ -32,6 +26,12 @@ class _PremiumScreenState extends State<PremiumScreen> {
 
   @override
   Widget build(BuildContext context) {
+    List<String> BENEFITS = [
+      AppLocalizations.of(context).premiumSub1,
+      AppLocalizations.of(context).premiumSub2,
+      AppLocalizations.of(context).premiumSub3,
+      AppLocalizations.of(context).premiumSub4,
+    ];
     return Scaffold(
         backgroundColor: Colors.black,
         appBar: AppBar(
@@ -40,7 +40,7 @@ class _PremiumScreenState extends State<PremiumScreen> {
                 onPressed: () => _menuOpen(context),
                 icon: const Icon(UniconsLine.bars))
           ],
-          title: const Text('Premium'),
+          title: Text(AppLocalizations.of(context).premium),
         ),
         body: Container(
             alignment: Alignment.center,
@@ -51,9 +51,9 @@ class _PremiumScreenState extends State<PremiumScreen> {
             child: ListView(children: <Widget>[
               Column(
                 children: [
-                  const Text("\$60/mounth",
+                  Text(AppLocalizations.of(context).toPay,
                       textAlign: TextAlign.center,
-                      style: TextStyle(
+                      style: const TextStyle(
                         fontSize: 40,
                         color: Colors.yellow,
                         fontWeight: FontWeight.w800,
@@ -78,8 +78,8 @@ class _PremiumScreenState extends State<PremiumScreen> {
                           ),
                           child: NavButton(
                               icon: UniconsLine.unlock_alt,
-                              title: 'Buy',
-                              subTitle: 'Mounth plan',
+                              title: AppLocalizations.of(context).buy,
+                              subTitle: AppLocalizations.of(context).mounthPlan,
                               action: () => _buyPopup()),
                         )
                       ],
@@ -95,15 +95,14 @@ class _PremiumScreenState extends State<PremiumScreen> {
         context: context,
         builder: (context) {
           return AlertDialog(
-              title: const Text('Premium activation'),
-              content: const Text(
-                  "Are you sure you want to activate the premium for \$60 per month?"),
+              title: Text(AppLocalizations.of(context).premiumActivation),
+              content: Text(AppLocalizations.of(context).areYouShure),
               actions: <Widget>[
                 Row(
                   mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                   children: [
                     ElevatedButton(
-                      child: const Text('Activate'),
+                      child: Text(AppLocalizations.of(context).activate),
                       style: ElevatedButton.styleFrom(
                           padding: const EdgeInsets.symmetric(
                               vertical: 15, horizontal: 30)),
@@ -114,7 +113,7 @@ class _PremiumScreenState extends State<PremiumScreen> {
                       },
                     ),
                     ElevatedButton(
-                      child: const Text('Cancel'),
+                      child: Text(AppLocalizations.of(context).cancel),
                       style: ElevatedButton.styleFrom(
                           padding: const EdgeInsets.symmetric(
                               vertical: 15, horizontal: 30)),
@@ -133,14 +132,14 @@ class _PremiumScreenState extends State<PremiumScreen> {
         context: context,
         builder: (context) {
           return AlertDialog(
-              title: const Text('Premium activation'),
-              content: const Text("You have successfully activated premium"),
+              title: Text(AppLocalizations.of(context).premiumActivation),
+              content: Text(AppLocalizations.of(context).successActivation),
               actions: <Widget>[
                 Row(
                   mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                   children: [
                     ElevatedButton(
-                      child: const Text('Okay'),
+                      child: Text(AppLocalizations.of(context).ok),
                       style: ElevatedButton.styleFrom(
                           padding: const EdgeInsets.symmetric(
                               vertical: 15, horizontal: 30)),

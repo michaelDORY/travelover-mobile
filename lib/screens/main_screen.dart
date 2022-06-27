@@ -47,7 +47,7 @@ class _MainScreenState extends State<MainScreen> {
                 onPressed: () => _menuOpen(context),
                 icon: const Icon(UniconsLine.bars))
           ],
-          title: const Text('Discover'),
+          title: Text(AppLocalizations.of(context).discover),
         ),
         body: StreamBuilder<List<Place>>(
           stream: Firestore().getPlaces(),
@@ -96,7 +96,7 @@ class _MainScreenState extends State<MainScreen> {
           child: Padding(
         padding: EdgeInsets.only(top: 20),
         child: Text(
-          'Nothing Found',
+          AppLocalizations.of(context).nothingFound,
           style: Theme.of(context).textTheme.headline2,
         ),
       ));

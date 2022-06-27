@@ -4,6 +4,7 @@ import 'package:travelover_mobile/models/nav_buttons_data.dart';
 import 'package:travelover_mobile/services/auth.dart';
 import 'package:travelover_mobile/services/firestore.dart';
 import 'package:unicons/unicons.dart';
+import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 
 class MenuScreen extends StatefulWidget {
   @override
@@ -66,7 +67,7 @@ class _MenuScreenStateState extends State<MenuScreen> {
                   const SizedBox(
                     height: 10.0,
                   ),
-                  const Text('My profile')
+                  Text(AppLocalizations.of(context).myProfile),
                 ],
               )
             ],

@@ -5,6 +5,7 @@ import 'package:google_language_fonts/google_language_fonts.dart';
 import 'package:loader_overlay/loader_overlay.dart';
 import 'package:provider/provider.dart';
 import 'package:travelover_mobile/firebase_options.dart';
+import 'package:travelover_mobile/l10n/l10n.dart';
 import 'package:travelover_mobile/screens/Premium_sub.dart';
 import 'package:travelover_mobile/screens/main_screen.dart';
 import 'package:travelover_mobile/screens/my_profile_screen.dart';
@@ -19,6 +20,7 @@ import 'package:travelover_mobile/services/auth.dart';
 import 'package:flutter_spinkit/flutter_spinkit.dart';
 import 'package:travelover_mobile/widgets/root.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
+import 'package:travelover_mobile/provider/locale_provider.dart';
 
 main() async {
   WidgetsFlutterBinding.ensureInitialized();
@@ -27,13 +29,25 @@ main() async {
   runApp(const MyApp());
 }
 
-class MyApp extends StatelessWidget {
+class MyApp extends StatefulWidget {
   const MyApp({Key? key}) : super(key: key);
 
   @override
+  State<MyApp> createState() => _MyAppState();
+}
+
+class _MyAppState extends State<MyApp> {
+  @override
   Widget build(BuildContext context) {
-    return Provider<AuthBase>(
-      create: (context) => AuthService(),
+    return MultiProvider(
+      providers: [
+        Provider<AuthBase>(
+          create: (context) => AuthService(),
+        ),
+        ChangeNotifierProvider<LocaleProvider>(
+          create: (context) => LocaleProvider(),
+        ),
+      ],
       child: GlobalLoaderOverlay(
         useDefaultLoading: false,
         overlayWidget: const Center(
@@ -44,15 +58,22 @@ class MyApp extends StatelessWidget {
         ),
         child: MaterialApp(
             title: "TraveLover",
-            localizationsDelegates: AppLocalizations.localizationsDelegates,
-            supportedLocales: AppLocalizations.supportedLocales,
+            supportedLocales: L10n.all,
+            localizationsDelegates: const [
+              AppLocalizations.delegate,
+              GlobalMaterialLocalizations.delegate,
+              GlobalCupertinoLocalizations.delegate,
+              GlobalWidgetsLocalizations.delegate,
+            ],
             initialRoute: '/',
             routes: {
               '/main': (context) => const MainScreen(),
               '/signIn': (context) => const SignInScreen(),
               '/signUp': (context) => const SignUpScreen(),
               '/': (context) => const Root(),
-              '/user': (context) => const MyProfile(),
+              '/user': (context) => const MyProfile(
+                    name: '',
+                  ),
               '/quizes': (context) => const QuizesScreen(),
               '/email': (context) => const EmailScreen(),
               '/support': (context) => const SupportScreen(),
@@ -69,7 +90,7 @@ class MyApp extends StatelessWidget {
       primaryColor: Colors.yellowAccent,
       primarySwatch: Colors.yellow,
       fontFamily: CyrillicFonts.montserrat().fontFamily,
-      textTheme: TextTheme(
+      textTheme: const TextTheme(
         headline1: TextStyle(
             fontSize: 30.0,
             color: Colors.yellowAccent,
@@ -78,12 +99,12 @@ class MyApp extends StatelessWidget {
             fontSize: 25.0,
             color: Colors.yellowAccent,
             fontWeight: FontWeight.w700),
-        headline3: const TextStyle(fontSize: 20.0, fontWeight: FontWeight.w700),
-        bodyText1: const TextStyle(
+        headline3: TextStyle(fontSize: 20.0, fontWeight: FontWeight.w700),
+        bodyText1: TextStyle(
           fontSize: 18.0,
         ),
-        button: const TextStyle(fontWeight: FontWeight.w700, fontSize: 18.0),
-        subtitle1: const TextStyle(fontSize: 14.0, fontWeight: FontWeight.w700),
+        button: TextStyle(fontWeight: FontWeight.w700, fontSize: 18.0),
+        subtitle1: TextStyle(fontSize: 14.0, fontWeight: FontWeight.w700),
       ),
       appBarTheme: const AppBarTheme(
           backgroundColor: Colors.black,

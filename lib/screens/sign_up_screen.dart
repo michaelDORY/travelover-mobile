@@ -6,6 +6,7 @@ import 'package:provider/provider.dart';
 import 'package:travelover_mobile/services/auth.dart';
 import 'package:travelover_mobile/utils/toast.dart';
 import 'package:unicons/unicons.dart';
+import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 
 class SignUpScreen extends StatefulWidget {
   const SignUpScreen({Key? key}) : super(key: key);
@@ -68,10 +69,10 @@ class _SignUpScreenState extends State<SignUpScreen> {
       onSaved: (value) {
         nameController.text = value!;
       },
-      decoration: const InputDecoration(
+      decoration: InputDecoration(
         icon: Icon(UniconsLine.user),
         border: OutlineInputBorder(),
-        hintText: "Name",
+        hintText: AppLocalizations.of(context).name,
       ),
     );
 
@@ -83,10 +84,10 @@ class _SignUpScreenState extends State<SignUpScreen> {
         emailController.text = value!;
       },
       textInputAction: TextInputAction.next,
-      decoration: const InputDecoration(
-        icon: Icon(UniconsLine.envelope_alt),
-        border: OutlineInputBorder(),
-        hintText: "Email",
+      decoration: InputDecoration(
+        icon: const Icon(UniconsLine.envelope_alt),
+        border: const OutlineInputBorder(),
+        hintText: AppLocalizations.of(context).email,
       ),
     );
 
@@ -100,10 +101,10 @@ class _SignUpScreenState extends State<SignUpScreen> {
       onSaved: (value) {
         passwordController.text = value!;
       },
-      decoration: const InputDecoration(
-        icon: Icon(UniconsLine.key_skeleton_alt),
-        border: OutlineInputBorder(),
-        hintText: "Password",
+      decoration: InputDecoration(
+        icon: const Icon(UniconsLine.key_skeleton_alt),
+        border: const OutlineInputBorder(),
+        hintText: AppLocalizations.of(context).password,
       ),
     );
 
@@ -112,7 +113,7 @@ class _SignUpScreenState extends State<SignUpScreen> {
           minimumSize: const Size.fromHeight(50),
         ),
         onPressed: () => _signUpWithEmailAndPassword(context),
-        child: const Text("Sign Up"));
+        child: Text(AppLocalizations.of(context).signUp));
 
     final signInLink = OutlinedButton(
         style: OutlinedButton.styleFrom(
@@ -121,7 +122,7 @@ class _SignUpScreenState extends State<SignUpScreen> {
         onPressed: () {
           Navigator.pushNamed(context, '/signIn');
         },
-        child: const Text("Login"));
+        child: Text(AppLocalizations.of(context).login));
 
     return Scaffold(
       backgroundColor: Colors.black,

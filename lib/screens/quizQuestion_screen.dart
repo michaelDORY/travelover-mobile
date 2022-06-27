@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:travelover_mobile/screens/quizEnd_screen.dart';
 import 'package:travelover_mobile/widgets/quizQuestion.dart';
 import 'dart:math';
+import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 
 class quizQuestionScreen extends StatefulWidget {
   final String quiz_id;
@@ -77,7 +78,8 @@ class _quizQuestionScreenState extends State<quizQuestionScreen> {
     return Scaffold(
       backgroundColor: Colors.black,
       appBar: AppBar(
-        title: Text("Question: $idexQuestion / $totalquestions"),
+        title: Text(
+            "${AppLocalizations.of(context).totalScore} $idexQuestion / $totalquestions"),
       ),
       body: Container(
           alignment: Alignment.center,
@@ -102,7 +104,7 @@ class _quizQuestionScreenState extends State<quizQuestionScreen> {
               minimumSize: const Size.fromHeight(50),
             ),
             onPressed: markAnswer,
-            child: const Text("Next")),
+            child: Text(AppLocalizations.of(context).next)),
       ),
     );
   }

@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:travelover_mobile/screens/menu_screen.dart';
 import 'package:unicons/unicons.dart';
+import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 
 class EmailScreen extends StatelessWidget {
   const EmailScreen({Key? key}) : super(key: key);
@@ -21,7 +22,7 @@ class EmailScreen extends StatelessWidget {
                 onPressed: () => _menuOpen(context),
                 icon: const Icon(UniconsLine.bars))
           ],
-          title: const Text('Почта'),
+          title: Text(AppLocalizations.of(context).email),
         ),
         body: Container(
             alignment: Alignment.center,
@@ -33,9 +34,9 @@ class EmailScreen extends StatelessWidget {
               const SizedBox(
                 height: 15.0,
               ),
-              const Text("Текущая почта",
+              Text(AppLocalizations.of(context).currentEmail,
                   textAlign: TextAlign.center,
-                  style: TextStyle(
+                  style: const TextStyle(
                     fontSize: 22,
                     fontWeight: FontWeight.w800,
                     color: Colors.yellow,
@@ -63,7 +64,7 @@ class EmailScreen extends StatelessWidget {
                   onPressed: () {
                     Navigator.pushNamed(context, '/user');
                   },
-                  child: const Text("Подтвердить")),
+                  child: Text(AppLocalizations.of(context).confirm)),
             ])));
   }
 }
