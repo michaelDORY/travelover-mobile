@@ -1,6 +1,7 @@
 import 'package:eva_icons_flutter/eva_icons_flutter.dart';
 import 'package:flutter/material.dart';
 import 'package:material_floating_search_bar/material_floating_search_bar.dart';
+import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 
 class SearchBar extends StatefulWidget {
   final Function onSubmit;
@@ -14,7 +15,7 @@ class SearchBar extends StatefulWidget {
 class _SearchBarState extends State<SearchBar> {
   @override
   Widget build(BuildContext context) {
-    String title = "Search...";
+    String title = AppLocalizations.of(context).searching;
     if (widget.term != null && widget.term!.isNotEmpty) {
       title = widget.term!;
     }
@@ -32,8 +33,9 @@ class _SearchBarState extends State<SearchBar> {
                     (widget.term == null || widget.term!.isEmpty) ? 250 : 200,
                 height: 80,
                 child: FloatingSearchBar(
+                  borderRadius: BorderRadius.all(Radius.circular(10)),
                   automaticallyImplyBackButton: false,
-                  backgroundColor: Color.fromARGB(255, 75, 75, 75),
+                  backgroundColor: Color.fromARGB(255, 31, 31, 31),
                   iconColor: Colors.yellow,
                   body: Container(
                     color: Colors.black,
@@ -46,7 +48,7 @@ class _SearchBarState extends State<SearchBar> {
                     style: Theme.of(context).textTheme.headline6,
                   ),
                   leadingActions: null,
-                  hint: 'Search and find out...',
+                  hint: AppLocalizations.of(context).searchAndFind,
                   actions: [
                     FloatingSearchBarAction.searchToClear(),
                   ],

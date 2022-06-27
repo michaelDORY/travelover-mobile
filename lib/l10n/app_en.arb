@@ -8,14 +8,13 @@
   "or":"or",
   "email": "Email",
   "password": "Password",
-
   "nothingFound":"Nothing Found",
   "discover": "Discover",
   "takeQuizes": "take Quizes",
 
   "myProfile":"My Profile",
   "updateUsername":"New name",
-  "checkKnowladge":"Check your knowladge",
+  "checkKnowladge":"Check your knowledge",
   "needAnIdea":"Need an idea where to go?",
   "fav":"Favourites",
   "lookPlace":"Look at your places",
@@ -73,6 +72,23 @@
   "contactUs":"contact us",
   "supportText":"Our unique TraveLover app invites users to take advantage of our support! Write to us on social networks or by mail what worries you or you notice an error. Our staff will be happy to answer you during the working day. All your suggestions will be heard. Stay with us! ",
 
-  "chooseTheLan":"Choose the right language"
+  "chooseTheLan":"Choose the right language",
+  "chooseLan":"Choose the language",
+  "hintVasya":"Vasiliy..",
+  "changeYourName":"Change your name",
+  "sucessChanged":"Successfully changed!",
+  "waitApprove":"Wait till approving",
+  "passwordIsReq":"Password is required",
+  "passwordMustBe":"Password must be at least 8 digits long",
+  "emailIsReq":"Email is required",
+  "enterCorrectEmail":"Enter correct email",
+  "nosuchUser":"No such user",
+  "smthWentWrong":"Something went wrong",
+  "enterCorrectFields":"Enter correct fields",
+  "nameIsReq":"Name is required",
+  "searching":"Search...",
+  "searchAndFind":"Search and find out..."
+
+
 }
 

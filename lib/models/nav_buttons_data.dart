@@ -25,32 +25,32 @@ class NavButtonsData {
   //   ),
   // ];
 
-  final _premiumButton = NavButton(
-    icon: UniconsLine.dollar_alt,
-    title: 'Premium',
-    subTitle: 'Need more functions?',
-    path: '/premiumSub',
-  );
+  // final _premiumButton = NavButton(
+  //   icon: UniconsLine.dollar_alt,
+  //   title: 'Premium',
+  //   subTitle: 'Need more functions?',
+  //   path: '/premiumSub',
+  // );
 
-  final _userButtons = <NavButton>[
-    NavButton(
-        icon: UniconsLine.language,
-        title: 'Language',
-        subTitle: 'Enflish',
-        path: '/UserLanguage'),
-    NavButton(
-        icon: UniconsLine.envelope,
-        title: 'Email',
-        subTitle: 'example@gmail.com',
-        path: '/email'),
-    NavButton(
-        icon: UniconsLine.comments,
-        title: 'Need help?',
-        subTitle: 'Support',
-        path: '/support')
-  ];
+  // final _userButtons = <NavButton>[
+  //   NavButton(
+  //       icon: UniconsLine.language,
+  //       title: 'Language',
+  //       subTitle: 'Enflish',
+  //       path: '/UserLanguage'),
+  //   NavButton(
+  //       icon: UniconsLine.envelope,
+  //       title: 'Email',
+  //       subTitle: 'example@gmail.com',
+  //       path: '/email'),
+  //   NavButton(
+  //       icon: UniconsLine.comments,
+  //       title: 'Need help?',
+  //       subTitle: 'Support',
+  //       path: '/support')
+  // ];
 
   // List<NavButton> get menuButtons => [..._menuButtons];
-  List<NavButton> get userButtons => [..._userButtons];
-  NavButton get premiumButton => _premiumButton;
+  // List<NavButton> get userButtons => [..._userButtons];
+  // NavButton get premiumButton => _premiumButton;
 }

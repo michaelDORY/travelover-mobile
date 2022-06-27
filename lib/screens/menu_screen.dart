@@ -44,7 +44,7 @@ class _MenuScreenStateState extends State<MenuScreen> {
               Column(mainAxisAlignment: MainAxisAlignment.center, children: [
                 ..._buildNavButtons(context).map((item) => Padding(
                     padding: EdgeInsets.symmetric(vertical: 10), child: item)),
-                hasPremium ? Container() : NavButtonsData().premiumButton
+                hasPremium ? Container() : _buildPremiumButton(context),
               ]),
               Column(
                 mainAxisAlignment: MainAxisAlignment.center,
@@ -77,21 +77,30 @@ class _MenuScreenStateState extends State<MenuScreen> {
       NavButton(
         icon: UniconsLine.book_alt,
         title: AppLocalizations.of(context).takeQuizes,
-        subTitle: 'Check your knowladge',
+        subTitle: AppLocalizations.of(context).checkKnowladge,
         path: '/quizes',
       ),
       NavButton(
         icon: UniconsLine.location_point,
-        title: 'Discover',
-        subTitle: 'Need an idea where to go?',
+        title: AppLocalizations.of(context).discover,
+        subTitle: AppLocalizations.of(context).needAnIdea,
         path: '/main',
       ),
       NavButton(
         icon: UniconsLine.heart_alt,
-        title: 'Favourites',
-        subTitle: 'Look at your places',
+        title: AppLocalizations.of(context).fav,
+        subTitle: AppLocalizations.of(context).lookPlace,
         path: '/favourite',
       ),
     ];
+  }
+
+  Widget _buildPremiumButton(BuildContext context) {
+    return NavButton(
+      icon: UniconsLine.dollar_alt,
+      title: AppLocalizations.of(context).premium,
+      subTitle: AppLocalizations.of(context).needFunction,
+      path: '/premiumSub',
+    );
   }
 }

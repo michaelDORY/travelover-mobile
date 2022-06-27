@@ -74,27 +74,6 @@ class _UserLanguageState extends State<UserLanguage> {
                                   title: language, value: locale);
                             })
                           ])),
-                      // Container(
-                      //   alignment: Alignment.center,
-                      //   padding: const EdgeInsets.symmetric(
-                      //     horizontal: 10.0,
-                      //     vertical: 20.0,
-                      //   ),
-                      //   child: ElevatedButton(
-                      //       style: ElevatedButton.styleFrom(
-                      //         minimumSize: const Size.fromHeight(50),
-                      //       ),
-                      //       onPressed: () {
-                      //         final provider = Provider.of<LocaleProvider>(
-                      //             context,
-                      //             listen: false);
-
-                      //         provider.setLocale(selectedValue);
-                      //         Navigator.pushNamedAndRemoveUntil(
-                      //             context, '/user', (route) => false);
-                      //       },
-                      //       child: Text(AppLocalizations.of(context).confirm)),
-                      // )
                     ],
                   ),
                 )
@@ -122,7 +101,6 @@ class _UserLanguageState extends State<UserLanguage> {
                   Provider.of<LocaleProvider>(context, listen: false);
 
               provider.setLocale(value!);
-              print(AppLocalizations.of(context).login);
               setState(() => selectedValue = value);
             }));
   }

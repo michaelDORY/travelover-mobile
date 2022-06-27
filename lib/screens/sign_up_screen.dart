@@ -42,21 +42,12 @@ class _SignUpScreenState extends State<SignUpScreen> {
           email: emailController.text, password: passwordController.text);
       Navigator.pushNamedAndRemoveUntil(context, '/main', (route) => false);
     } catch (e) {
-      CustomToast(message: "Enter correct fields").show();
+      CustomToast(message: AppLocalizations.of(context).enterCorrectFields)
+          .show();
     } finally {
       context.loaderOverlay.hide();
     }
   }
-
-  final passwordValidator = MultiValidator([
-    RequiredValidator(errorText: 'Password is required'),
-    MinLengthValidator(8, errorText: 'Password must be at least 8 digits long'),
-  ]);
-
-  final emailValidator = MultiValidator([
-    RequiredValidator(errorText: 'Email is required'),
-    EmailValidator(errorText: 'Enter correct email')
-  ]);
 
   @override
   Widget build(BuildContext context) {
@@ -65,7 +56,8 @@ class _SignUpScreenState extends State<SignUpScreen> {
       controller: nameController,
       keyboardType: TextInputType.name,
       textInputAction: TextInputAction.next,
-      validator: RequiredValidator(errorText: 'Name is required'),
+      validator:
+          RequiredValidator(errorText: AppLocalizations.of(context).nameIsReq),
       onSaved: (value) {
         nameController.text = value!;
       },
@@ -78,7 +70,11 @@ class _SignUpScreenState extends State<SignUpScreen> {
 
     final emailField = TextFormField(
       controller: emailController,
-      validator: emailValidator,
+      validator: MultiValidator([
+        RequiredValidator(errorText: AppLocalizations.of(context).emailIsReq),
+        EmailValidator(
+            errorText: AppLocalizations.of(context).enterCorrectEmail),
+      ]),
       keyboardType: TextInputType.emailAddress,
       onSaved: (value) {
         emailController.text = value!;
@@ -97,7 +93,12 @@ class _SignUpScreenState extends State<SignUpScreen> {
       autocorrect: false,
       textInputAction: TextInputAction.done,
       obscureText: true,
-      validator: passwordValidator,
+      validator: MultiValidator([
+        RequiredValidator(
+            errorText: AppLocalizations.of(context).passwordIsReq),
+        MinLengthValidator(8,
+            errorText: AppLocalizations.of(context).passwordMustBe),
+      ]),
       onSaved: (value) {
         passwordController.text = value!;
       },
