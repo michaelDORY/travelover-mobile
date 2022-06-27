@@ -100,10 +100,8 @@ class _MyProfileState extends State<MyProfile> {
                         vertical: 0.0,
                       ),
                       child: Row(
+                        mainAxisAlignment: MainAxisAlignment.center,
                         children: [
-                          const SizedBox(
-                            width: 60.0,
-                          ),
                           Text(Auth.currentUser!.displayName ?? "User",
                               style: Theme.of(context).textTheme.headline2),
                           const SizedBox(

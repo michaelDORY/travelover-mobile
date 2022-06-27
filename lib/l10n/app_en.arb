@@ -1,8 +1,8 @@
 {
   "title": "Travelover",
-  "login": "login",
+  "login": "Login",
   "signUp": "Sign Up",
-  "name": "name",
+  "name": "Name",
   "authorize": "Authorize",
   "loginViaGoogle":"Login via Google",
   "or":"or",
@@ -10,7 +10,7 @@
   "password": "Password",
   "nothingFound":"Nothing Found",
   "discover": "Discover",
-  "takeQuizes": "take Quizes",
+  "takeQuizes": "Take Quizes",
 
   "myProfile":"My Profile",
   "updateUsername":"New name",
@@ -53,7 +53,7 @@
   "premiumSub3":"The ability to edit your profile will improve your profile.",
   "premiumSub4":"Unlimited access to premium quizzes, as well as the ability to share the result of the quiz on social networks.",
 
-  "quiz":"quiz",
+  "quiz":"Quiz",
   "quizes":"Quizes",
   "start":"Start",
   "dontBeUpset":"Don't be upset! Try again",
@@ -69,7 +69,7 @@
   "home":"Home",
   "next":"Next",
 
-  "contactUs":"contact us",
+  "contactUs":"Contact us",
   "supportText":"Our unique TraveLover app invites users to take advantage of our support! Write to us on social networks or by mail what worries you or you notice an error. Our staff will be happy to answer you during the working day. All your suggestions will be heard. Stay with us! ",
 
   "chooseTheLan":"Choose the right language",

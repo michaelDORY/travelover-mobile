@@ -1,20 +1,20 @@
 {
   "title": "Travelover",
 
-  "login": "iniciar sesión",
+  "login": "Iniciar sesión",
   "signUp": "Registrarse",
-  "name": "nombre",
+  "name": "Nombre",
   "authorize": "Autorizar",
   "loginViaGoogle":"Iniciar sesión a través de Google",
   "or":"o",
-  "email": "el e-mail",
+  "email": "El e-mail",
   "password": "Contraseña",
-  "add":"agregar",
+  "add":"Agregar",
   "totalScore": "Pregunta: ",
   "adress":"Dirección",
   "nothingFound":"No se encontró nada",
   "discover": "Descubrirr",
-  "takeQuizes": "hacer pruebas",
+  "takeQuizes": "Hacer pruebas",
   "shapeLink1":"¡Mira lo que obtuve en esta prueba! ¡Obtuve",
   "shapeLink2": "de 100!\n¡Completé esta prueba en la increíble aplicación Travelover! ¡Descarga esta aplicación para evaluar tus conocimientos!",
 
@@ -27,10 +27,10 @@
   "premium":"Premium",
   "needFunction":"¿Necesitas más funciones?",
 
-  "logOut":"cerrar sesión",
-  "language":"idioma",
+  "logOut":"Cerrar sesión",
+  "language":"Idioma",
   "needHelp":"¿Necesitas ayuda?",
-  "support":"soporte",
+  "support":"Soporte",
   "currentEmail":"Correo actual",
   "confirm":"Confirmar",
 
@@ -44,7 +44,7 @@
 
 
   "toPay":"$60/mes",
-  "buy":"compra",
+  "buy":"Compra",
   "mounthPlan":"Plan de mes",
   "premiumActivation":"Activación Premium",
   "areYouShure": "¿Está seguro de que desea activar la prima por $60 al mes?",
@@ -57,7 +57,7 @@
   "premiumSub3":"La habilidad de editar tu perfil mejorará tu perfil.",
   "premiumSub4":"Acceso ilimitado a cuestionarios premium, así como la capacidad de compartir el resultado del cuestionario en las redes sociales.",
 
-  "quiz":"cuestionario",
+  "quiz":"Cuestionario",
   "quizes":"Cuestionarios",
   "start":"Inicio",
   "dontBeUpset":"¡No te enfades! Inténtalo de nuevo",
@@ -70,9 +70,9 @@
 
   "shareButton":"Compartir",
   "home":"Hogar",
-  "next":"siguiente",
+  "next":"Siguiente",
 
-  "contactUs":"contactanos",
+  "contactUs":"Contactanos",
   "supportText":"¡Nuestra exclusiva aplicación TraveLover invita a los usuarios a aprovechar nuestro apoyo! Escríbanos en las redes sociales o por correo lo que le preocupa o si nota un error. Nuestro personal estará encantado de responderle durante la jornada laboral. Todo tus sugerencias serán escuchadas ¡Quédate con nosotros!",
 
   "chooseTheLan":"Elige el idioma correcto",
