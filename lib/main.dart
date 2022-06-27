@@ -20,6 +20,7 @@ import 'package:travelover_mobile/services/auth.dart';
 import 'package:flutter_spinkit/flutter_spinkit.dart';
 import 'package:travelover_mobile/widgets/root.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
+import 'package:travelover_mobile/provider/locale_provider.dart';
 
 main() async {
   WidgetsFlutterBinding.ensureInitialized();
@@ -38,8 +39,15 @@ class MyApp extends StatefulWidget {
 class _MyAppState extends State<MyApp> {
   @override
   Widget build(BuildContext context) {
-    return Provider<AuthBase>(
-      create: (context) => AuthService(),
+    return MultiProvider(
+      providers: [
+        Provider<AuthBase>(
+          create: (context) => AuthService(),
+        ),
+        ChangeNotifierProvider<LocaleProvider>(
+          create: (context) => LocaleProvider(),
+        ),
+      ],
       child: GlobalLoaderOverlay(
         useDefaultLoading: false,
         overlayWidget: const Center(
@@ -63,7 +71,9 @@ class _MyAppState extends State<MyApp> {
               '/signIn': (context) => const SignInScreen(),
               '/signUp': (context) => const SignUpScreen(),
               '/': (context) => const Root(),
-              '/user': (context) => const MyProfile(),
+              '/user': (context) => const MyProfile(
+                    name: '',
+                  ),
               '/quizes': (context) => const QuizesScreen(),
               '/email': (context) => const EmailScreen(),
               '/support': (context) => const SupportScreen(),

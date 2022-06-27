@@ -1,6 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/src/foundation/key.dart';
 import 'package:flutter/src/widgets/framework.dart';
+import 'package:provider/provider.dart';
+import 'package:travelover_mobile/l10n/l10n.dart';
+import 'package:travelover_mobile/provider/locale_provider.dart';
 import 'package:unicons/unicons.dart';
 import '../widgets/nav_button.dart';
 import 'menu_screen.dart';
@@ -20,9 +23,12 @@ void _menuOpen(context) {
 }
 
 class _UserLanguageState extends State<UserLanguage> {
-  int selectedValue = 0;
+  Locale selectedValue = const Locale('en');
   @override
   Widget build(BuildContext context) {
+    final provider = Provider.of<LocaleProvider>(context);
+    final locale = provider.locale ?? Locale('en');
+
     return Scaffold(
         backgroundColor: Colors.black,
         appBar: AppBar(
@@ -57,52 +63,13 @@ class _UserLanguageState extends State<UserLanguage> {
                       SizedBox(
                           width: 600.0,
                           height: 400.0,
-                          child: ListView(
-                            children: [
-                              Container(
-                                margin: const EdgeInsets.symmetric(
-                                  horizontal: 15.0,
-                                  vertical: 7.0,
-                                ),
-                                decoration: BoxDecoration(
-                                  border: Border.all(
-                                      color: Colors.grey, width: 2.0),
-                                  borderRadius: const BorderRadius.all(
-                                      Radius.circular(25.0)),
-                                ),
-                                child: Text(""),
-                              ),
-
-                              // RadioListTile<int>(
-                              //           value: 1,
-                              //           groupValue: selectedValue,
-                              //           activeColor: Colors.yellow,
-                              //           title: const Text('English'),
-                              //           onChanged: (value) =>
-                              //               setState(() => selectedValue = 1)),
-
-                              //     ),
-                              //     Container(
-                              //       margin: const EdgeInsets.symmetric(
-                              //         horizontal: 15.0,
-                              //         vertical: 7.0,
-                              //       ),
-                              //       decoration: BoxDecoration(
-                              //         border: Border.all(
-                              //             color: Colors.grey, width: 2.0),
-                              //         borderRadius: const BorderRadius.all(
-                              //             Radius.circular(25.0)),
-                              //       ),
-                              //       child: RadioListTile<int>(
-                              //           value: 2,
-                              //           activeColor: Colors.yellow,
-                              //           groupValue: selectedValue,
-                              //           title: const Text('Русский'),
-                              //           onChanged: (value) =>
-                              //               setState(() => selectedValue = 2)),
-                              //     ),
-                            ],
-                          )),
+                          child: ListView(children: [
+                            ...L10n.all.map((locale) {
+                              final flag = L10n.getFlag(locale.languageCode);
+                              return _buildRadioButton(
+                                  title: flag, onChanged: () {}, value: locale);
+                            })
+                          ])),
                       Container(
                         alignment: Alignment.center,
                         padding: const EdgeInsets.symmetric(
@@ -123,5 +90,27 @@ class _UserLanguageState extends State<UserLanguage> {
                 )
               ],
             )));
+  }
+
+  Widget _buildRadioButton(
+      {required String title,
+      required Function onChanged,
+      required Locale value}) {
+    return Container(
+      margin: const EdgeInsets.symmetric(
+        horizontal: 15.0,
+        vertical: 7.0,
+      ),
+      decoration: BoxDecoration(
+        border: Border.all(color: Colors.grey, width: 2.0),
+        borderRadius: const BorderRadius.all(Radius.circular(25.0)),
+      ),
+      child: RadioListTile<Locale>(
+          value: value,
+          groupValue: selectedValue,
+          activeColor: Colors.yellow,
+          title: Text(title),
+          onChanged: (value) => setState(() => selectedValue = value!)),
+    );
   }
 }

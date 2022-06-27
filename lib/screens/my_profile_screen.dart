@@ -12,7 +12,8 @@ import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 import 'package:image_picker/image_picker.dart';
 
 class MyProfile extends StatefulWidget {
-  const MyProfile({Key? key}) : super(key: key);
+  final String name;
+  const MyProfile({Key? key, required this.name}) : super(key: key);
 
   @override
   State<MyProfile> createState() => _MyProfileState();
@@ -76,14 +77,7 @@ class _MyProfileState extends State<MyProfile> {
                     const SizedBox(
                       height: 10.0,
                     ),
-                    TextFormField(
-                      autocorrect: false,
-                      decoration: const InputDecoration(
-                        icon: Icon(UniconsLine.edit_alt),
-                        border: OutlineInputBorder(),
-                        hintText: "Name",
-                      ),
-                    ),
+                    Text(widget.name),
                     const SizedBox(
                       height: 20.0,
                     ),
