@@ -3,6 +3,7 @@ import 'package:provider/provider.dart';
 import 'package:travelover_mobile/models/nav_buttons_data.dart';
 import 'package:travelover_mobile/services/auth.dart';
 import 'package:travelover_mobile/services/firestore.dart';
+import 'package:travelover_mobile/widgets/nav_button.dart';
 import 'package:unicons/unicons.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 
@@ -41,12 +42,8 @@ class _MenuScreenStateState extends State<MenuScreen> {
             mainAxisAlignment: MainAxisAlignment.spaceBetween,
             children: [
               Column(mainAxisAlignment: MainAxisAlignment.center, children: [
-                ...NavButtonsData()
-                    .menuButtons
-                    .map((item) => Padding(
-                        padding: const EdgeInsets.only(bottom: 10.0),
-                        child: item))
-                    .toList(),
+                ..._buildNavButtons(context).map((item) => Padding(
+                    padding: EdgeInsets.symmetric(vertical: 10), child: item)),
                 hasPremium ? Container() : NavButtonsData().premiumButton
               ]),
               Column(
@@ -73,5 +70,28 @@ class _MenuScreenStateState extends State<MenuScreen> {
             ],
           ),
         ));
+  }
+
+  List<NavButton> _buildNavButtons(BuildContext context) {
+    return [
+      NavButton(
+        icon: UniconsLine.book_alt,
+        title: AppLocalizations.of(context).takeQuizes,
+        subTitle: 'Check your knowladge',
+        path: '/quizes',
+      ),
+      NavButton(
+        icon: UniconsLine.location_point,
+        title: 'Discover',
+        subTitle: 'Need an idea where to go?',
+        path: '/main',
+      ),
+      NavButton(
+        icon: UniconsLine.heart_alt,
+        title: 'Favourites',
+        subTitle: 'Look at your places',
+        path: '/favourite',
+      ),
+    ];
   }
 }

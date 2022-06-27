@@ -12,8 +12,7 @@ import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 import 'package:image_picker/image_picker.dart';
 
 class MyProfile extends StatefulWidget {
-  final String name;
-  const MyProfile({Key? key, required this.name}) : super(key: key);
+  const MyProfile({Key? key}) : super(key: key);
 
   @override
   State<MyProfile> createState() => _MyProfileState();
@@ -23,6 +22,8 @@ class _MyProfileState extends State<MyProfile> {
   bool circular = false;
   final ImagePicker _picker = ImagePicker();
   PickedFile? _imageFile;
+  String username = "User";
+  final TextEditingController _textFieldController = TextEditingController();
 
   void _menuOpen(context) {
     Navigator.of(context).push(
@@ -45,8 +46,11 @@ class _MyProfileState extends State<MyProfile> {
 
   @override
   Widget build(BuildContext context) {
+    AuthBase Auth = Provider.of<AuthBase>(context);
+
     return Scaffold(
       backgroundColor: Colors.black,
+      resizeToAvoidBottomInset: false,
       appBar: AppBar(
         actions: [
           IconButton(
@@ -77,7 +81,15 @@ class _MyProfileState extends State<MyProfile> {
                     const SizedBox(
                       height: 10.0,
                     ),
-                    Text(widget.name),
+                    Text(Auth.currentUser!.displayName ?? "User",
+                        style: Theme.of(context).textTheme.headline2),
+                    ElevatedButton(
+                        child:
+                            Text(AppLocalizations.of(context).updateUsername),
+                        style: ElevatedButton.styleFrom(
+                            padding: const EdgeInsets.symmetric(
+                                vertical: 15, horizontal: 30)),
+                        onPressed: () => _showPopup(Auth)),
                     const SizedBox(
                       height: 20.0,
                     ),
@@ -100,6 +112,49 @@ class _MyProfileState extends State<MyProfile> {
             ],
           )),
     );
+  }
+
+  Future _showPopup(AuthBase Auth) async {
+    return showDialog(
+        context: context,
+        builder: (context) {
+          return AlertDialog(
+            title: Text('Change your name'),
+            content: TextField(
+              onChanged: (value) {
+                username = value;
+              },
+              controller: _textFieldController,
+              decoration: InputDecoration(hintText: 'Vasyka'),
+            ),
+            actions: <Widget>[
+              ElevatedButton(
+                child: Text(AppLocalizations.of(context).add),
+                style: ElevatedButton.styleFrom(
+                    padding:
+                        EdgeInsets.symmetric(vertical: 15, horizontal: 30)),
+                onPressed: () {
+                  if (username != '') {
+                    Auth.updateUserName(username).then((value) {
+                      if (value != null && value != '') {
+                        setState(() {
+                          username = value;
+                        });
+                        CustomToast(
+                                color: Colors.green,
+                                message: 'Successfully changed!')
+                            .show();
+                      }
+                    });
+                  }
+                  _textFieldController.clear();
+
+                  Navigator.pop(context);
+                },
+              ),
+            ],
+          );
+        });
   }
 
   Widget imageProfile() {
@@ -139,7 +194,7 @@ class _MyProfileState extends State<MyProfile> {
       source: source,
     );
     setState(() {
-      _imageFile = pickedFile!;
+      _imageFile = pickedFile;
     });
   }
 

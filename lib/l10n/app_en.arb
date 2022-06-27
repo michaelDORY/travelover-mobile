@@ -14,6 +14,7 @@
   "takeQuizes": "take Quizes",
 
   "myProfile":"My Profile",
+  "updateUsername":"New name",
   "checkKnowladge":"Check your knowladge",
   "needAnIdea":"Need an idea where to go?",
   "fav":"Favourites",
@@ -29,16 +30,16 @@
   "support":"Support",
   "currentEmail":"Current mail",
   "confirm":"Confirm",
-  
+
   "favPlaces":"Favourite places",
   "dontHaveFav":"You don't have favourites",
-  
+
   "rate":"Rate the place",
   "comm":"Comments",
   "addComm":"Add comment",
   "addYourComm":"Add your comment",
 
-  
+
   "toPay":"$60/mounth",
   "buy":"Buy",
   "mounthPlan":"Mounth plan",
@@ -68,10 +69,10 @@
   "shareButton":"Share",
   "home":"Home",
   "next":"Next",
-  
+
   "contactUs":"contact us",
   "supportText":"Our unique TraveLover app invites users to take advantage of our support! Write to us on social networks or by mail what worries you or you notice an error. Our staff will be happy to answer you during the working day. All your suggestions will be heard. Stay with us! ",
-  
+
   "chooseTheLan":"Choose the right language"
 }
 

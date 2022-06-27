@@ -10,6 +10,7 @@ abstract class AuthBase {
   Future<User?> signUpWithEmailAndPassword(
       {required String email, required String password, required String name});
   Future<void> logOut();
+  Future<String?> updateUserName(String newUserName);
   User? get currentUser;
   Stream<User?> onAuthStateChanged();
 }
@@ -70,6 +71,14 @@ class AuthService implements AuthBase {
     } on FirebaseAuthException catch (e) {
       throw FirebaseAuthException(code: e.code);
     }
+  }
+
+  @override
+  Future<String?> updateUserName(String newUserName) async {
+    try {
+      await _fAuth.currentUser!.updateDisplayName(newUserName);
+      return _fAuth.currentUser!.displayName;
+    } catch (e) {}
   }
 
   @override
