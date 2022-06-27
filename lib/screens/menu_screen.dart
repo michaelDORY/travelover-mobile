@@ -44,7 +44,11 @@ class _MenuScreenStateState extends State<MenuScreen> {
               Column(mainAxisAlignment: MainAxisAlignment.center, children: [
                 ..._buildNavButtons(context).map((item) => Padding(
                     padding: EdgeInsets.symmetric(vertical: 10), child: item)),
-                hasPremium ? Container() : _buildPremiumButton(context),
+                hasPremium
+                    ? Container()
+                    : Padding(
+                        padding: EdgeInsets.symmetric(vertical: 10),
+                        child: _buildPremiumButton(context)),
               ]),
               Column(
                 mainAxisAlignment: MainAxisAlignment.center,
