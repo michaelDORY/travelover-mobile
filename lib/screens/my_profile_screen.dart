@@ -6,10 +6,12 @@ import 'package:provider/provider.dart';
 import 'package:travelover_mobile/screens/menu_screen.dart';
 import 'package:travelover_mobile/models/nav_buttons_data.dart';
 import 'package:travelover_mobile/services/auth.dart';
+import 'package:travelover_mobile/services/firebase_storage.dart';
 import 'package:travelover_mobile/utils/toast.dart';
 import 'package:unicons/unicons.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 import 'package:image_picker/image_picker.dart';
+import 'package:uuid/uuid.dart';
 
 class MyProfile extends StatefulWidget {
   const MyProfile({Key? key}) : super(key: key);
@@ -21,9 +23,15 @@ class MyProfile extends StatefulWidget {
 class _MyProfileState extends State<MyProfile> {
   bool circular = false;
   final ImagePicker _picker = ImagePicker();
-  PickedFile? _imageFile;
+  String? _imageFileUrl;
   String username = "User";
   final TextEditingController _textFieldController = TextEditingController();
+  late AuthBase Auth;
+
+  @override
+  void initState() {
+    super.initState();
+  }
 
   void _menuOpen(context) {
     Navigator.of(context).push(
@@ -31,11 +39,10 @@ class _MyProfileState extends State<MyProfile> {
     );
   }
 
-  void _logOut(BuildContext context) async {
+  void _logOut() async {
     context.loaderOverlay.show();
-    AuthBase? auth = Provider.of<AuthBase>(context, listen: false);
     try {
-      await auth.logOut();
+      await Auth.logOut();
       Navigator.pushNamedAndRemoveUntil(context, '/', (route) => false);
     } catch (e) {
       CustomToast().show();
@@ -46,8 +53,16 @@ class _MyProfileState extends State<MyProfile> {
 
   @override
   Widget build(BuildContext context) {
-    AuthBase Auth = Provider.of<AuthBase>(context);
+    AuthBase auth = Provider.of<AuthBase>(context);
+    setState(() {
+      Auth = auth;
+    });
 
+    if (auth.currentUser!.photoURL != null) {
+      setState(() {
+        _imageFileUrl = auth.currentUser!.photoURL;
+      });
+    }
     return Scaffold(
       backgroundColor: Colors.black,
       resizeToAvoidBottomInset: false,
@@ -71,10 +86,6 @@ class _MyProfileState extends State<MyProfile> {
           child: Column(
             children: <Widget>[
               imageProfile(),
-              // const CircleAvatar(
-              //   radius: 80,
-              //   backgroundImage: AssetImage('assets/images/mario.jpg'),
-              // ),
               Form(
                 child: Column(
                   children: [
@@ -106,7 +117,7 @@ class _MyProfileState extends State<MyProfile> {
                 height: 15,
               ),
               OutlinedButton(
-                onPressed: () => _logOut(context),
+                onPressed: () => _logOut(),
                 child: Text(AppLocalizations.of(context).logOut),
               )
             ],
@@ -161,12 +172,11 @@ class _MyProfileState extends State<MyProfile> {
     return Center(
       child: Stack(children: <Widget>[
         CircleAvatar(
-          radius: 80.0,
-          // ignore: unnecessary_null_comparison
-          backgroundImage: _imageFile == null
-              ? null // added this line
-              : FileImage(File(_imageFile!.path)),
-        ),
+            radius: 80.0,
+            backgroundImage: _imageFileUrl != null
+                ? NetworkImage(_imageFileUrl!)
+                : NetworkImage(
+                    'https://images.unsplash.com/photo-1533738363-b7f9aef128ce?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=435&q=80')),
         Positioned(
           bottom: 20.0,
           right: 20.0,
@@ -189,13 +199,17 @@ class _MyProfileState extends State<MyProfile> {
   }
 
   void takePhoto(ImageSource source) async {
-    // ignore: deprecated_member_use
-    final pickedFile = await _picker.getImage(
-      source: source,
-    );
-    setState(() {
-      _imageFile = pickedFile;
-    });
+    final pickedFile = await _picker.pickImage(source: source);
+    if (pickedFile != null) {
+      String? res =
+          await FStorage().putFile(Uuid().v4(), File(pickedFile!.path));
+      await Auth.currentUser!.updatePhotoURL(res);
+      if (res != null) {
+        setState(() {
+          _imageFileUrl = res;
+        });
+      }
+    }
   }
 
   Widget bottomSheet() {
