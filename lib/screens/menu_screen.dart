@@ -44,7 +44,7 @@ class _MenuScreenStateState extends State<MenuScreen> {
               Column(mainAxisAlignment: MainAxisAlignment.center, children: [
                 ..._buildNavButtons(context).map((item) => Padding(
                     padding: EdgeInsets.symmetric(vertical: 10), child: item)),
-                // hasPremium ? Container() : _buildPremiumButtons(context), //!!!
+                hasPremium ? Container() : _buildPremiumButton(context),
               ]),
               Column(
                 mainAxisAlignment: MainAxisAlignment.center,
@@ -95,14 +95,12 @@ class _MenuScreenStateState extends State<MenuScreen> {
     ];
   }
 
-  List<NavButton> _buildPremiumButtons(BuildContext context) {
-    return [
-      NavButton(
-        icon: UniconsLine.dollar_alt,
-        title: AppLocalizations.of(context).premium,
-        subTitle: AppLocalizations.of(context).needFunction,
-        path: '/premiumSub',
-      ),
-    ];
+  Widget _buildPremiumButton(BuildContext context) {
+    return NavButton(
+      icon: UniconsLine.dollar_alt,
+      title: AppLocalizations.of(context).premium,
+      subTitle: AppLocalizations.of(context).needFunction,
+      path: '/premiumSub',
+    );
   }
 }
