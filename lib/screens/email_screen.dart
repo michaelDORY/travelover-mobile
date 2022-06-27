@@ -1,10 +1,20 @@
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
 import 'package:travelover_mobile/screens/menu_screen.dart';
+import 'package:travelover_mobile/services/auth.dart';
 import 'package:unicons/unicons.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 
-class EmailScreen extends StatelessWidget {
+class EmailScreen extends StatefulWidget {
   const EmailScreen({Key? key}) : super(key: key);
+
+  @override
+  State<EmailScreen> createState() => _EmailScreenState();
+}
+
+class _EmailScreenState extends State<EmailScreen> {
+  String email = "email";
+  late AuthBase Auth;
 
   void _menuOpen(context) {
     Navigator.of(context).push(
@@ -14,6 +24,11 @@ class EmailScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    AuthBase auth = Provider.of<AuthBase>(context);
+    setState(() {
+      Auth = auth;
+    });
+
     return Scaffold(
         backgroundColor: Colors.black,
         appBar: AppBar(
@@ -42,20 +57,12 @@ class EmailScreen extends StatelessWidget {
                     color: Colors.yellow,
                   )),
               const SizedBox(
-                height: 30.0,
+                height: 100.0,
               ),
-              const TextField(
-                  decoration: InputDecoration(
-                hintText: "example@gmail.com",
-                icon: Icon(UniconsLine.edit_alt),
-                hintStyle: TextStyle(
-                  fontSize: 18,
-                  color: Colors.grey,
-                  fontWeight: FontWeight.w400,
-                ),
-              )),
+              Text(Auth.currentUser!.email ?? "Email",
+                  style: Theme.of(context).textTheme.headline2),
               const SizedBox(
-                height: 300.0,
+                height: 400.0,
               ),
               ElevatedButton(
                   style: ElevatedButton.styleFrom(

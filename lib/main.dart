@@ -93,19 +93,19 @@ class _MyAppState extends State<MyApp> {
       fontFamily: CyrillicFonts.montserrat().fontFamily,
       textTheme: const TextTheme(
         headline1: TextStyle(
-            fontSize: 30.0,
-            color: Colors.yellowAccent,
-            fontWeight: FontWeight.w700),
-        headline2: TextStyle(
             fontSize: 25.0,
             color: Colors.yellowAccent,
             fontWeight: FontWeight.w700),
-        headline3: TextStyle(fontSize: 20.0, fontWeight: FontWeight.w700),
+        headline2: TextStyle(
+            fontSize: 20.0,
+            color: Colors.yellowAccent,
+            fontWeight: FontWeight.w700),
+        headline3: TextStyle(fontSize: 16.0, fontWeight: FontWeight.w700),
         bodyText1: TextStyle(
           fontSize: 18.0,
         ),
         button: TextStyle(fontWeight: FontWeight.w700, fontSize: 18.0),
-        subtitle1: TextStyle(fontSize: 14.0, fontWeight: FontWeight.w700),
+        subtitle1: TextStyle(fontSize: 12.0, fontWeight: FontWeight.w400),
       ),
       appBarTheme: const AppBarTheme(
           backgroundColor: Colors.black,

@@ -176,7 +176,7 @@ class _PlaceScreenState extends State<PlaceScreen> {
                 SizedBox(
                   width: 400,
                   height: 400,
-                    child: MapContainer(location: widget.address['location']),
+                  child: MapContainer(location: widget.address['location']),
                 ),
                 SizedBox(
                   height: 10.0,
@@ -260,7 +260,8 @@ class _PlaceScreenState extends State<PlaceScreen> {
                             user_id: Auth.currentUser!.uid)
                         .then((value) => CustomToast(
                                 color: Colors.green,
-                                message: 'Wait till approving')
+                                message:
+                                    AppLocalizations.of(context).waitApprove)
                             .show());
                   }
                   _textFieldController.clear();

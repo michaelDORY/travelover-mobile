@@ -8,6 +8,7 @@ import 'package:travelover_mobile/models/nav_buttons_data.dart';
 import 'package:travelover_mobile/services/auth.dart';
 import 'package:travelover_mobile/services/firebase_storage.dart';
 import 'package:travelover_mobile/utils/toast.dart';
+import 'package:travelover_mobile/widgets/nav_button.dart';
 import 'package:unicons/unicons.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 import 'package:image_picker/image_picker.dart';
@@ -92,24 +93,46 @@ class _MyProfileState extends State<MyProfile> {
                     const SizedBox(
                       height: 10.0,
                     ),
-                    Text(Auth.currentUser!.displayName ?? "User",
-                        style: Theme.of(context).textTheme.headline2),
-                    ElevatedButton(
-                        child:
-                            Text(AppLocalizations.of(context).updateUsername),
-                        style: ElevatedButton.styleFrom(
-                            padding: const EdgeInsets.symmetric(
-                                vertical: 15, horizontal: 30)),
-                        onPressed: () => _showPopup(Auth)),
+                    Container(
+                      alignment: Alignment.center,
+                      padding: const EdgeInsets.symmetric(
+                        horizontal: 10.0,
+                        vertical: 0.0,
+                      ),
+                      child: Row(
+                        children: [
+                          const SizedBox(
+                            width: 60.0,
+                          ),
+                          Text(Auth.currentUser!.displayName ?? "User",
+                              style: Theme.of(context).textTheme.headline2),
+                          const SizedBox(
+                            width: 10.0,
+                          ),
+                          InkWell(
+                            onTap: () {
+                              _showPopup(Auth);
+                            },
+                            child: const Icon(
+                              UniconsLine.pen,
+                              color: Colors.yellowAccent,
+                              size: 25.0,
+                            ),
+                          ),
+                        ],
+                      ),
+                    ),
+                    const Divider(
+                      indent: 40,
+                      endIndent: 40,
+                      color: Colors.yellowAccent,
+                    ),
                     const SizedBox(
                       height: 20.0,
                     ),
-                    ...NavButtonsData()
-                        .userButtons
-                        .map((item) => Padding(
-                            padding: const EdgeInsets.only(bottom: 10.0),
-                            child: item))
-                        .toList(),
+                    ..._buildNavButtons(context).map((item) => Padding(
+                        padding: EdgeInsets.symmetric(vertical: 10),
+                        child: item)),
                   ],
                 ),
               ),
@@ -130,20 +153,23 @@ class _MyProfileState extends State<MyProfile> {
         context: context,
         builder: (context) {
           return AlertDialog(
-            title: Text('Change your name'),
+            shape: const RoundedRectangleBorder(
+                borderRadius: BorderRadius.all(Radius.circular(10.0))),
+            title: Text(AppLocalizations.of(context).changeYourName),
             content: TextField(
               onChanged: (value) {
                 username = value;
               },
               controller: _textFieldController,
-              decoration: InputDecoration(hintText: 'Vasyka'),
+              decoration: InputDecoration(
+                  hintText: AppLocalizations.of(context).hintVasya),
             ),
             actions: <Widget>[
               ElevatedButton(
                 child: Text(AppLocalizations.of(context).add),
                 style: ElevatedButton.styleFrom(
-                    padding:
-                        EdgeInsets.symmetric(vertical: 15, horizontal: 30)),
+                    padding: const EdgeInsets.symmetric(
+                        vertical: 15, horizontal: 30)),
                 onPressed: () {
                   if (username != '') {
                     Auth.updateUserName(username).then((value) {
@@ -153,7 +179,8 @@ class _MyProfileState extends State<MyProfile> {
                         });
                         CustomToast(
                                 color: Colors.green,
-                                message: 'Successfully changed!')
+                                message:
+                                    AppLocalizations.of(context).sucessChanged)
                             .show();
                       }
                     });
@@ -166,6 +193,26 @@ class _MyProfileState extends State<MyProfile> {
             ],
           );
         });
+  }
+
+  List<NavButton> _buildNavButtons(BuildContext context) {
+    return [
+      NavButton(
+          icon: UniconsLine.language,
+          title: AppLocalizations.of(context).language,
+          subTitle: AppLocalizations.of(context).chooseLan,
+          path: '/UserLanguage'),
+      NavButton(
+          icon: UniconsLine.envelope,
+          title: AppLocalizations.of(context).email,
+          subTitle: AppLocalizations.of(context).currentEmail,
+          path: '/email'),
+      NavButton(
+          icon: UniconsLine.comments,
+          title: AppLocalizations.of(context).support,
+          subTitle: AppLocalizations.of(context).needHelp,
+          path: '/support')
+    ];
   }
 
   Widget imageProfile() {

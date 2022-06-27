@@ -20,16 +20,6 @@ class _SignInScreenState extends State<SignInScreen> {
   final TextEditingController emailController = TextEditingController();
   final TextEditingController passwordController = TextEditingController();
 
-  final passwordValidator = MultiValidator([
-    RequiredValidator(errorText: 'Password is required'),
-    MinLengthValidator(8, errorText: 'Password must be at least 8 digits long'),
-  ]);
-
-  final emailValidator = MultiValidator([
-    RequiredValidator(errorText: 'Email is required'),
-    EmailValidator(errorText: 'Enter correct email')
-  ]);
-
   @override
   void dispose() {
     super.dispose();
@@ -47,7 +37,7 @@ class _SignInScreenState extends State<SignInScreen> {
       context.loaderOverlay.hide();
       Navigator.pushNamedAndRemoveUntil(context, '/main', (route) => false);
     } catch (e) {
-      CustomToast(message: "No such user").show();
+      CustomToast(message: AppLocalizations.of(context).nosuchUser).show();
     } finally {
       //context.loaderOverlay.hide();
     }
@@ -60,7 +50,7 @@ class _SignInScreenState extends State<SignInScreen> {
       await auth.signInWithGoogle();
       Navigator.pushNamedAndRemoveUntil(context, '/main', (route) => false);
     } catch (e) {
-      CustomToast(message: "Something went wrong").show();
+      CustomToast(message: AppLocalizations.of(context).smthWentWrong).show();
     } finally {
       context.loaderOverlay.hide();
     }
@@ -72,7 +62,11 @@ class _SignInScreenState extends State<SignInScreen> {
       controller: emailController,
       keyboardType: TextInputType.emailAddress,
       textInputAction: TextInputAction.next,
-      validator: emailValidator,
+      validator: MultiValidator([
+        RequiredValidator(errorText: AppLocalizations.of(context).emailIsReq),
+        EmailValidator(
+            errorText: AppLocalizations.of(context).enterCorrectEmail),
+      ]),
       onSaved: (value) {
         emailController.text = value!;
       },
@@ -89,7 +83,12 @@ class _SignInScreenState extends State<SignInScreen> {
       autovalidateMode: AutovalidateMode.disabled,
       textInputAction: TextInputAction.done,
       obscureText: true,
-      validator: passwordValidator,
+      validator: MultiValidator([
+        RequiredValidator(
+            errorText: AppLocalizations.of(context).passwordIsReq),
+        MinLengthValidator(8,
+            errorText: AppLocalizations.of(context).passwordMustBe),
+      ]),
       onSaved: (value) {
         passwordController.text = value!;
       },

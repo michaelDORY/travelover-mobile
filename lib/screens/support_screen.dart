@@ -24,7 +24,7 @@ class SupportScreen extends StatelessWidget {
                 onPressed: () => _menuOpen(context),
                 icon: const Icon(UniconsLine.bars))
           ],
-          title: Text(AppLocalizations.of(context).email),
+          title: Text(AppLocalizations.of(context).support),
         ),
         body: Container(
             alignment: Alignment.center,
@@ -34,7 +34,7 @@ class SupportScreen extends StatelessWidget {
             ),
             child: Column(children: [
               const SizedBox(
-                height: 15.0,
+                height: 70.0,
               ),
               Container(
                 alignment: Alignment.center,
@@ -42,7 +42,7 @@ class SupportScreen extends StatelessWidget {
                   horizontal: 20.0,
                 ),
                 child: Text(AppLocalizations.of(context).supportText,
-                    textAlign: TextAlign.justify,
+                    textAlign: TextAlign.center,
                     style: const TextStyle(
                       fontSize: 18,
                       fontWeight: FontWeight.w800,
