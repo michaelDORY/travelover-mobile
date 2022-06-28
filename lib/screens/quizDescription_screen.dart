@@ -53,7 +53,7 @@ class _QuizDescriptionState extends State<QuizDescription> {
         child: Column(children: [
           SizedBox(
               width: 600.0,
-              height: 480.0,
+              height: 540.0,
               child: ListView(
                 children: [
                   ClipRRect(

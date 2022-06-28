@@ -144,9 +144,9 @@ class _MainScreenState extends State<MainScreen> {
         const SizedBox(
           height: 25.0,
         ),
-        SizedBox(
+        Container(
+          height: 600,
           width: 600.0,
-          height: 530.0,
           child: ListView(
             scrollDirection: Axis.vertical,
             children: sortedPlaces

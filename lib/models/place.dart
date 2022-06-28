@@ -19,7 +19,9 @@ class Place {
         _description = json['description'],
         _imagePath = json['image'],
         _rating = json['rating'],
-        _views = json['views'];
+        _views = json['views'] {
+    _rating['mark'] = double.parse((_rating['mark']).toStringAsFixed(2));
+  }
 
   String get placeId => _placeId;
   Map<String, dynamic> get rating => _rating;

@@ -37,9 +37,9 @@ class _SignInScreenState extends State<SignInScreen> {
       context.loaderOverlay.hide();
       Navigator.pushNamedAndRemoveUntil(context, '/main', (route) => false);
     } catch (e) {
-      CustomToast(message: AppLocalizations.of(context).nosuchUser).show();
+      CustomToast(message: 'No user or incorrect password').show();
     } finally {
-      //context.loaderOverlay.hide();
+      context.loaderOverlay.hide();
     }
   }
 

@@ -68,6 +68,9 @@ class _quizQuestionScreenState extends State<quizQuestionScreen> {
     if (selectedValue == widget.questions[index]["rightAnswer"]) {
       result = result + 1;
     }
+    setState(() {
+      selectedValue = '';
+    });
     nextQuestion();
   }
 
@@ -102,8 +105,9 @@ class _quizQuestionScreenState extends State<quizQuestionScreen> {
         child: ElevatedButton(
             style: ElevatedButton.styleFrom(
               minimumSize: const Size.fromHeight(50),
+              primary: selectedValue == '' ? Colors.grey : Colors.yellow,
             ),
-            onPressed: markAnswer,
+            onPressed: selectedValue == '' ? null : markAnswer,
             child: Text(AppLocalizations.of(context).next)),
       ),
     );

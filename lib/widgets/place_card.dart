@@ -66,6 +66,10 @@ class _PlaceCardState extends State<PlaceCard> {
           _isHeartLoading = false;
         });
       }
+    }).catchError((e) {
+      setState(() {
+        _isHeartLoading = false;
+      });
     });
   }
 
