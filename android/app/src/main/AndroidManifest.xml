@@ -1,7 +1,7 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     package="com.example.travelover_mobile">
    <application
-        android:label="travelover_mobile"
+        android:label="TraveLover"
         android:name="${applicationName}"
         android:icon="@mipmap/ic_launcher">
         <activity
@@ -30,5 +30,7 @@
         <meta-data
             android:name="flutterEmbedding"
             android:value="2" />
+        <meta-data android:name="com.google.android.geo.API_KEY"
+            android:value="AIzaSyDW0C4s89YxbQnmctLF-q7BxNeJw80mfEs"/>
     </application>
 </manifest>
