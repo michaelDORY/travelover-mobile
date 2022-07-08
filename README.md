@@ -60,25 +60,10 @@
 
 <h2>Screenshots</h2>
 
-<section style="display: flex; flex-wrap: wrap; padding: 20px; gap: 50px; align-items: center; justify-content: center">
-    <div style="margin-bootom: 10px; text-align: center; height: 400px;">
-        <h3>Authorization</h3>
-        <img src="https://drive.google.com/uc?export=view&id=1TW_2HDup3VkWbJ0JkInOKLM1dHmZHKpg" alt="screenshot" style="object-fit: contain; height: 100%; width: 100%" >
-    </div>
-    <div style="margin-bootom: 10px; text-align: center; height: 400px;">
-        <h3>Places</h3>
-        <img src="https://drive.google.com/uc?export=view&id=18q9Ui_MmEr1-ph27p4HZp6Ow_x3wEAGR" alt="screenshot" style="object-fit: contain; height: 100%; width: 100%" >
-    </div>
-    <div style="margin-bootom: 10px; text-align: center; height: 400px;">
-        <h3>Place details</h3>
-        <img src="https://drive.google.com/uc?export=view&id=1mUE2Ehbne0JLHwn7wUXJb46UTJGgNXvB" alt="screenshot" style="object-fit: contain; height: 100%; width: 100%" >
-    </div>
-    <div style="margin-bootom: 10px; text-align: center; height: 400px;">
-        <h3>Place details</h3>
-        <img src="https://drive.google.com/uc?export=view&id=1nKOEAGZaalAzE-ePEbm4hsbrF406rCxo" alt="screenshot" style="object-fit: contain; height: 100%; width: 100%" >
-    </div>
-    <div style="margin-bootom: 10px; text-align: center; height: 400px;">
-        <h3>Quizzes</h3>
-        <img src="https://drive.google.com/uc?export=view&id=18l5RejotElbnIa0DG_nxLcRnkgvOJW2l" alt="screenshot" style="object-fit: contain; height: 100%; width: 100%" >
-    </div>
+<section>
+        <img src="https://drive.google.com/uc?export=view&id=1TW_2HDup3VkWbJ0JkInOKLM1dHmZHKpg" alt="screenshot" width="20%" >
+        <img src="https://drive.google.com/uc?export=view&id=18q9Ui_MmEr1-ph27p4HZp6Ow_x3wEAGR" alt="screenshot" width="20%" >
+        <img src="https://drive.google.com/uc?export=view&id=1mUE2Ehbne0JLHwn7wUXJb46UTJGgNXvB" alt="screenshot" width="20%" >
+        <img src="https://drive.google.com/uc?export=view&id=1nKOEAGZaalAzE-ePEbm4hsbrF406rCxo" alt="screenshot" width="20%" >
+        <img src="https://drive.google.com/uc?export=view&id=18l5RejotElbnIa0DG_nxLcRnkgvOJW2l" alt="screenshot" width="20%" >
 </section>
